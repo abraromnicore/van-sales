@@ -1,0 +1,363 @@
+{
+  "drivers": [
+    {
+      "_id": "1",
+      "driverId": "DLB001",
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "2005-05-12",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=John%2BDoe"
+      },
+      "userId": {
+        "_id": "user1",
+        "email": "john.doe@gmail.com",
+        "status": "inactive"
+      },
+      "id": "1"
+    },
+    {
+      "_id": "2",
+      "id": "2",
+      "driverId": "DLB002",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dateOfBirth": "2006-03-22",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Ava+Thomas"
+      },
+      "userId": {
+        "_id": "user2",
+        "email": "jane.smith@school.edu",
+        "status": "inactive"
+      }
+    },
+    {
+      "_id": "3",
+      "driverId": "DLB003",
+      "firstName": "Mike",
+      "lastName": "Johnson",
+      "dateOfBirth": "2005-11-08",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Mike+Johnson"
+      },
+      "userId": {
+        "_id": "user3",
+        "email": "mike.johnson@school.edu",
+        "status": "active"
+      },
+      "id": "555e"
+    },
+    {
+      "_id": "4",
+      "id": "4",
+      "driverId": "DLB004",
+      "firstName": "Emily",
+      "lastName": "Davis",
+      "dateOfBirth": "2007-01-14",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Emily+Davis"
+      },
+      "userId": {
+        "_id": "user4",
+        "email": "emily.davis@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "5",
+      "id": "5",
+      "driverId": "DLB005",
+      "firstName": "Daniel",
+      "lastName": "Brown",
+      "dateOfBirth": "2006-09-30",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Ava+Thomas"
+      },
+      "userId": {
+        "_id": "user5",
+        "email": "daniel.brown@school.edu",
+        "status": "inactive"
+      }
+    },
+    {
+      "_id": "6",
+      "id": "6",
+      "driverId": "DLB006",
+      "firstName": "Sophia",
+      "lastName": "Wilson",
+      "dateOfBirth": "2005-12-18",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Sophia+Wilson"
+      },
+      "userId": {
+        "_id": "user6",
+        "email": "sophia.wilson@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "7",
+      "id": "7",
+      "driverId": "DLB007",
+      "firstName": "Ethan",
+      "lastName": "Taylor",
+      "dateOfBirth": "2006-06-10",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Ava+Thomas"
+      },
+      "userId": {
+        "_id": "user7",
+        "email": "ethan.taylor@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "8",
+      "id": "8",
+      "driverId": "DLB008",
+      "firstName": "Olivia",
+      "lastName": "Martinez",
+      "dateOfBirth": "2007-02-05",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Olivia+Martinez"
+      },
+      "userId": {
+        "_id": "user8",
+        "email": "olivia.martinez@school.edu",
+        "status": "inactive"
+      }
+    },
+    {
+      "_id": "9",
+      "id": "9",
+      "driverId": "DLB009",
+      "firstName": "William",
+      "lastName": "Anderson",
+      "dateOfBirth": "2005-08-21",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Ava+Thomas"
+      },
+      "userId": {
+        "_id": "user9",
+        "email": "william.anderson@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "10",
+      "id": "10",
+      "driverId": "DLB010",
+      "firstName": "Ava",
+      "lastName": "Thomas",
+      "dateOfBirth": "2006-11-03",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Ava+Thomas"
+      },
+      "userId": {
+        "_id": "user10",
+        "email": "ava.thomas@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "id": "dc50",
+      "_id": "11",
+      "driverId": "DRV829252",
+      "firstName": "hdskhfkjsdh",
+      "lastName": "fdhskhkfkjds",
+      "dateOfBirth": "2000-09-11",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=hdskhfkjsdh%2Bfdhskhkfkjds"
+      },
+      "userId": {
+        "_id": "user1758796829252",
+        "email": "abrarmohd3410@gmail.com",
+        "status": "active"
+      }
+    },
+    {
+      "id": "5b37",
+      "_id": "12",
+      "driverId": "DRV854725",
+      "firstName": "sdhfkdhf",
+      "lastName": "fdskfhdsh",
+      "dateOfBirth": "2000-09-11",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=sdhfkdhf%2Bfdskfhdsh"
+      },
+      "userId": {
+        "_id": "user1758796854725",
+        "email": "mohdabrar3410@gmail.com",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "13",
+      "driverId": "DRV874940",
+      "firstName": "update nnnnnnnnnnn",
+      "lastName": "fdhskhkfkjds",
+      "dateOfBirth": "2000-09-10",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=update%20nnnnnnnnnnn%2Bfdhskhkfkjds"
+      },
+      "userId": {
+        "_id": "user1758796874940",
+        "email": "muhammadabrar341@gmaill.com",
+        "status": "active"
+      },
+      "id": "9c05"
+    },
+    {
+      "id": "edc2",
+      "_id": "14",
+      "driverId": "DRV707590",
+      "firstName": "fkdjshfsdkjhf",
+      "lastName": "fkdsjfhdskjhf",
+      "dateOfBirth": "2000-09-17",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=fkdjshfsdkjhf%2Bfkdsjfhdskjhf"
+      },
+      "userId": {
+        "_id": "user1758799707590",
+        "email": "abrarmohd3410@gmail.com",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "15",
+      "driverId": "DRV538102",
+      "firstName": "new test",
+      "lastName": "hggkdfhgk",
+      "dateOfBirth": "2000-09-15",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=new%20test%2Bhggkdfhgk"
+      },
+      "userId": {
+        "_id": "user1758891538102",
+        "email": "test@gmail.com",
+        "status": "active"
+      },
+      "id": "ea8c"
+    },
+    {
+      "_id": "16",
+      "driverId": "DRV215828",
+      "firstName": "Abrar",
+      "lastName": "Muhammad Abrar",
+      "dateOfBirth": "2000-09-08",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Abrar%2BMuhammad%20Abrar"
+      },
+      "userId": {
+        "_id": "user1759138215827",
+        "email": "dabrar341@gmail.com",
+        "status": "active"
+      },
+      "id": "224a"
+    },
+    {
+      "_id": "17",
+      "driverId": "DRV704152",
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "2000-10-09",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=John%2BDoe"
+      },
+      "userId": {
+        "_id": "user1759324704152",
+        "email": "john.doe@gmail.com",
+        "status": "active"
+      },
+      "id": "25e5"
+    }
+  ],
+  "loaders": [
+    {
+      "_id": "1",
+      "id": "1",
+      "loaderId": "DLB001",
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "2005-05-15",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=John+Doe"
+      },
+      "userId": {
+        "_id": "user1",
+        "email": "john.doe@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "_id": "2",
+      "id": "2",
+      "loaderId": "DLB002",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dateOfBirth": "2006-03-22",
+      "gender": "female",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Ava+Thomas"
+      },
+      "userId": {
+        "_id": "user2",
+        "email": "jane.smith@school.edu",
+        "status": "inactive"
+      }
+    },
+    {
+      "_id": "3",
+      "id": "3",
+      "loaderId": "DLB003",
+      "firstName": "Mike",
+      "lastName": "Johnson",
+      "dateOfBirth": "2005-11-08",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=Mike+Johnson"
+      },
+      "userId": {
+        "_id": "user3",
+        "email": "mike.johnson@school.edu",
+        "status": "active"
+      }
+    },
+    {
+      "id": "80a5",
+      "_id": "4",
+      "loaderId": "LDR291846",
+      "firstName": "hksfhdkhf",
+      "lastName": "fdsjkfhdskf",
+      "dateOfBirth": "2000-09-19",
+      "gender": "male",
+      "profilePic": {
+        "url": "https://api.dicebear.com/7.x/initials/svg?seed=hksfhdkhf%2Bfdsjkfhdskf"
+      },
+      "userId": {
+        "_id": "user1758797291846",
+        "email": "abrar341341341@gmail.com",
+        "status": "active"
+      }
+    }
+  ]
+}
