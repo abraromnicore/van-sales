@@ -1,5 +1,6 @@
 // src/api/users/mutations.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import apiService from "@api/services/apiServices";
 
 // Types
 interface User {
@@ -40,40 +41,51 @@ type UserData = Driver | Loader;
 const API_BASE_URL = 'http://localhost:3000';
 
 // API functions
-async function createUser(userData: any, userType: 'driver' | 'loader'): Promise<UserData> {
-  const endpoint = userType === 'driver' ? 'drivers' : 'loaders';
+// async function createUser(userData: any, userType: 'driver' | 'loader'): Promise<UserData> {
+//   const endpoint = userType === 'driver' ? 'drivers' : 'loaders';
   
-  const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
+//   const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(userData),
+//   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+//   if (!response.ok) {
+//     throw new Error(`HTTP error! status: ${response.status}`);
+//   }
+
+//   return response.json();Dat
+// }
+export async function createUser(
+  userData: any,
+  userType: "driver" | "loader"
+): Promise<UserData> {
+  const endpoint = userType === "driver" ? "drivers" : "loaders";
+  try {
+    const response = await apiService.post(`${API_BASE_URL}/${endpoint}`, userData);
+    return response;
+  } catch (error: any) {
+    console.error("Error creating user:", error);
+    throw new Error(error?.message || "Failed to create user");
   }
-
-  return response.json();
 }
 
-async function updateUser(id: string, userData: any, userType: 'driver' | 'loader'): Promise<UserData> {
-  const endpoint = userType === 'driver' ? 'drivers' : 'loaders';
-  
-  const response = await fetch(`${API_BASE_URL}/${endpoint}/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
+export async function updateUser(
+  id: string,
+  userData: any,
+  userType: "driver" | "loader"
+): Promise<UserData> {
+  const endpoint = userType === "driver" ? "drivers" : "loaders";
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+  try {
+    const response = await apiService.put(`${API_BASE_URL}/${endpoint}/${id}`, userData);
+    return response;
+  } catch (error: any) {
+    console.error("Error updating user:", error);
+    throw new Error(error?.message || "Failed to update user");
   }
-
-  return response.json();
 }
 
 async function deleteUser(id: string, userType: 'driver' | 'loader'): Promise<string> {
