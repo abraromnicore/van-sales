@@ -2,7 +2,7 @@ import { getAccessToken } from '@utils/utils.ts';
 import axios, { type AxiosInstance } from 'axios';
 
 export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:5173',
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -13,7 +13,9 @@ export const postUnAuthRequest = (url: string, params: any) =>
 
 // Auth helpers
 const authCfg = () => ({
-  headers: { Authorization: `Bearer ${getAccessToken()}` },
+  headers: {
+    Authorization: `Bearer ${getAccessToken()}`,
+  },
 });
 
 export const getRequest = (url: string) => axiosInstance.get(url, authCfg());

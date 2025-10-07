@@ -1,10 +1,13 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeContext } from '@/context/themeContext';
-import AppRoutes from '@routes/AppRoutes';
 import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
 import { Provider } from 'react-redux';
 import { store } from '@/store/store.ts';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { appRoutes } from '@routes/AppRoutes.tsx';
+
+const router = createBrowserRouter(appRoutes);
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,7 +17,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <PrimeReactProvider>
           <Provider store={store}>
-            <AppRoutes />
+            <RouterProvider router={router} />
           </Provider>
         </PrimeReactProvider>
       </QueryClientProvider>

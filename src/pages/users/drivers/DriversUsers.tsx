@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import type { DriverType } from '@/types/users/driver.type.ts';
 import { type ColumMeta, CustomTable } from '@components/tables/CustomTable.tsx';
 import { DialogCard } from '@components/dialog/DialogCard.tsx';
 import type { MenuItem } from 'primereact/menuitem';
@@ -8,18 +6,10 @@ import { DialogHeader } from '@components/dialog/DialogHeader.tsx';
 import { CardBody } from '@components/dialog/CardBody.tsx';
 import { CardFooter } from '@components/dialog/CardFooter.tsx';
 import { Link } from 'react-router';
+import { useDriversList } from '@hooks/drivers/useDriversList.ts';
 
-// API function to fetch students from db.json
-const fetchDrivers = async (): Promise<DriverType[]> => {
-  const response = await fetch('/db.json');
-  if (!response.ok) {
-    throw new Error('Failed to fetch students');
-  }
-  const data = await response.json();
-  return data.drivers;
-};
-
-export const DriverUsers: React.FC = () => {
+export const DriverUsers = () => {
+  const { drivers } = useDriversList(true);
   const [showCreateUser, setShowCreateUser] = React.useState(false);
   const tieredMenu: MenuItem[] = [
     {
@@ -32,17 +22,6 @@ export const DriverUsers: React.FC = () => {
       },
     },
   ];
-  const {
-    data: drivers = [],
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isFetching,
-  } = useQuery({
-    queryKey: ['driver'],
-    queryFn: fetchDrivers,
-  });
   const columns: ColumMeta[] = [
     {
       field: 'driverId',

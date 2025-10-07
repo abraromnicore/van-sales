@@ -18,7 +18,7 @@ export const fetchDrivers = createAsyncThunk<DriverType[]>(
   'drivers/fetchAll',
   async () => {
     const res = await getRequest(DRIVER_API_URL);
-    return res.data as DriverType[];
+    return res.data.drivers as DriverType[];
   },
 );
 

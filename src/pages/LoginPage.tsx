@@ -10,7 +10,7 @@ interface LoginFormData {
   rememberMe: boolean;
 }
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -159,5 +159,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export default LoginPage;
