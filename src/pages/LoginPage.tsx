@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from '../components/forms/InputField';
-import Button from '../components/buttons/Button';
-import { EmailIcon, PasswordIcon } from '../assets/icons/index.';
+import { Lock, Mail, Menu } from 'lucide-react';
 
 // Login Page Component
 interface LoginFormData {
@@ -72,22 +71,9 @@ const LoginPage = () => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-white"
-            >
-              <path
-                d="M12 2L2 7V10C2 16 6 20.5 12 22C18 20.5 22 16 22 10V7L12 2Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div
+            className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
+            <Menu />
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome back
@@ -104,7 +90,7 @@ const LoginPage = () => {
               name="emailOrUsername"
               placeholder="Enter your email or username"
               type="text"
-              imageSVG={EmailIcon}
+              imageSVG={<Mail />}
               errors={errors}
               isDisabled={isLoading}
             />
@@ -114,7 +100,7 @@ const LoginPage = () => {
               name="password"
               placeholder="Enter your password"
               type="password"
-              imageSVG={PasswordIcon}
+              imageSVG={<Lock />}
               register={register}
               errors={errors}
               isDisabled={isLoading}
@@ -145,17 +131,12 @@ const LoginPage = () => {
             </div>
 
             {/* Login Button */}
-            <Button
+            <button
               onClick={handleSubmit(onSubmit)}
-              isLoading={isLoading}
-              loadingText="Signing in..."
-              variant="primary"
-              size="lg"
-              fullWidth
               disabled={Object.keys(errors).length > 0}
             >
               Sign In
-            </Button>
+            </button>
           </div>
 
           {/* Footer Links */}

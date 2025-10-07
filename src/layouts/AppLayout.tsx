@@ -1,6 +1,5 @@
 import { useSidebar } from '../context/SidebarContext';
 import { Outlet } from 'react-router';
-import Backdrop from './Backdrop';
 import AppSidebar from './AppSidebar';
 import AppHeader from './AppHeader';
 import { SidebarProvider } from '@context/SidebarProvider';
@@ -12,7 +11,6 @@ const LayoutContent: React.FC = () => {
     <div className="min-h-screen xl:flex">
       <div>
         <AppSidebar />
-        <Backdrop />
       </div>
       <div
         className={`flex-1 transition-all duration-300 ease-in-out ${
