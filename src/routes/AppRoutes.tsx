@@ -28,11 +28,11 @@ export default function AppRoutes() {
         <Route path="/login" element={<LoginPage />} />
         {/* Dashboard Layout */}
         <Route element={<AppLayout />}>
-          <Route path="/profile" element={<SupervisorProfile />} />
+          {/*<Route path="/profile" element={<SupervisorProfile />} />
           <Route path="/loaders" element={<LoaderUsers />} />
-          <Route path="/vans" element={<VanTracker />} />
+          <Route path="/vans" element={<VanTracker />} />*/}
           <Route path="/drivers" element={<DriverUsers />} />
-          <Route path="/sales" element={<SalesLeaderboard />} />
+          {/*<Route path="/sales" element={<SalesLeaderboard />} />
           <Route path="/collections" element={<CollectionsLeaderboard />} />
           <Route path="/journey" element={<PlannedVsActualJourney />} />
           <Route path="/settlements" element={<SettlementsModule />} />
@@ -41,7 +41,7 @@ export default function AppRoutes() {
           <Route path="/returns-adjustments" element={<ReturnAdjustments />} />
           <Route path="/promotions" element={<PromotionsManager />} />
           <Route path="/targets" element={<ManageTargetsScreen />} />
-          <Route path="/van-load-requests" element={<LoadRequestPortal />} />
+          <Route path="/van-load-requests" element={<LoadRequestPortal />} />*/}
         </Route>
         {/* Fallback Route */}
         <Route path="*" element={<NotFound />} />

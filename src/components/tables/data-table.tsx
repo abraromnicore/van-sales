@@ -20,7 +20,7 @@ import {
   PaginationLink,
 } from "../ui/pagination";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/utils/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import * as React from "react";
 

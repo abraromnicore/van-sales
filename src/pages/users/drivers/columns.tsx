@@ -1,28 +1,11 @@
+import * as React from 'react';
 import { useState } from 'react';
 import { type ColumnDef } from '@tanstack/react-table';
-import {
-  FaCheckCircle,
-  FaTimesCircle,
-  FaRegEye
-} from 'react-icons/fa';
+import { FaRegEye } from 'react-icons/fa';
 import { RxAvatar } from 'react-icons/rx';
-import {
-  Pencil,
-  Mail,
-  Calendar as CalendarIcon,
-  User,
-  UserCheck,
-  UserX,
-  Mars,
-  Venus,
-  Trash2
-} from 'lucide-react';
-import { BsGeoAlt, BsGraphUpArrow, BsMap } from 'react-icons/bs';
-import { DataTable } from '../../../components/tables/data-table';
-import * as React from 'react';
-import ViewLocationDetailDialog from '../../../components/dialog/ViewLocationDetailDialog';
-import ViewOtherDetailsDialog from '../../../components/dialog/ViewOtherDetailsDialog';
-import CreateUserDialog, { type UserData } from '../../../components/dialog/CreateUserDialog';
+import { Calendar as CalendarIcon, Mail, Mars, Pencil, Trash2, User, UserCheck, UserX, Venus } from 'lucide-react';
+import { BsGeoAlt } from 'react-icons/bs';
+import { DataTable } from '@components/tables/data-table.tsx';
 
 // Types
 interface UserId {
@@ -129,13 +112,15 @@ export const columns: ColumnDef<UserData>[] = [
       const status = row.original.userId?.status;
       if (status === 'active') {
         return (
-          <span className="bg-green-100 text-green-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
+          <span
+            className="bg-green-100 text-green-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
             <UserCheck className="w-3 h-3" /> Active
           </span>
         );
       } else if (status === 'inactive') {
         return (
-          <span className="bg-red-100 text-red-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
+          <span
+            className="bg-red-100 text-red-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
             <UserX className="w-3 h-3" /> Inactive
           </span>
         );
@@ -152,19 +137,22 @@ export const columns: ColumnDef<UserData>[] = [
       const value = (getValue() as string || '').toLowerCase();
       if (value === 'male') {
         return (
-          <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
+          <span
+            className="bg-blue-100 text-blue-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
             <Mars className="w-3 h-3" /> Male
           </span>
         );
       } else if (value === 'female') {
         return (
-          <span className="bg-pink-100 text-pink-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
+          <span
+            className="bg-pink-100 text-pink-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
             <Venus className="w-3 h-3" /> Female
           </span>
         );
       } else {
         return (
-          <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
+          <span
+            className="bg-gray-100 text-gray-700 px-2 py-1 rounded capitalize text-xs font-semibold flex items-center gap-1 w-fit">
             <User className="w-3 h-3" />
             {value ? value.charAt(0).toUpperCase() + value.slice(1) : '-'}
           </span>
@@ -181,17 +169,17 @@ export const columns: ColumnDef<UserData>[] = [
       const [editDriver, setEditDriver] = useState<UserData | null>(null);
 
       const handleViewMaps = () => {
-        setShowLocation(true)
+        setShowLocation(true);
         // Handle performance view logic
       };
 
       const handleViewDriver = () => {
-        setShowDetails(true)
+        setShowDetails(true);
         // Handle view student logic
       };
 
       const handleEditDriver = () => {
-        setEditDriver(row.original)
+        setEditDriver(row.original);
         // Handle edit student logic
       };
 
@@ -223,20 +211,20 @@ export const columns: ColumnDef<UserData>[] = [
           </button>
           {
             showDetails && <ViewOtherDetailsDialog student={{
-              _id: "1",
-              studentId: "DLB001",
-              firstName: "John",
-              lastName: "Doe",
-              dateOfBirth: "2005-05-15",
-              gender: "male",
+              _id: '1',
+              studentId: 'DLB001',
+              firstName: 'John',
+              lastName: 'Doe',
+              dateOfBirth: '2005-05-15',
+              gender: 'male',
 
               profilePic: {
-                url: "https://api.dicebear.com/7.x/initials/svg?seed=John+Doe",
+                url: 'https://api.dicebear.com/7.x/initials/svg?seed=John+Doe',
               },
               userId: {
-                _id: "user1",
-                email: "john.doe@school.edu",
-                status: "active",
+                _id: 'user1',
+                email: 'john.doe@school.edu',
+                status: 'active',
               },
             }} showDetails={showDetails} setShowDetails={setShowDetails} />
           }
@@ -248,9 +236,6 @@ export const columns: ColumnDef<UserData>[] = [
           >
             <Pencil className="w-4 h-4 text-gray-500" />
           </button>
-          {
-            editDriver && <CreateUserDialog userType='driver' user={editDriver} onClose={()=>setEditDriver(null)} onSuccess={()=>setEditDriver(null)} />
-          }
 
           <button
             onClick={handleDeleteDriver}
@@ -290,13 +275,13 @@ interface StudentTableProps {
 }
 
 export const StudentTable: React.FC<StudentTableProps> = ({
-  students,
-  page,
-  setPage,
-  totalPages,
-  limit,
-  setLimit,
-}) => {
+                                                            students,
+                                                            page,
+                                                            setPage,
+                                                            totalPages,
+                                                            limit,
+                                                            setLimit,
+                                                          }) => {
   return (
     <DataTable
       columns={columns}

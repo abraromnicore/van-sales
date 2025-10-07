@@ -7,9 +7,8 @@ import {
 import * as React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import PageLayout from '../../layout/pageLayout';
-import { DataTable } from '../../../components/tables/data-table';
 import { columns } from './columns';
-import CreateUserDialog, { type UserData } from '../../../components/dialog/CreateUserDialog';
+import { DataTable } from '@components/tables/data-table.tsx';
 
 // API function to fetch students from db.json
 const fetchDrivers = async (): Promise<UserData[]> => {
@@ -148,9 +147,7 @@ const DriverUsers: React.FC = () => {
                     </div>
 
                 </div>
-                <div className=' py-4 px-4 flex justify-end'>
-                    <CreateUserDialog userType='driver' />
-                </div>
+
                 {/* Data Table */}
                 <div className="relative">
                     {isFetching && (
