@@ -1,15 +1,11 @@
 import * as React from 'react';
 
 type CardBodyProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export const CardBody = (props: CardBodyProps) => {
   const { children } = props;
 
-  return (
-    <div className="p-4">
-      {children}
-    </div>
-  );
+  return <div className="p-4">{children}</div>;
 };

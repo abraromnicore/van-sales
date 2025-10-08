@@ -5,17 +5,21 @@ type DialogOptions = {
   onHide: () => void;
   children?: React.ReactNode;
   visible: boolean;
-}
+};
 
 export const DialogCard = (props: DialogOptions) => {
   const { onHide, visible, children } = props;
   const CardContent = () => (
-    <div
-      className="max-w-sm rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+    <div className="max-w-3xl rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
       {children}
     </div>
   );
   return (
-    <Dialog visible={visible} onHide={onHide} modal={true} content={<CardContent />} />
+    <Dialog
+      visible={visible}
+      onHide={onHide}
+      modal={true}
+      content={<CardContent />}
+    />
   );
 };
