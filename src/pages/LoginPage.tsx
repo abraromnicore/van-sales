@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import InputField from '../components/forms/InputField';
+import InputControl from '@components/forms/InputControl.tsx';
 import { Lock, Mail, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
@@ -92,7 +92,7 @@ export const LoginPage = () => {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Email or Username Field */}
-            <InputField
+            <InputControl
               register={register}
               name="emailOrUsername"
               placeholder="Enter your email or username"
@@ -103,7 +103,7 @@ export const LoginPage = () => {
             />
 
             {/* Password Field */}
-            <InputField
+            <InputControl
               name="password"
               placeholder="Enter your password"
               type="password"

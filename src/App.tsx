@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from '@/store/store.ts';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { appRoutes } from '@routes/AppRoutes.tsx';
+import { GlobalToast } from '@components/common/GlobalToast.tsx';
 
 const router = createBrowserRouter(appRoutes);
 
@@ -18,6 +19,7 @@ function App() {
         <PrimeReactProvider>
           <Provider store={store}>
             <RouterProvider router={router} />
+            <GlobalToast />
           </Provider>
         </PrimeReactProvider>
       </QueryClientProvider>

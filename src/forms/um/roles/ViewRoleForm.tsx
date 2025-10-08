@@ -1,27 +1,9 @@
-import { Card } from '@components/card/Card.tsx';
-import { CardHeader } from '@components/card/CardHeader.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
-import { CardFooter } from '@components/card/CardFooter.tsx';
-import { SelectControl } from '@components/forms/SelectControl.tsx';
 import { useCreateRole } from '@hooks/um/roles/useCreateRole.ts';
 import { SwitchControl } from '@components/forms/SwitchControl.tsx';
-
-const roleOptions = [
-  {
-    label: 'Admin',
-    value: 'ADMIN',
-  },
-  {
-    label: 'Editor',
-    value: 'EDITOR',
-  },
-  {
-    label: 'Viewer',
-    value: 'VIEWER',
-  },
-];
-
-// permissionsModule.js
+import { CardBody } from '@components/card/CardBody.tsx';
+import { CardFooter } from '@components/card/CardFooter.tsx';
+import { InputControl } from '@components/forms/InputControl.tsx';
+import { useEffect } from 'react';
 
 const PERMISSIONS = [
   // ======================
@@ -264,92 +246,91 @@ const PERMISSIONS = [
   },
 ];
 
+type ViewRoleFormProps = {
+  id: string | undefined
+}
 
-export const RolesPage = () => {
+export const ViewRoleForm = (props: ViewRoleFormProps) => {
+  const { id } = props;
   const { control, submitHandler } = useCreateRole();
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1">
-      <Card>
-        <CardHeader title={'Roles Permissions'}></CardHeader>
-        <CardBody>
-          <div className="flex flex-col space-y-6">
-            {/* Role Selector */}
-            <div>
-              <SelectControl
-                label={'Roles'}
-                control={control}
-                name={'role'}
-                options={roleOptions}
-                placeholder={'Select Role'}
-                optionLabel={'label'}
-                optionValue={'value'}
-              />
-            </div>
+    <>
+      <CardBody>
+        <div className="flex flex-col space-y-6">
+          {/* Role Selector */}
+          <div>
+            <InputControl
+              label={'Role Name'}
+              control={control}
+              name={'roleName'}
+              placeholder={'Enter Role Name'}
+            />
+          </div>
 
-            {/* Permissions Grid */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">Permissions</h3>
-              <div className="space-y-8">
-                {PERMISSIONS.map((category) => (
-                  <div
-                    key={category.id}
-                    className="border rounded-lg shadow-sm bg-white overflow-hidden"
-                  >
-                    <div className="bg-gray-100 px-4 py-3 border-b">
-                      <h4 className="text-base font-semibold text-gray-800 flex items-center">
-                        {category.label}
-                      </h4>
-                    </div>
-
-                    <table className="min-w-full text-sm">
-                      <thead className="bg-gray-50 border-b">
-                      <tr>
-                        <th className="text-left p-3 font-medium text-gray-700 w-1/3">
-                          Permission
-                        </th>
-                        <th className="text-left p-3 font-medium text-gray-700 w-2/3">
-                          Description
-                        </th>
-                        <th className="text-center p-3 font-medium text-gray-700 w-24">
-                          Enabled
-                        </th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      {category.children.map((perm) => (
-                        <tr
-                          key={perm.id}
-                          className="border-b hover:bg-gray-50 transition"
-                        >
-                          <td className="p-3 text-gray-800 font-medium">
-                            {perm.label}
-                          </td>
-                          <td className="p-3 text-gray-600">{perm.description}</td>
-                          <td className="p-3 text-center">
-                            <SwitchControl
-                              control={control}
-                              name={`permissions.${perm.key}`}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                      </tbody>
-                    </table>
+          {/* Permissions Grid */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">Permissions</h3>
+            <div className="space-y-8">
+              {PERMISSIONS.map((category) => (
+                <div
+                  key={category.id}
+                  className="border rounded-lg shadow-sm bg-white overflow-hidden"
+                >
+                  <div className="bg-gray-100 px-4 py-3 border-b">
+                    <h4 className="text-base font-semibold text-gray-800 flex items-center">
+                      {category.label}
+                    </h4>
                   </div>
-                ))}
-              </div>
+
+                  <table className="min-w-full text-sm">
+                    <thead className="bg-gray-50 border-b">
+                    <tr>
+                      <th className="text-left p-3 font-medium text-gray-700 w-1/3">
+                        Permission
+                      </th>
+                      <th className="text-left p-3 font-medium text-gray-700 w-2/3">
+                        Description
+                      </th>
+                      <th className="text-center p-3 font-medium text-gray-700 w-24">
+                        Enabled
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {category.children.map((perm) => (
+                      <tr
+                        key={perm.id}
+                        className="border-b hover:bg-gray-50 transition"
+                      >
+                        <td className="p-3 text-gray-800 font-medium">
+                          {perm.label}
+                        </td>
+                        <td className="p-3 text-gray-600">{perm.description}</td>
+                        <td className="p-3 text-center">
+                          <SwitchControl
+                            control={control}
+                            name={`permissions.${perm.key}`}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
             </div>
           </div>
-        </CardBody>
-        <CardFooter>
-          {/* Save Button */}
-          <button type={'button'} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg"
-                  onClick={() => submitHandler()}>
-            Save Changes
-          </button>
-        </CardFooter>
-      </Card>
-    </div>
+        </div>
+      </CardBody>
+      <CardFooter>
+        {/* Save Button */}
+        <button type={'button'}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg"
+                onClick={() => submitHandler()}>
+          Save Changes
+        </button>
+      </CardFooter>
+    </>
   );
 };

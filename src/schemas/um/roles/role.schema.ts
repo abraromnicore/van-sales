@@ -1,9 +1,9 @@
 import * as yup from 'yup';
 
 export const roleSchema = yup.object().shape({
-  role: yup
+  roleName: yup
     .string()
-    .required('Role is required.'),
+    .required('Role Name is required.'),
 
   permissions: yup
     .object()

@@ -47,9 +47,33 @@ export const appRoutes = [
             children: [
               {
                 path: 'roles',
-                lazy: {
-                  Component: async () => (await import('@pages/um/RolesPage.tsx')).RolesPage,
-                },
+                children: [
+                  {
+                    index: true,
+                    lazy: {
+                      Component: async () => (await import('@pages/um/roles/RolesPage')).RolesPage,
+                    },
+                  },
+                  {
+                    path: 'create',
+                    lazy: {
+                      Component: async () => (await import('@pages/um/roles/CreateRolePage')).CreateRolePage,
+                    },
+                  },
+                  {
+                    path: 'update/:id',
+                    lazy: {
+                      Component: async () => (await import('@pages/um/roles/UpdateRolePage')).UpdateRolePage,
+                    },
+                  },
+                  {
+                    path: 'view/:id',
+                    lazy: {
+                      Component: async () => (await import('@pages/um/roles/ViewRolePage')).ViewRolePage,
+                    },
+                  },
+                ],
+
               },
             ],
 

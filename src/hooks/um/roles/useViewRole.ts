@@ -3,13 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { roleSchema } from '@/schemas/um/roles/role.schema.ts';
 import { useAppDispatch } from '@/store/hooks.ts';
-import { ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
-import { useAppToast } from '@hooks/common/useAppToast.ts';
 
-export const useCreateRole = () => {
+export const UseViewRole = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { showSuccess } = useAppToast();
   const {
     control,
     handleSubmit,
@@ -22,9 +19,6 @@ export const useCreateRole = () => {
   const onSubmit = async (formData) => {
     // const payload: Omit<DriverType, '_id'> = formData;
     console.log(formData);
-    navigate(ROLES_ROUTE);
-    showSuccess('Create Role', 'Role Created Successfully.');
-
     /*try {
       return await dispatch(createDriver(payload)).unwrap();
     } catch (e: any) {

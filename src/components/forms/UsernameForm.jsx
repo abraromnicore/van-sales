@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import InputField from './InputField';
+import InputControl from './InputControl.js';
 import * as React from 'react';
 
 
@@ -57,7 +57,7 @@ const UsernameForm = () => {
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Enter Username</h2>
       
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <InputField
+        <InputControl
           name="username"
           placeholder="Enter your username"
           type="text"

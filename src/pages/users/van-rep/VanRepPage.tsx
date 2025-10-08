@@ -5,7 +5,7 @@ import type { MenuItem } from 'primereact/menuitem';
 import { DialogHeader } from '@components/dialog/DialogHeader.tsx';
 import { DialogBody } from '@components/dialog/DialogBody.tsx';
 import { useDriversList } from '@hooks/drivers/useDriversList.ts';
-import InputField from '@components/forms/InputField';
+import InputControl from '@components/forms/InputControl.tsx';
 import { useForm } from 'react-hook-form';
 import SubmitButton from '@components/ui/SubmitButton';
 import { DialogFooter } from '@components/dialog/DialogFooter.tsx';
@@ -116,7 +116,7 @@ export const VanRepPage = () => {
                 Personal Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <InputField
+                <InputControl
                   label="First Name"
                   name="firstName"
                   placeholder="Enter first name"
@@ -124,7 +124,7 @@ export const VanRepPage = () => {
                   errors={errors}
                   isDisabled={false}
                 />
-                <InputField
+                <InputControl
                   label="Last Name"
                   name="lastName"
                   placeholder="Enter last name"
@@ -132,7 +132,7 @@ export const VanRepPage = () => {
                   errors={errors}
                   isDisabled={false}
                 />
-                <InputField
+                <InputControl
                   label="Date of Birth"
                   name="dateOfBirth"
                   type="date"
@@ -149,7 +149,7 @@ export const VanRepPage = () => {
                 Account Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <InputField
+                <InputControl
                   label="Email Address"
                   name="email"
                   type="email"
@@ -185,7 +185,7 @@ export const VanRepPage = () => {
                 Edit Personal Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <InputField
+                <InputControl
                   label="First Name"
                   name="firstName"
                   placeholder="Enter first name"
@@ -193,7 +193,7 @@ export const VanRepPage = () => {
                   errors={errors}
                   isDisabled={false}
                 />
-                <InputField
+                <InputControl
                   label="Last Name"
                   name="lastName"
                   placeholder="Enter last name"
@@ -201,7 +201,7 @@ export const VanRepPage = () => {
                   errors={errors}
                   isDisabled={false}
                 />
-                <InputField
+                <InputControl
                   label="Date of Birth"
                   name="dateOfBirth"
                   type="date"
@@ -226,7 +226,7 @@ export const VanRepPage = () => {
                 Edit Account Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <InputField
+                <InputControl
                   label="Email Address"
                   name="email"
                   type="email"
