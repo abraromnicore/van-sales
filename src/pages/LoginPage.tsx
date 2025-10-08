@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from '../components/forms/InputField';
 import { Lock, Mail, Menu } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 // Login Page Component
 interface LoginFormData {
@@ -12,6 +14,7 @@ interface LoginFormData {
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -65,6 +68,10 @@ export const LoginPage = () => {
   //     <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   //   </svg>
   // );
+
+  const onLogin = () => {
+    navigate(DASHBOARD_ROUTE);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center">
@@ -132,7 +139,8 @@ export const LoginPage = () => {
 
             {/* Login Button */}
             <button
-              onClick={handleSubmit(onSubmit)}
+              onClick={onLogin}
+              className={'bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300 ease-in-out'}
               disabled={Object.keys(errors).length > 0}
             >
               Sign In

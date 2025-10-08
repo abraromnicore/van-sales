@@ -36,6 +36,12 @@ export const appRoutes = [
               Component: async () => (await import('@pages/users/drivers/DriversUsers')).DriverUsers,
             },
           },
+          {
+            path: '/dashboard',
+            lazy: {
+              Component: async () => (await import('@pages/dashboard/DashboardPage.tsx')).DashboardPage,
+            },
+          },
         ],
       },
     ],

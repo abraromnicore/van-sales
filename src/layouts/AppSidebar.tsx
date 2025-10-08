@@ -17,7 +17,7 @@ const navItems: NavItem[] = [
     icon: <Users />,
     name: 'Users Management',
     subItems: [
-      { name: 'Drivers', path: '/driver' },
+      { name: 'Drivers', path: '/drivers' },
       { name: 'Loaders', path: '/loaders' },
     ],
   },
