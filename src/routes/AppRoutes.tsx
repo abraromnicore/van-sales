@@ -31,16 +31,28 @@ export const appRoutes = [
         loader: authLoader,
         children: [
           {
-            path: '/drivers',
-            lazy: {
-              Component: async () => (await import('@pages/users/drivers/DriversUsers')).DriverUsers,
-            },
-          },
-          {
             path: '/dashboard',
             lazy: {
               Component: async () => (await import('@pages/dashboard/DashboardPage.tsx')).DashboardPage,
             },
+          },
+          {
+            path: '/van-rep',
+            lazy: {
+              Component: async () => (await import('@pages/users/van-rep/VanRepPage.tsx')).VanRepPage,
+            },
+          },
+          {
+            path: '/um',
+            children: [
+              {
+                path: 'roles',
+                lazy: {
+                  Component: async () => (await import('@pages/um/RolesPage.tsx')).RolesPage,
+                },
+              },
+            ],
+
           },
         ],
       },

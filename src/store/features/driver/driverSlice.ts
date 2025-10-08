@@ -1,4 +1,4 @@
-// src/features/drivers/driversSlice.ts
+// src/features/van-rep/driversSlice.ts
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '@/store/store.ts';
 import { deleteRequest, getRequest, postRequest, putRequest } from '@utils/api/request-service.ts';
@@ -15,7 +15,7 @@ const initialState: State = { items: [], loading: false, error: null };
 
 // --- Thunks (minimal) ---
 export const fetchDrivers = createAsyncThunk<DriverType[]>(
-  'drivers/fetchAll',
+  'van-rep/fetchAll',
   async () => {
     const res = await getRequest(DRIVER_API_URL);
     return res.data.drivers as DriverType[];
@@ -23,7 +23,7 @@ export const fetchDrivers = createAsyncThunk<DriverType[]>(
 );
 
 export const createDriver = createAsyncThunk<DriverType, Omit<DriverType, '_id'>>(
-  'drivers/create',
+  'van-rep/create',
   async (payload) => {
     const res = await postRequest(DRIVER_API_URL, payload);
     return res.data as DriverType;
@@ -31,7 +31,7 @@ export const createDriver = createAsyncThunk<DriverType, Omit<DriverType, '_id'>
 );
 
 export const updateDriver = createAsyncThunk<DriverType, DriverType>(
-  'drivers/update',
+  'van-rep/update',
   async (payload) => {
     const res = await putRequest(`${DRIVER_API_URL}/${payload._id}`, payload);
     return res.data as DriverType;
@@ -39,7 +39,7 @@ export const updateDriver = createAsyncThunk<DriverType, DriverType>(
 );
 
 export const deleteDriver = createAsyncThunk<string, string>(
-  'drivers/delete',
+  'van-rep/delete',
   async (id) => {
     await deleteRequest(`${DRIVER_API_URL}/${id}`);
     return id; // return deleted id

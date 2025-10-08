@@ -3,7 +3,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
 import { useSidebar } from '../context/SidebarContext';
-import { ChevronDown, Users } from 'lucide-react';
+import { ChevronDown, LayoutDashboard, Truck, Users } from 'lucide-react';
+
+import appLogo from '@assets/images/static/logo.png';
+import { DASHBOARD_ROUTE, ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 type NavItem = {
   name: string;
@@ -14,11 +17,20 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
+    icon: <LayoutDashboard />,
+    name: 'Dashboard',
+    path: DASHBOARD_ROUTE,
+  },
+  {
+    icon: <Truck />,
+    name: 'Van Representative',
+    path: '/van-rep',
+  },
+  {
     icon: <Users />,
     name: 'Users Management',
     subItems: [
-      { name: 'Drivers', path: '/drivers' },
-      { name: 'Loaders', path: '/loaders' },
+      { name: 'Roles', path: ROLES_ROUTE },
     ],
   },
 ];
@@ -170,15 +182,15 @@ const AppSidebar: React.FC = () => {
             <>
               <img
                 className="block"
-                src="/images/logo/image-logo.png"
+                src={appLogo}
                 alt="Logo"
                 width={150}
                 height={40}
-              />    
+              />
             </>
           ) : (
             <img
-              src="/images/logo/logo-icon.png"
+              src={appLogo}
               alt="Logo"
               width={32}
               height={32}
