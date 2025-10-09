@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { InputControl } from '@components/forms/InputControl';
+import { LanguageSelect } from '@components/LanguageSelect';
+import { useTranslation } from 'react-i18next';
 
 // Login Page Component
 interface LoginFormData {
@@ -14,6 +16,7 @@ interface LoginFormData {
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+   const { t, i18n } = useTranslation();
 
   const {
     register,
@@ -74,7 +77,11 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center"
+    >
+      <div className='absolute top-0 right-0'>
+      <LanguageSelect />
+      </div>
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
@@ -96,9 +103,9 @@ export const LoginPage = () => {
             </svg>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back
+             {t("login.welcomeBack")}
           </h1>
-          <p className="text-gray-600">Sign in to your account to continue</p>
+          <p className="text-gray-600">{t("login.signInMsg")}</p>
         </div>
 
         {/* Login Form */}
@@ -108,7 +115,7 @@ export const LoginPage = () => {
             <InputControl
               control={control}
               name="emailOrUsername"
-              placeholder="Enter your email or username"
+              placeholder={t("login.emailInput")}
               type="text"
               disabled={isLoading}
               className="py-2"
@@ -117,7 +124,7 @@ export const LoginPage = () => {
             {/* Password Field */}
             <InputControl
               name="password"
-              placeholder="Enter your password"
+              placeholder={t("login.password")}
               type="password"
               control={control}
               disabled={isLoading}
@@ -133,8 +140,8 @@ export const LoginPage = () => {
                   disabled={isLoading}
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 disabled:opacity-50 cursor-pointer"
                 />
-                <span className="ml-2 text-sm text-gray-600 select-none">
-                  Remember me
+                <span className="ms-2 text-sm text-gray-600 select-none">
+                  {t("login.rememberMe")}
                 </span>
               </label>
 
@@ -144,7 +151,7 @@ export const LoginPage = () => {
                 disabled={isLoading}
                 className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors disabled:opacity-50 cursor-pointer"
               >
-                Forgot password?
+                {t("login.forgotPassword")}
               </button>
             </div>
 
@@ -156,14 +163,14 @@ export const LoginPage = () => {
               }
               disabled={Object.keys(errors).length > 0}
             >
-              Sign In
+              {t("login.signIn")}
             </button>
           </div>
 
           {/* Footer Links */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
+              {t("login.dontHaveAccount")}{' '}
               <button
                 type="button"
                 className="text-blue-600 hover:text-blue-800 font-medium transition-colors cursor-pointer"
@@ -171,7 +178,7 @@ export const LoginPage = () => {
                   alert('Sign up functionality would be implemented here')
                 }
               >
-                Sign up
+                {t("login.signUp")}
               </button>
             </p>
           </div>
