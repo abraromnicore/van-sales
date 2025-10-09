@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { Button } from '@components/button/Button.tsx';
 
 export const LanguageSelect = () => {
   const { i18n } = useTranslation();
@@ -28,12 +29,7 @@ export const LanguageSelect = () => {
 
   return (
     <div className="p-4 flex justify-end">
-      <button
-        onClick={toggleLanguage}
-        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
-      >
-        {i18n.language === "en" ? "Switch to Arabic" : "التبديل إلى الإنجليزية"}
-      </button>
+      <Button onClick={toggleLanguage} label={i18n.language === "en" ? "Switch to Arabic" : "التبديل إلى الإنجليزية"} variant={'ghost'}/>
     </div>
   );
 };

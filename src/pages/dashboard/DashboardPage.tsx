@@ -1,8 +1,3 @@
-import { Card } from '@components/card/Card';
-import { CardBody } from '@components/card/CardBody';
-import { CardHeader } from '@components/card/CardHeader';
-import { ReusableBarChart } from '@components/charts/barCharts';
-import { useChartConfig } from '@components/charts/hooks/useChartConfig';
 import {
   TrendingUp,
   TrendingDown,
