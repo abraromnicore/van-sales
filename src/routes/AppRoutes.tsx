@@ -33,13 +33,23 @@ export const appRoutes = [
           {
             path: '/dashboard',
             lazy: {
-              Component: async () => (await import('@pages/dashboard/DashboardPage.tsx')).DashboardPage,
+              Component: async () =>
+                (await import('@pages/dashboard/DashboardPage.tsx'))
+                  .DashboardPage,
             },
           },
           {
             path: '/van-rep',
             lazy: {
-              Component: async () => (await import('@pages/users/van-rep/VanRepPage')).VanRepPage,
+              Component: async () =>
+                (await import('@pages/users/van-rep/VanRepPage')).VanRepPage,
+            },
+          },
+          {
+            path: '/profile',
+            lazy: {
+              Component: async () =>
+                (await import('@pages/profile/profilePage')).ProfilePage,
             },
           },
           {
@@ -51,32 +61,37 @@ export const appRoutes = [
                   {
                     index: true,
                     lazy: {
-                      Component: async () => (await import('@pages/um/roles/RolesPage')).RolesPage,
+                      Component: async () =>
+                        (await import('@pages/um/roles/RolesPage')).RolesPage,
                     },
                   },
                   {
                     path: 'create',
                     lazy: {
-                      Component: async () => (await import('@pages/um/roles/CreateRolePage')).CreateRolePage,
+                      Component: async () =>
+                        (await import('@pages/um/roles/CreateRolePage'))
+                          .CreateRolePage,
                     },
                   },
                   {
                     path: 'edit/:id',
                     lazy: {
-                      Component: async () => (await import('@pages/um/roles/UpdateRolePage')).UpdateRolePage,
+                      Component: async () =>
+                        (await import('@pages/um/roles/UpdateRolePage'))
+                          .UpdateRolePage,
                     },
                   },
                   {
                     path: 'view/:id',
                     lazy: {
-                      Component: async () => (await import('@pages/um/roles/ViewRolePage')).ViewRolePage,
+                      Component: async () =>
+                        (await import('@pages/um/roles/ViewRolePage'))
+                          .ViewRolePage,
                     },
                   },
                 ],
-
               },
             ],
-
           },
         ],
       },
