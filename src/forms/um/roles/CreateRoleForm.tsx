@@ -1,47 +1,61 @@
-import { useCreateRole } from '@hooks/um/roles/useCreateRole.ts';
 import { SwitchControl } from '@components/forms/SwitchControl.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
-import { CardFooter } from '@components/card/CardFooter.tsx';
 import { InputControl } from '@components/forms/InputControl.tsx';
 import { PERMISSIONS } from '@utils/constant/app.constant.ts';
+import { AccordionTab } from 'primereact/accordion';
+import { CustomAccordion } from '@components/accordion/CustomAccordion.tsx';
+import { useAppToast } from '@hooks/common/useAppToast.ts';
+import { confirmDialog } from 'primereact/confirmdialog';
+import { useNavigate } from 'react-router-dom';
+import { ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { Button } from '@components/button/Button.tsx';
 
 type UpdateRoleFormProps = {
-  id?: string | undefined
+  control: any;
+  submitHandler: (e) => void;
+  isValid: boolean;
 }
 
 export const CreateRoleForm = (props: UpdateRoleFormProps) => {
-  const { control, submitHandler } = useCreateRole();
-  const { id } = props;
+  const navigate = useNavigate();
+  const { control, submitHandler, isValid } = props;
+  const { showError } = useAppToast();
+
+  const onSubmit = (e: any) => {
+    if (!isValid) showError('Create Role', 'Please enter a valid name and select at least 1 permission');
+    submitHandler(e);
+  };
+
+  const acceptClose = () => {
+    navigate(ROLES_ROUTE);
+  };
+
+  const confirmCancel = () => {
+    confirmDialog({
+      message: 'Your Changes will be lost.',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      defaultFocus: 'accept',
+      accept: acceptClose,
+    });
+  };
 
   return (
     <>
-      <CardBody>
-        <div className="flex flex-col space-y-6">
-          {/* Role Selector */}
-          <div>
-            <InputControl
-              label={'Role Name'}
-              control={control}
-              name={'roleName'}
-              placeholder={'Enter Role Name'}
-            />
-          </div>
-
-          {/* Permissions Grid */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">Permissions</h3>
-            <div className="space-y-8">
-              {PERMISSIONS.map((category) => (
-                <div
-                  key={category.id}
-                  className="border rounded-lg shadow-sm bg-white overflow-hidden"
-                >
-                  <div className="bg-gray-100 px-4 py-3 border-b">
-                    <h4 className="text-base font-semibold text-gray-800 flex items-center">
-                      {category.label}
-                    </h4>
-                  </div>
-
+      <div className="flex flex-col space-y-6">
+        <div>
+          <InputControl
+            label={'Role Name'}
+            control={control}
+            name={'roleName'}
+            placeholder={'Enter Role Name'}
+          />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">Permissions</h3>
+          <div className="space-y-8">
+            <CustomAccordion activeIndex={0}>
+              {PERMISSIONS.map((category, index) => (
+                <AccordionTab key={index} header={category.label}>
                   <table className="min-w-full text-sm">
                     <thead className="bg-gray-50 border-b">
                     <tr>
@@ -76,20 +90,23 @@ export const CreateRoleForm = (props: UpdateRoleFormProps) => {
                     ))}
                     </tbody>
                   </table>
-                </div>
+                </AccordionTab>
               ))}
-            </div>
+            </CustomAccordion>
           </div>
         </div>
-      </CardBody>
-      <CardFooter>
-        {/* Save Button */}
-        <button type={'button'}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg"
-                onClick={() => submitHandler()}>
-          Save Changes
-        </button>
-      </CardFooter>
+      </div>
+      <div className="flex gap-3 justify-end">
+        <Button type={'button'}
+                variant={'secondary'}
+                label={'Cancel'}
+                onClick={confirmCancel} />
+        <Button type={'button'}
+                variant={'primary'}
+                label={'Save Changes'}
+                onClick={onSubmit} />
+      </div>
+
     </>
   );
 };

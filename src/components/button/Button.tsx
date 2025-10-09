@@ -6,7 +6,7 @@ type ButtonProps = {
   label: string;
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'outline' | 'ghost';
   className?: string;
-  onClick?: () => void;
+  onClick?: (e) => void;
 } & ButtonHTMLAttributes<HTMLButtonElement>; // so props like onClick, disabled, etc. still work
 
 export const Button = (props: ButtonProps) => {

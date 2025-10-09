@@ -393,5 +393,50 @@
         "status": "active"
       }
     }
+  ],
+  "roles": [
+    {
+      "id": "277a",
+      "roleName": "sdfsfd",
+      "permissions": {
+        "view_stock": true
+      }
+    },
+    {
+      "id": "1049",
+      "roleName": "sdfsdf",
+      "permissions": {
+        "view_stock": true
+      }
+    },
+    {
+      "id": "7a2d",
+      "roleName": "Van Representative1",
+      "permissions": {
+        "view_stock": true,
+        "process_return": true,
+        "view_payment_history": true,
+        "update_stock_quantity": true,
+        "receive_stock": true,
+        "transfer_stock": true,
+        "view_stock_movements": true
+      }
+    },
+    {
+      "id": "1d1e",
+      "roleName": "Again test role2",
+      "permissions": {
+        "view_stock": true,
+        "update_stock_quantity": true,
+        "add_customer": true,
+        "update_customer_info": true,
+        "view_customer_ledger": true,
+        "view_sales_report": true,
+        "view_stock_report": true,
+        "receive_stock": true,
+        "transfer_stock": true,
+        "view_stock_movements": true
+      }
+    }
   ]
 }

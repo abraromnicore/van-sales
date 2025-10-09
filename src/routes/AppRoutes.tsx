@@ -39,7 +39,7 @@ export const appRoutes = [
           {
             path: '/van-rep',
             lazy: {
-              Component: async () => (await import('@pages/users/van-rep/VanRepPage.tsx')).VanRepPage,
+              Component: async () => (await import('@pages/users/van-rep/VanRepPage')).VanRepPage,
             },
           },
           {
@@ -61,7 +61,7 @@ export const appRoutes = [
                     },
                   },
                   {
-                    path: 'update/:id',
+                    path: 'edit/:id',
                     lazy: {
                       Component: async () => (await import('@pages/um/roles/UpdateRolePage')).UpdateRolePage,
                     },

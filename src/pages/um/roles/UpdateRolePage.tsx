@@ -1,16 +1,31 @@
 import { Card } from '@components/card/Card.tsx';
-import { CardHeader } from '@components/card/CardHeader.tsx';
-import { useParams } from 'react-router-dom';
 import { UpdateRoleForm } from '@/forms/um/roles/UpdateRoleForm.tsx';
+import { PageLayout } from '@layouts/Pagelayout.tsx';
+import { CardBody } from '@components/card/CardBody.tsx';
+import { useUpdateRole } from '@hooks/um/roles/useUpdateRole.ts';
+import { useGetSingleRole } from '@hooks/um/roles/useGetSingleRole.ts';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import type { RoleType } from '@/types/um/roles/role.type.ts';
 
 export const UpdateRolePage = () => {
+  const { control, submitHandler, isValid, reset, isTouched } = useUpdateRole();
   const { id } = useParams();
+  const { role, loading } = useGetSingleRole(id);
+
+  useEffect(() => {
+    if (!loading) {
+      reset(role as RoleType);
+    }
+  }, [role, loading]);
+
   return (
-    <div className="grid grid-cols-1 grid-rows-1">
+    <PageLayout>
       <Card>
-        <CardHeader title={'Roles Permissions'}></CardHeader>
-        <UpdateRoleForm id={id} />
+        <CardBody>
+          <UpdateRoleForm control={control} submitHandler={submitHandler} isValid={isValid} isTouched={isTouched} />
+        </CardBody>
       </Card>
-    </div>
+    </PageLayout>
   );
 };

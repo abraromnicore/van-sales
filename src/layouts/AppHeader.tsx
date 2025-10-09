@@ -11,8 +11,11 @@ import type { MenuItem } from 'primereact/menuitem';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/store/store.ts';
 
 const AppHeader: React.FC = () => {
+  const { pageTitle } = useSelector((state: RootState) => state.metadata);
   const { toggleSidebar, toggleMobileSidebar, isExpanded } = useSidebar();
   const menu = useRef<TieredMenu | null>(null);
   const navigate = useNavigate();
@@ -70,6 +73,7 @@ const AppHeader: React.FC = () => {
             >
               {isExpanded ? <ArrowLeftToLine /> : <ArrowRightFromLine />}
             </button>
+            <h2 className={'text-2xl font-medium'}>{pageTitle}</h2>
           </div>
           <button
             className="flex items-center gap-3"

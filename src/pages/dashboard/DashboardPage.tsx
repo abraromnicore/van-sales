@@ -1,3 +1,6 @@
+import { Card } from '@components/card/Card';
+import { CardBody } from '@components/card/CardBody';
+import { CardHeader } from '@components/card/CardHeader';
 import { ReusableBarChart } from '@components/charts/barCharts';
 import { useChartConfig } from '@components/charts/hooks/useChartConfig';
 import {
@@ -113,14 +116,14 @@ const salesData = [
   },
 ];
 
-interface KPICardProps {
+type KPICardProps = {
   title: string;
   value: string | number;
   icon: React.ComponentType<any>;
   trend?: 'up' | 'down';
   trendValue?: string;
   color?: 'blue' | 'green' | 'orange' | 'purple' | 'red';
-}
+};
 // KPI Card Component
 const KPICard: React.FC<KPICardProps> = ({
   title,
@@ -139,29 +142,33 @@ const KPICard: React.FC<KPICardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
-          <Icon className="w-6 h-6" />
-        </div>
-        {trend && (
-          <div
-            className={`flex items-center text-sm ${
-              trend === 'up' ? 'text-green-600' : 'text-red-600'
-            }`}
-          >
-            {trend === 'up' ? (
-              <TrendingUp className="w-4 h-4 mr-1" />
-            ) : (
-              <TrendingDown className="w-4 h-4 mr-1" />
+    <>
+      <Card>
+        <CardBody>
+          <div className="flex items-center justify-between mb-4">
+            <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
+              <Icon className="w-6 h-6" />
+            </div>
+            {trend && (
+              <div
+                className={`flex items-center text-sm ${
+                  trend === 'up' ? 'text-green-600' : 'text-red-600'
+                }`}
+              >
+                {trend === 'up' ? (
+                  <TrendingUp className="w-4 h-4 mr-1" />
+                ) : (
+                  <TrendingDown className="w-4 h-4 mr-1" />
+                )}
+                {trendValue}
+              </div>
             )}
-            {trendValue}
           </div>
-        )}
-      </div>
-      <h3 className="text-gray-600 text-sm font-medium mb-1">{title}</h3>
-      <p className="text-2xl font-bold text-gray-900">{value}</p>
-    </div>
+          <h3 className="text-gray-600 text-sm font-medium mb-1">{title}</h3>
+          <p className="text-2xl font-bold text-gray-900">{value}</p>
+        </CardBody>
+      </Card>
+    </>
   );
 };
 
@@ -297,51 +304,39 @@ export const DashboardPage: React.FC = () => {
   );
 
   return (
-    <div className="">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        {/* <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Supervisor Control Panel
-          </h1>
-          <p className="text-gray-600 mt-1">
-            Real-time monitoring and approvals
-          </p>
-        </div> */}
-
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <KPICard
-            title="Today's Sales"
-            value={`PKR ${(
-              dashboardData.salesAnalytics.today.totalSales / 1000000
-            ).toFixed(2)}M`}
-            icon={DollarSign}
-            trend="up"
-            trendValue="+12%"
-            color="green"
-          />
-          <KPICard
-            title="Orders Today"
-            value={dashboardData.salesAnalytics.today.ordersCount}
-            icon={Package}
-            color="blue"
-          />
-          <KPICard
-            title="Active Vans"
-            value={`${dashboardData.liveTracking.onRoute}/${dashboardData.liveTracking.totalVans}`}
-            icon={MapPin}
-            color="purple"
-          />
-          <KPICard
-            title="Pending Approvals"
-            value={totalApprovals}
-            icon={Clock}
-            color="orange"
-          />
-        </div>
-        <ReusableBarChart {...salesChartConfig} />
+    <div>
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <KPICard
+          title="Today's Sales"
+          value={`PKR ${(
+            dashboardData.salesAnalytics.today.totalSales / 1000000
+          ).toFixed(2)}M`}
+          icon={DollarSign}
+          trend="up"
+          trendValue="+12%"
+          color="green"
+        />
+        <KPICard
+          title="Orders Today"
+          value={dashboardData.salesAnalytics.today.ordersCount}
+          icon={Package}
+          color="blue"
+        />
+        <KPICard
+          title="Active Vans"
+          value={`${dashboardData.liveTracking.onRoute}/${dashboardData.liveTracking.totalVans}`}
+          icon={MapPin}
+          color="purple"
+        />
+        <KPICard
+          title="Pending Approvals"
+          value={totalApprovals}
+          icon={Clock}
+          color="orange"
+        />
       </div>
+      <ReusableBarChart {...salesChartConfig} />
     </div>
   );
 };

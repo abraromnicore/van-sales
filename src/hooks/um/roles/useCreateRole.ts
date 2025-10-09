@@ -5,6 +5,8 @@ import { roleSchema } from '@/schemas/um/roles/role.schema.ts';
 import { useAppDispatch } from '@/store/hooks.ts';
 import { ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
+import { createRole } from '@/store/features/um/role/roleSlice.ts';
+import type { RoleType } from '@/types/um/roles/role.type.ts';
 
 export const useCreateRole = () => {
   const navigate = useNavigate();
@@ -13,23 +15,19 @@ export const useCreateRole = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, touchedFields },
   } = useForm({
     resolver: yupResolver(roleSchema, { abortEarly: false }),
-    mode: 'onChange',
+    mode: 'onTouched',
   });
 
-  const onSubmit = async (formData) => {
-    // const payload: Omit<DriverType, '_id'> = formData;
+  const onSubmit = async (formData: any) => {
+    const payload: Omit<RoleType, 'id'> = formData;
     console.log(formData);
     navigate(ROLES_ROUTE);
     showSuccess('Create Role', 'Role Created Successfully.');
-
-    /*try {
-      return await dispatch(createDriver(payload)).unwrap();
-    } catch (e: any) {
-      throw e;
-    }*/
+    const response = await dispatch(createRole(payload)).unwrap();
+    console.log(response);
   };
 
   const submitHandler = handleSubmit(onSubmit);
@@ -38,6 +36,8 @@ export const useCreateRole = () => {
     control,
     errors,
     submitHandler,
+    isValid,
+    touchedFields,
   };
 
 };

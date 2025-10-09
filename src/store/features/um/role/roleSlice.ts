@@ -17,7 +17,7 @@ export const fetchRoles = createAsyncThunk<RoleType[]>(
   'role/fetchAll',
   async () => {
     const res = await getRequest(ROLE_API_URL);
-    return res.data.roles as RoleType[];
+    return res.data as RoleType[];
   },
 );
 

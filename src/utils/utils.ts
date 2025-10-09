@@ -8,3 +8,24 @@ export const getAccessToken = () => {
 export const setAccessToken = (accessToken: string) => localStorage.setItem(ACCESS_TOKEN, JSON.stringify(accessToken));
 
 export const clearLocalStorage = () => localStorage.clear();
+
+export const easternArabicDigits = [
+  "۰",
+  "۱",
+  "۲",
+  "۳",
+  "۴",
+  "۵",
+  "۶",
+  "۷",
+  "۸",
+  "۹",
+];
+
+export const convertToEasternArabic = (num: number) => {
+  return num
+    .toString()
+    .split("")
+    .map((digit) => easternArabicDigits[+digit])
+    .join("");
+};
