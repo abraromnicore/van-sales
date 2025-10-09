@@ -437,6 +437,15 @@
         "transfer_stock": true,
         "view_stock_movements": true
       }
+    },
+    {
+      "id": "0d07",
+      "roleName": "Role name updated",
+      "permissions": {
+        "view_stock": true,
+        "update_stock_quantity": true,
+        "receive_stock": true
+      }
     }
   ]
 }
