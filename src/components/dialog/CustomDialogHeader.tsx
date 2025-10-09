@@ -1,9 +1,11 @@
+import { X } from 'lucide-react';
+
 type HeaderProps = {
   onHide: () => void;
   title: string
 }
 
-export const DialogHeader = (props: HeaderProps) => {
+export const CustomDialogHeader = (props: HeaderProps) => {
   const { onHide, title } = props;
   return (
     <div
@@ -13,8 +15,9 @@ export const DialogHeader = (props: HeaderProps) => {
       </h3>
       <button
         onClick={onHide}
-        className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-        Close
+        className="inline-flex items-center justify-center rounded-full p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition"
+      >
+        <X className="w-4 h-4" />
       </button>
     </div>
   );

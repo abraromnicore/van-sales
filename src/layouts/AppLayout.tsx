@@ -23,7 +23,7 @@ const LayoutContent: React.FC = () => {
         } ${isMobileOpen ? 'ml-0' : ''}`}
       >*/}
         <AppHeader />
-        <div className={'p-6 grid grid-cols-1 grid-rows-1'}>
+        <div className={'p-6 grid grid-rows-[auto,1fr]'}>
           <Outlet />
         </div>
       </div>

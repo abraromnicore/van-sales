@@ -4,7 +4,7 @@ type CardBodyProps = {
   children: React.ReactNode
 }
 
-export const DialogFooter = (props: CardBodyProps) => {
+export const CustomDialogFooter = (props: CardBodyProps) => {
   const { children } = props;
 
   return (

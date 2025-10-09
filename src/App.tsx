@@ -7,6 +7,7 @@ import { store } from '@/store/store.ts';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { appRoutes } from '@routes/AppRoutes.tsx';
 import { GlobalToast } from '@components/common/GlobalToast.tsx';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 
 const router = createBrowserRouter(appRoutes);
 
@@ -20,6 +21,7 @@ function App() {
           <Provider store={store}>
             <RouterProvider router={router} />
             <GlobalToast />
+            <ConfirmDialog />
           </Provider>
         </PrimeReactProvider>
       </QueryClientProvider>
