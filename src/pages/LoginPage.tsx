@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { InputControl } from '@components/forms/InputControl';
+import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { APP_TITLE } from '@utils/constant/app.constant.ts';
 
 // Login Page Component
 interface LoginFormData {
@@ -12,6 +14,10 @@ interface LoginFormData {
 }
 
 export const LoginPage = () => {
+  useMetadata({
+    pageTitle: APP_TITLE,
+    breadcrumbs: [],
+  });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -78,7 +84,8 @@ export const LoginPage = () => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
+          <div
+            className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
             <svg
               width="32"
               height="32"

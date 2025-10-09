@@ -239,3 +239,4 @@ export const PERMISSIONS = [
     ],
   },
 ];
+export const APP_TITLE = 'Van Sales';
