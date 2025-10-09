@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import InputControl from '@components/forms/InputControl.tsx';
-import { Lock, Mail, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { InputControl } from '@components/forms/InputControl';
 
 // Login Page Component
 interface LoginFormData {
@@ -19,6 +18,7 @@ export const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<LoginFormData>({
     defaultValues: {
@@ -78,9 +78,22 @@ export const LoginPage = () => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div
-            className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
-            <Menu />
+          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-4">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="text-white"
+            >
+              <path
+                d="M12 2L2 7V10C2 16 6 20.5 12 22C18 20.5 22 16 22 10V7L12 2Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome back
@@ -93,13 +106,12 @@ export const LoginPage = () => {
           <div onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Email or Username Field */}
             <InputControl
-              register={register}
+              control={control}
               name="emailOrUsername"
               placeholder="Enter your email or username"
               type="text"
-              imageSVG={<Mail />}
-              errors={errors}
-              isDisabled={isLoading}
+              disabled={isLoading}
+              className="py-2"
             />
 
             {/* Password Field */}
@@ -107,10 +119,9 @@ export const LoginPage = () => {
               name="password"
               placeholder="Enter your password"
               type="password"
-              imageSVG={<Lock />}
-              register={register}
-              errors={errors}
-              isDisabled={isLoading}
+              control={control}
+              disabled={isLoading}
+              className="py-2"
             />
 
             {/* Remember Me & Forgot Password */}
@@ -140,7 +151,9 @@ export const LoginPage = () => {
             {/* Login Button */}
             <button
               onClick={onLogin}
-              className={'bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300 ease-in-out'}
+              className={
+                'bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300 ease-in-out'
+              }
               disabled={Object.keys(errors).length > 0}
             >
               Sign In

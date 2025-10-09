@@ -8,10 +8,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { appRoutes } from '@routes/AppRoutes.tsx';
 import { GlobalToast } from '@components/common/GlobalToast.tsx';
 import { ConfirmDialog } from 'primereact/confirmdialog';
+import { useMetadata } from '@hooks/common/useMetadata.ts';
 
 const router = createBrowserRouter(appRoutes);
 
 function App() {
+  useMetadata({
+    pageTitle: 'Van Sales',
+    breadcrumbs: [],
+  });
   const queryClient = new QueryClient();
 
   return (
