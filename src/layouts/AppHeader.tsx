@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useSidebar } from '../context/SidebarContext';
-import { ArrowLeftToLine, ArrowRightFromLine, ChevronDown, LogOut, User } from 'lucide-react';
+import {
+  ArrowLeftToLine,
+  ArrowRightFromLine,
+  ChevronDown,
+  LogOut,
+  User,
+} from 'lucide-react';
 import type { MenuItem } from 'primereact/menuitem';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +20,7 @@ const AppHeader: React.FC = () => {
     {
       label: 'Profile',
       icon: <User />,
-      command: () => {
-      },
+      command: () => {},
     },
     {
       label: 'Logout',
@@ -55,31 +60,31 @@ const AppHeader: React.FC = () => {
 
   return (
     <>
-      <header
-        className="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 lg:border-b z-50">
+      <header className="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 lg:border-b z-50">
         <div className="flex flex-col items-center justify-between grow lg:flex-row lg:px-6">
-          <div
-            className="flex items-center justify-between w-full gap-2 px-3 py-3 border-b border-gray-200 dark:border-gray-800 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4">
+          <div className="flex items-center justify-between w-full gap-2 px-3 py-3 border-b border-gray-200 dark:border-gray-800 sm:gap-4 lg:justify-normal lg:border-b-0 lg:px-0 lg:py-4">
             <button
               className="items-center justify-center w-10 h-10 text-gray-500 border-gray-200 rounded-lg z-99999 dark:border-gray-800 lg:flex dark:text-gray-400 lg:h-11 lg:w-11 lg:border"
               onClick={handleToggle}
               aria-label="Toggle Sidebar"
             >
-              {isExpanded ? (
-                <ArrowLeftToLine />
-              ) : (
-                <ArrowRightFromLine />
-              )}
+              {isExpanded ? <ArrowLeftToLine /> : <ArrowRightFromLine />}
             </button>
           </div>
-          <button className="flex items-center gap-3" onClick={(e) => menu.current?.toggle(e)}>
-            <div
-              className="flex h-12 w-12 min-w-[3rem] min-h-[3rem] items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-1 ring-gray-200">
+          <button
+            className="flex items-center gap-3"
+            onClick={(e) => menu.current?.toggle(e)}
+          >
+            <div className="flex h-12 w-12 min-w-[3rem] min-h-[3rem] items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-1 ring-gray-200">
               <User className="h-6 w-6" />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-semibold text-gray-900 whitespace-nowrap">Umar Farooq</span>
-              <span className="text-xs text-gray-500 whitespace-nowrap">Van Representative</span>
+              <span className="text-sm font-semibold text-gray-900 whitespace-nowrap">
+                Umar Farooq
+              </span>
+              <span className="text-xs text-gray-500 whitespace-nowrap">
+                Van Representative
+              </span>
             </div>
             <ChevronDown />
           </button>
