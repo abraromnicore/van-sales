@@ -1,5 +1,5 @@
 import { AppLoader } from '@components/AppLoader.tsx';
-import { authLoader } from '@/guards/auth.loader.ts';
+import { routeGuardLoader } from '@/guards/route-guard.loader.ts';
 import { Navigate } from 'react-router-dom';
 import * as React from 'react';
 import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
@@ -28,7 +28,7 @@ export const appRoutes = [
         lazy: {
           Component: async () => (await import('@layouts/AppLayout')).AppLayout,
         },
-        loader: authLoader,
+        loader: routeGuardLoader,
         children: [
           {
             path: '/dashboard',

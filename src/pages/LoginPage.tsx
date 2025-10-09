@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { LanguageSelect } from '@components/LanguageSelect.tsx';
 import { InputControl } from '@components/forms/InputControl.tsx';
 import { Button } from '@components/button/Button.tsx';
+import { useLogin } from '@hooks/auth/useLogin.ts';
 
 // Login Page Component
 interface LoginFormData {
@@ -21,6 +22,7 @@ export const LoginPage = () => {
     pageTitle: APP_TITLE,
     breadcrumbs: [],
   });
+  useLogin();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
@@ -37,6 +39,9 @@ export const LoginPage = () => {
       rememberMe: false,
     },
   });
+
+  useEffect(() => {
+  }, []);
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);

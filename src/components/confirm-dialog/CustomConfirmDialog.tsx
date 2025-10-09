@@ -1,4 +1,3 @@
-import React from 'react';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
 
