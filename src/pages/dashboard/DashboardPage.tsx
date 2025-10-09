@@ -1,20 +1,19 @@
 import {
-  TrendingUp,
-  TrendingDown,
-  Users,
-  DollarSign,
-  Package,
-  Bell,
   AlertCircle,
+  BarChart3,
+  Bell,
   CheckCircle,
   Clock,
-  MapPin,
-  Target,
-  BarChart3,
+  DollarSign,
   Eye,
+  MapPin,
   MoreVertical,
-  Calendar,
+  Package,
   RefreshCw,
+  Target,
+  TrendingDown,
+  TrendingUp,
+  Users,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -125,11 +124,11 @@ export const DashboardPage: React.FC = () => {
     strokeWidth?: number;
     color?: string;
   }> = ({
-    percentage = 10,
-    size = 140,
-    strokeWidth = 12,
-    color = '#4f46e5',
-  }) => {
+          percentage = 10,
+          size = 140,
+          strokeWidth = 12,
+          color = '#4f46e5',
+        }) => {
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
     const strokeDasharray = circumference;
@@ -221,7 +220,8 @@ export const DashboardPage: React.FC = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Quick Stats Row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+          <div
+            className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-blue-50 rounded-xl">
                 <Users className="h-6 w-6 text-blue-600" />
@@ -240,7 +240,8 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+          <div
+            className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-emerald-50 rounded-xl">
                 <Package className="h-6 w-6 text-emerald-600" />
@@ -259,7 +260,8 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+          <div
+            className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-purple-50 rounded-xl">
                 <MapPin className="h-6 w-6 text-purple-600" />
@@ -276,7 +278,8 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+          <div
+            className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-indigo-50 rounded-xl">
                 <DollarSign className="h-6 w-6 text-indigo-600" />
@@ -319,7 +322,8 @@ export const DashboardPage: React.FC = () => {
                       <TrendingUp className="h-4 w-4 mr-1" />
                       +8.5% vs yesterday
                     </div>
-                    <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-colors">
+                    <button
+                      className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-colors">
                       <MoreVertical className="h-5 w-5" />
                     </button>
                   </div>
@@ -338,7 +342,8 @@ export const DashboardPage: React.FC = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <div
+                      className="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
                       <div className="flex items-center space-x-3">
                         <div className="w-3 h-3 bg-slate-400 rounded-full"></div>
                         <span className="text-sm font-semibold text-slate-700">
@@ -374,7 +379,8 @@ export const DashboardPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="flex justify-between items-center p-4 bg-indigo-50 rounded-xl border border-indigo-200">
+                    <div
+                      className="flex justify-between items-center p-4 bg-indigo-50 rounded-xl border border-indigo-200">
                       <div className="flex items-center space-x-3">
                         <div className="w-3 h-3 bg-indigo-500 rounded-full"></div>
                         <span className="text-sm font-semibold text-indigo-700">
@@ -433,7 +439,8 @@ export const DashboardPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                    <div
+                      className="w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
                       {
                         notifications.filter((n) => n.priority === 'high')
                           .length
@@ -469,8 +476,8 @@ export const DashboardPage: React.FC = () => {
                               notification.priority === 'high'
                                 ? 'bg-red-100 text-red-700'
                                 : notification.priority === 'medium'
-                                ? 'bg-amber-100 text-amber-700'
-                                : 'bg-slate-100 text-slate-600'
+                                  ? 'bg-amber-100 text-amber-700'
+                                  : 'bg-slate-100 text-slate-600'
                             }`}
                           >
                             {notification.priority}
@@ -482,7 +489,8 @@ export const DashboardPage: React.FC = () => {
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-slate-200">
-                  <button className="w-full flex items-center justify-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors">
+                  <button
+                    className="w-full flex items-center justify-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors">
                     <Eye className="h-4 w-4" />
                     <span>View All Notifications</span>
                   </button>
@@ -519,7 +527,8 @@ export const DashboardPage: React.FC = () => {
             </div>
 
             <div className="p-6 space-y-4">
-              <div className="flex items-center justify-between p-5 bg-emerald-50 rounded-2xl border border-emerald-200">
+              <div
+                className="flex items-center justify-between p-5 bg-emerald-50 rounded-2xl border border-emerald-200">
                 <div className="flex items-center space-x-4">
                   <div className="p-3 bg-emerald-100 rounded-xl">
                     <CheckCircle className="h-7 w-7 text-emerald-600" />
@@ -743,11 +752,13 @@ export const DashboardPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <button className="flex items-center space-x-2 text-sm text-slate-600 hover:text-slate-800 font-medium px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors">
+                  <button
+                    className="flex items-center space-x-2 text-sm text-slate-600 hover:text-slate-800 font-medium px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors">
                     <RefreshCw className="h-4 w-4" />
                     <span>Refresh</span>
                   </button>
-                  <button className="flex items-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors">
+                  <button
+                    className="flex items-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold px-4 py-2 rounded-lg hover:bg-indigo-50 transition-colors">
                     <Eye className="h-4 w-4" />
                     <span>View Details</span>
                   </button>
@@ -772,10 +783,10 @@ export const DashboardPage: React.FC = () => {
                           index === 0
                             ? 'bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-900 shadow-amber-200'
                             : index === 1
-                            ? 'bg-slate-300 text-slate-700 shadow-slate-200'
-                            : index === 2
-                            ? 'bg-orange-300 text-orange-800 shadow-orange-200'
-                            : 'bg-slate-200 text-slate-600 shadow-slate-100'
+                              ? 'bg-slate-300 text-slate-700 shadow-slate-200'
+                              : index === 2
+                                ? 'bg-orange-300 text-orange-800 shadow-orange-200'
+                                : 'bg-slate-200 text-slate-600 shadow-slate-100'
                         }`}
                       >
                         #{member.rank}
@@ -799,7 +810,8 @@ export const DashboardPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
+                    <div
+                      className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8">
                       <div className="grid grid-cols-2 gap-6 sm:flex sm:space-x-8">
                         <div className="text-center sm:text-right">
                           <p className="text-sm font-semibold text-slate-900 mb-1">
@@ -834,10 +846,10 @@ export const DashboardPage: React.FC = () => {
                               member.productivity >= 90
                                 ? 'bg-gradient-to-r from-emerald-400 to-emerald-500'
                                 : member.productivity >= 80
-                                ? 'bg-gradient-to-r from-blue-400 to-blue-500'
-                                : member.productivity >= 70
-                                ? 'bg-gradient-to-r from-amber-400 to-amber-500'
-                                : 'bg-gradient-to-r from-red-400 to-red-500'
+                                  ? 'bg-gradient-to-r from-blue-400 to-blue-500'
+                                  : member.productivity >= 70
+                                    ? 'bg-gradient-to-r from-amber-400 to-amber-500'
+                                    : 'bg-gradient-to-r from-red-400 to-red-500'
                             }`}
                             style={{ width: `${member.productivity}%` }}
                           />
