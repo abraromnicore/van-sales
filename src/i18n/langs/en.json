@@ -1,0 +1,13 @@
+{
+  "login": {
+    "welcomeBack": "Welcome back",
+    "signInMsg": "Sign in to your account to continue",
+    "emailInput": "Enter your email or username",
+    "password": "Enter your password",
+    "forgotPassword": "Forgot password?",
+    "rememberMe": "Remember me",
+    "signIn": "Sign In",
+    "dontHaveAccount": "Don't have an account?",
+    "signUp": "Sign up"
+  }
+}
