@@ -17,7 +17,6 @@ const ReusableBarChart: React.FC<ChartConfig> = ({
   data,
   bars,
   height = 320,
-  titleClass = '',
   formatValue = (value: number) => value.toString(),
   showGrid = true,
   showTooltip = true,
@@ -28,25 +27,23 @@ const ReusableBarChart: React.FC<ChartConfig> = ({
   // Error handling
   if (!data || data.length === 0) {
     return (
-      <>
-        <Card>
-          <CardBody>
-            <CardHeader title={title} />
-            <div className="flex items-center justify-center h-64 text-gray-500">
-              No data available
-            </div>
-          </CardBody>
-        </Card>
-      </>
+      <Card>
+        <CardHeader title={title} />
+        <CardBody>
+          <div className="flex items-center justify-center h-64 text-gray-500">
+            No data available
+          </div>
+        </CardBody>
+      </Card>
     );
   }
 
   return (
     <Card>
+      <CardHeader title={title} />
       <CardBody>
-        <CardHeader title={title} />
         <div style={{ height: height }}>
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer>
             <BarChart data={data} margin={chartMargin}>
               {showGrid && (
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />

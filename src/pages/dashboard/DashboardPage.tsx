@@ -1,3 +1,11 @@
+import { Card } from '@components/card/Card';
+import { CardBody } from '@components/card/CardBody';
+import { CardHeader } from '@components/card/CardHeader';
+import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
+import {
+  ReusablePieChart,
+  usePieChartConfig,
+} from '@components/charts/pieCharts';
 import {
   TrendingUp,
   TrendingDown,
@@ -5,6 +13,7 @@ import {
   Package,
   MapPin,
   DollarSign,
+  Eye,
 } from 'lucide-react';
 
 // Mock data for testing
@@ -111,6 +120,86 @@ const salesData = [
   },
 ];
 
+const notifications = [
+  {
+    id: 1,
+    type: 'warning',
+    message: 'Route deviation detected - Ahmad Hassan',
+    time: '2m ago',
+    priority: 'high',
+  },
+  {
+    id: 2,
+    type: 'error',
+    message: 'Pending settlement: Rs. 8,500',
+    time: '15m ago',
+    priority: 'high',
+  },
+  {
+    id: 3,
+    type: 'success',
+    message: 'Daily collection target achieved',
+    time: '1h ago',
+    priority: 'medium',
+  },
+  {
+    id: 4,
+    type: 'warning',
+    message: 'Customer complaint - Route 3',
+    time: '2h ago',
+    priority: 'medium',
+  },
+  {
+    id: 5,
+    type: 'info',
+    message: 'New order received - Route 5',
+    time: '3h ago',
+    priority: 'low',
+  },
+  {
+    id: 6,
+    type: 'warning',
+    message: 'Route deviation detected - Ahmad Hassan',
+    time: '2m ago',
+    priority: 'high',
+  },
+  {
+    id: 7,
+    type: 'error',
+    message: 'Pending settlement: Rs. 8,500',
+    time: '15m ago',
+    priority: 'high',
+  },
+  {
+    id: 8,
+    type: 'success',
+    message: 'Daily collection target achieved',
+    time: '1h ago',
+    priority: 'medium',
+  },
+  {
+    id: 9,
+    type: 'warning',
+    message: 'Customer complaint - Route 3',
+    time: '2h ago',
+    priority: 'medium',
+  },
+  {
+    id: 10,
+    type: 'info',
+    message: 'New order received - Route 5',
+    time: '3h ago',
+    priority: 'low',
+  },
+];
+
+const collectionsData = [
+  { type: 'Cash', amount: 45600, color: '#10b981' },
+  { type: 'Cheque', amount: 32400, color: '#3b82f6' },
+  { type: 'Bank Transfer', amount: 28900, color: '#8b5cf6' },
+  { type: 'Credit Card', amount: 15800, color: '#f59e0b' },
+];
+
 type KPICardProps = {
   title: string;
   value: string | number;
@@ -178,6 +267,13 @@ export const DashboardPage: React.FC = () => {
       height: 320,
       // You can add any custom overrides here
     },
+  );
+
+  // Create chart config using the hook
+  const chartConfig = usePieChartConfig(
+    'Collections by Payment Type',
+    collectionsData,
+    'collections', // using preset
   );
 
   const dashboardData = {
@@ -331,7 +427,75 @@ export const DashboardPage: React.FC = () => {
           color="orange"
         />
       </div>
-      <ReusableBarChart {...salesChartConfig} />
+
+      <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
+        <div className="md:col-span-2 ">
+          <Card>
+            <CardHeader title="Vans Tracking" />
+            <CardBody>
+              {/* <MapView /> */}
+              Google Maps Show Here
+            </CardBody>
+          </Card>
+        </div>
+
+        <div>
+          <Card>
+            <CardHeader title="Alerts" />
+            <CardBody>
+              <div className="p-4 max-h-96 overflow-y-auto">
+                <div className="space-y-3">
+                  {notifications.slice(0, 6).map((notification) => (
+                    <div key={notification.id}>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-slate-900 leading-relaxed">
+                          {notification.message}
+                        </p>
+                        <div className="flex items-center justify-between mt-2">
+                          <p className="text-xs text-slate-500 font-medium">
+                            {notification.time}
+                          </p>
+                          <span
+                            className={`text-xs px-2 py-1 rounded-full font-medium ${
+                              notification.priority === 'high'
+                                ? 'bg-red-100 text-red-700'
+                                : notification.priority === 'medium'
+                                ? 'bg-amber-100 text-amber-700'
+                                : 'bg-slate-100 text-slate-600'
+                            }`}
+                          >
+                            {notification.priority}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-slate-200">
+                  <button className="w-full flex items-center justify-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <Eye className="h-4 w-4" />
+                    <span>View All Notifications</span>
+                  </button>
+                </div>
+              </div>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
+
+      <div className="mt-6">
+        {/* Collections by Type */}
+        <ReusablePieChart
+          data={collectionsData}
+          config={chartConfig}
+          showBreakdown={true}
+        />
+      </div>
+
+      <div className="mt-6">
+        <ReusableBarChart {...salesChartConfig} />
+      </div>
     </div>
   );
 };

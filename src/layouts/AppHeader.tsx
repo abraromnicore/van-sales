@@ -10,7 +10,10 @@ import {
 import type { MenuItem } from 'primereact/menuitem';
 import { TieredMenu } from 'primereact/tieredmenu';
 import { useNavigate } from 'react-router-dom';
-import { LOGIN_ROUTE } from '@utils/constant/app-route.constants.ts';
+import {
+  LOGIN_ROUTE,
+  PROFILE_ROUTE,
+} from '@utils/constant/app-route.constants.ts';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/store/store.ts';
 
@@ -23,7 +26,7 @@ const AppHeader: React.FC = () => {
     {
       label: 'Profile',
       icon: <User />,
-      command: () => {},
+      command: () => gotoProfile(),
     },
     {
       label: 'Logout',
@@ -34,6 +37,9 @@ const AppHeader: React.FC = () => {
 
   const onLogoutUser = () => {
     navigate(LOGIN_ROUTE);
+  };
+  const gotoProfile = () => {
+    navigate(PROFILE_ROUTE);
   };
 
   const handleToggle = () => {
