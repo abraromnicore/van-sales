@@ -45,7 +45,9 @@ export const InputControl = (props: TextInputControlProps) => {
               onBlur={field.onBlur}
               placeholder={placeholder}
               type={type}
-              className={`w-full ${fieldState.error ? 'p-invalid' : ''}`}
+              className={`w-full py-2 px-2 ${
+                fieldState.error ? 'p-invalid' : ''
+              }`}
               disabled={disabled}
             />
 
