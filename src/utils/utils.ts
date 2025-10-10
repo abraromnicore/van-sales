@@ -1,3 +1,4 @@
+import type { RoleType } from '@/types/um/roles/role.type';
 import { ACCESS_TOKEN } from '@utils/constant/app.constant.ts';
 
 export const getAccessToken = () => {
@@ -28,4 +29,12 @@ export const convertToEasternArabic = (num: number) => {
     .split("")
     .map((digit) => easternArabicDigits[+digit])
     .join("");
+};
+
+export const mapRolesToSelectOptions = (roles: RoleType[]) => {
+  if (!Array.isArray(roles)) return [];
+  return roles.map(role => ({
+    label: role.roleName,
+    value: role.id,
+  }));
 };

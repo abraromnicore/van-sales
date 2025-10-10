@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import driverSlice from '@/store/features/driver/driverSlice.ts';
 import metadataSlice from '@/store/features/metadata/metadataSlice.ts';
 import roleSlice from '@/store/features/um/role/roleSlice.ts';
+import userSlice from '@/store/features/um/user/userSlice.ts';
 import toastSlice from '@/store/features/common/toastSlice.ts';
 import breadcrumbSlice from '@/store/features/common/breadcrumbSlice.ts';
 
@@ -9,6 +10,7 @@ export const store = configureStore({
   reducer: {
     drivers: driverSlice,
     roles: roleSlice,
+    users: userSlice,
     metadata: metadataSlice,
     toast: toastSlice,
     breadcrumb: breadcrumbSlice,
