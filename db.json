@@ -437,6 +437,31 @@
         "transfer_stock": true,
         "view_stock_movements": true
       }
+    },
+    {
+      "id": "0d07",
+      "roleName": "Role name updated",
+      "permissions": {
+        "view_stock": true,
+        "update_stock_quantity": true,
+        "receive_stock": true
+      }
+    }
+  ],
+  "login": [
+    {
+      "name": "Umar Farooq",
+      "role": "Super Admin",
+      "username": "su",
+      "email": "su@yopmail.com",
+      "password": "Su@1234",
+      "permissions": [
+        {
+          "module_name": "*",
+          "permission_name": "*",
+          "description": "Super Admin"
+        }
+      ]
     }
   ]
 }

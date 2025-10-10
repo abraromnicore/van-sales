@@ -1,4 +1,3 @@
-import React from 'react';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Button } from 'primereact/button';
 
@@ -8,7 +7,6 @@ type ConfirmDialogProps = {
 }
 
 export const CustomConfirmDialog = (props: ConfirmDialogProps) => {
-
 
   return (
     <>

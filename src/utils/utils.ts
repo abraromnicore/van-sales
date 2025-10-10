@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '@utils/constant/app.constant.ts';
+import { ACCESS_TOKEN, APP_PERMISSIONS } from '@utils/constant/app.constant.ts';
 
 export const getAccessToken = () => {
   const localStorageData = localStorage.getItem(ACCESS_TOKEN);
@@ -28,4 +28,8 @@ export const convertToEasternArabic = (num: number) => {
     .split("")
     .map((digit) => easternArabicDigits[+digit])
     .join("");
+};
+
+export const setPermissions = () => {
+
 };

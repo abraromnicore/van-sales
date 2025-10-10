@@ -1,4 +1,6 @@
 export const ACCESS_TOKEN = 'ACCESS_TOKEN';
+export const APP_TITLE = 'Van Sales';
+export const APP_PERMISSIONS = 'permissions';
 export const PERMISSIONS = [
   // ======================
   // 🏷 STOCK MANAGEMENT
@@ -239,4 +241,11 @@ export const PERMISSIONS = [
     ],
   },
 ];
-export const APP_TITLE = 'Van Sales';
+export const ACTUAL_PERMISSIONS = [
+  { module_name: 'Role Management', permission_name: 'role.create', description: 'Create roles' },
+  { module_name: 'Role Management', permission_name: 'role.view', description: 'View roles' },
+  { module_name: 'Role Management', permission_name: 'role.update', description: 'Update roles' },
+  { module_name: 'Role Management', permission_name: 'role.delete', description: 'Delete roles' },
+  { module_name: 'Role Management', permission_name: 'role.deactivate', description: 'Deactivate and archive roles' },
+  { module_name: 'Role Management', permission_name: 'role.view_audit_log', description: 'View role audit logs' },
+];
