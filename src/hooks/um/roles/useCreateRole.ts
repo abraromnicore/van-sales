@@ -23,11 +23,9 @@ export const useCreateRole = () => {
 
   const onSubmit = async (formData: any) => {
     const payload: Omit<RoleType, 'id'> = formData;
-    console.log(formData);
     navigate(ROLES_ROUTE);
     showSuccess('Create Role', 'Role Created Successfully.');
-    const response = await dispatch(createRole(payload)).unwrap();
-    console.log(response);
+    await dispatch(createRole(payload)).unwrap();
   };
 
   const submitHandler = handleSubmit(onSubmit);

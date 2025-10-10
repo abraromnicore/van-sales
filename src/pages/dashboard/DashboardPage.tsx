@@ -2,19 +2,12 @@ import { Card } from '@components/card/Card';
 import { CardBody } from '@components/card/CardBody';
 import { CardHeader } from '@components/card/CardHeader';
 import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
-import {
-  ReusablePieChart,
-  usePieChartConfig,
-} from '@components/charts/pieCharts';
-import {
-  TrendingUp,
-  TrendingDown,
-  Clock,
-  Package,
-  MapPin,
-  DollarSign,
-  Eye,
-} from 'lucide-react';
+import { ReusablePieChart, usePieChartConfig } from '@components/charts/pieCharts';
+import { Clock, DollarSign, Eye, MapPin, Package, TrendingDown, TrendingUp } from 'lucide-react';
+import { Can } from '@casl/react';
+import { Action } from '@/casl/actions.ts';
+import { Subject } from '@/casl/subjects.ts';
+import { ability } from '@/casl/defineAbility.ts';
 
 // Mock data for testing
 const salesData = [
@@ -210,13 +203,14 @@ type KPICardProps = {
 };
 // KPI Card Component
 const KPICard: React.FC<KPICardProps> = ({
-  title,
-  value,
-  icon: Icon,
-  trend,
-  trendValue,
-  color = 'blue',
-}) => {
+                                           title,
+                                           value,
+                                           icon: Icon,
+                                           trend,
+                                           trendValue,
+                                           color = 'blue',
+                                         }) => {
+
   const colorClasses: Record<string, string> = {
     blue: 'bg-blue-50 text-blue-600',
     green: 'bg-green-50 text-green-600',
@@ -460,8 +454,8 @@ export const DashboardPage: React.FC = () => {
                               notification.priority === 'high'
                                 ? 'bg-red-100 text-red-700'
                                 : notification.priority === 'medium'
-                                ? 'bg-amber-100 text-amber-700'
-                                : 'bg-slate-100 text-slate-600'
+                                  ? 'bg-amber-100 text-amber-700'
+                                  : 'bg-slate-100 text-slate-600'
                             }`}
                           >
                             {notification.priority}
@@ -473,7 +467,8 @@ export const DashboardPage: React.FC = () => {
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-slate-200">
-                  <button className="w-full flex items-center justify-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors">
+                  <button
+                    className="w-full flex items-center justify-center space-x-2 text-sm text-indigo-600 hover:text-indigo-800 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-50 transition-colors">
                     <Eye className="h-4 w-4" />
                     <span>View All Notifications</span>
                   </button>

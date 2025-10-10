@@ -8,7 +8,6 @@ type ConfirmDialogProps = {
 
 export const CustomConfirmDialog = (props: ConfirmDialogProps) => {
 
-
   return (
     <>
       <ConfirmDialog

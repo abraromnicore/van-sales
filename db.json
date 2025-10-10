@@ -447,5 +447,21 @@
         "receive_stock": true
       }
     }
+  ],
+  "login": [
+    {
+      "name": "Umar Farooq",
+      "role": "Super Admin",
+      "username": "su",
+      "email": "su@yopmail.com",
+      "password": "Su@1234",
+      "permissions": [
+        {
+          "module_name": "*",
+          "permission_name": "*",
+          "description": "Super Admin"
+        }
+      ]
+    }
   ]
 }
