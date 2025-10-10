@@ -49,7 +49,7 @@ export const appRoutes = [
             path: '/profile',
             lazy: {
               Component: async () =>
-                (await import('@pages/profile/profilePage')).ProfilePage,
+                (await import('@pages/profile/ProfilePage')).ProfilePage,
             },
           },
           {
@@ -93,6 +93,30 @@ export const appRoutes = [
               },
             ],
           },
+          {
+            path: '/van-reps',
+            children: [
+              {
+                path: 'view/:repId',
+                lazy: {
+                  Component: async () =>
+                    (await import('@pages/van-rep/VanRepDetailPage')).VanRepDetailPage,
+                },
+              }
+            ],
+          },
+          {
+            path: '/load-req',
+            children: [
+              {
+                path: 'view/:reqId',
+                lazy: {
+                  Component: async () =>
+                    (await import('@pages/load-req/LoadReqDetail')).LoadReqDetail,
+                },
+              }
+            ],
+          }
         ],
       },
     ],

@@ -120,7 +120,7 @@ const salesData = [
   },
 ];
 
-const notifications = [
+export const notifications = [
   {
     id: 1,
     type: 'warning',
