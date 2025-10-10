@@ -23,19 +23,19 @@ export const Button = (props: ButtonProps) => {
 
   const variants = {
     primary:
-      'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+      'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 disabled:bg-blue-400 disabled:hover:bg-blue-400',
     secondary:
-      'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
+      'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500 disabled:bg-gray-400 disabled:hover:bg-gray-400',
     success:
-      'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500',
+      'bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 disabled:bg-green-400 disabled:hover:bg-green-400',
     danger:
-      'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+      'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 disabled:bg-red-400 disabled:hover:bg-red-400',
     warning:
-      'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-400',
+      'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-400 disabled:bg-yellow-300 disabled:hover:bg-yellow-300',
     outline:
-      'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500',
+      'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500 disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent',
     ghost:
-      'bg-transparent text-blue-600 hover:bg-blue-100 focus:ring-blue-300',
+      'bg-transparent text-blue-600 hover:bg-blue-100 focus:ring-blue-300 disabled:text-gray-400 disabled:hover:bg-transparent',
   };
 
   return (

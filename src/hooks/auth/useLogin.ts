@@ -1,31 +1,36 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { roleSchema } from '@/schemas/um/roles/role.schema.ts';
 import { useAppDispatch } from '@/store/hooks.ts';
-import { ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
-import { createRole } from '@/store/features/um/role/roleSlice.ts';
-import type { RoleType } from '@/types/um/roles/role.type.ts';
+import { postRequest } from '@utils/api/request-service.ts';
+import { LOGIN_API_URL } from '@utils/constant/api-url.constants.ts';
+import { loginSchema } from '@/schemas/auth/login.schema.ts';
+import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
 
-export const useCreateRole = () => {
+export const useLogin = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { showSuccess } = useAppToast();
+  const { showSuccess, showError } = useAppToast();
   const {
     control,
     handleSubmit,
     formState: { errors, isValid, touchedFields },
   } = useForm({
-    resolver: yupResolver(roleSchema, { abortEarly: false }),
+    resolver: yupResolver(loginSchema, { abortEarly: false }),
     mode: 'onTouched',
   });
 
   const onSubmit = async (formData: any) => {
-    const payload: Omit<RoleType, 'id'> = formData;
-    navigate(ROLES_ROUTE);
-    showSuccess('Create Role', 'Role Created Successfully.');
-    await dispatch(createRole(payload)).unwrap();
+    try {
+      const response = await postRequest(LOGIN_API_URL, formData);
+      if (response.status === 200) {
+        navigate(DASHBOARD_ROUTE);
+      }
+    } catch (e) {
+      showError('Login User', 'Unable to Login');
+    }
+
   };
 
   const submitHandler = handleSubmit(onSubmit);

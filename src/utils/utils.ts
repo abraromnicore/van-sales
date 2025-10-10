@@ -1,5 +1,5 @@
 import type { RoleType } from '@/types/um/roles/role.type';
-import { ACCESS_TOKEN } from '@utils/constant/app.constant.ts';
+import { ACCESS_TOKEN, APP_PERMISSIONS } from '@utils/constant/app.constant.ts';
 
 export const getAccessToken = () => {
   const localStorageData = localStorage.getItem(ACCESS_TOKEN);
@@ -37,4 +37,6 @@ export const mapRolesToSelectOptions = (roles: RoleType[]) => {
     label: role.roleName,
     value: role.id,
   }));
+export const setPermissions = () => {
+
 };

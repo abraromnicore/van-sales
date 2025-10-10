@@ -14,3 +14,4 @@ export const USERS_ROUTE = `${UM_ROUTE_PREFIX}/users`;
 export const CREATE_USER_ROUTE = `${UM_ROUTE_PREFIX}/users/create`;
 export const EDIT_USER_ROUTE = `${UM_ROUTE_PREFIX}/users/edit/{userId}`;
 export const VIEW_USER_ROUTE = `${UM_ROUTE_PREFIX}/users/view/{userId}`;
+export const VIEW_LOAD_REQ_ROUTE = '/load-req/view/reqId';

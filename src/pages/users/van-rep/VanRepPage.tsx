@@ -4,7 +4,7 @@ import {
   CustomTable,
 } from '@components/tables/CustomTable.tsx';
 import type { MenuItem } from 'primereact/menuitem';
-import { useDriversList } from '@hooks/drivers/useDriversList.ts';
+import { useDriversList } from '@hooks/vanRep/useDriversList.ts';
 
 export const VanRepPage = () => {
   const { drivers } = useDriversList(true);
