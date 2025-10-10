@@ -1,13 +1,15 @@
 {
-  "login": {
-    "welcomeBack": "مرحبًا بعودتك",
-    "signInMsg": "قم بتسجيل الدخول إلى حسابك للمتابعة",
-    "emailInput": "أدخل بريدك الإلكتروني أو اسم المستخدم",
-    "password": "أدخل كلمة المرور الخاصة بك",
-    "forgotPassword": "هل نسيت كلمة السر؟",
-    "rememberMe": "تذكرنى",
-    "signIn": "تسجيل الدخول",
-    "dontHaveAccount": "ليس لديك حساب؟",
-    "signUp": "اشتراك"
-  }
+  "login.welcomeBack": "مرحبًا بعودتك",
+  "login.signInMsg": "قم بتسجيل الدخول إلى حسابك للمتابعة",
+  "login.emailInput": "أدخل بريدك الإلكتروني أو اسم المستخدم",
+  "login.password": "أدخل كلمة المرور الخاصة بك",
+  "login.forgotPassword": "هل نسيت كلمة السر؟",
+  "login.rememberMe": "تذكرنى",
+  "login.signIn": "تسجيل الدخول",
+  "login.dontHaveAccount": "ليس لديك حساب؟",
+  "login.signUp": "اشتراك",
+  "login.lostPassword": "هل فقدت كلمة المرور؟",
+  "login.notReg": "غير مسجل؟",
+  "login.createAcc": "إنشاء حساب",
+  "login.username": "اسم المستخدم"
 }

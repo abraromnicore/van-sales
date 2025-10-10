@@ -1,13 +1,15 @@
 {
-  "login": {
-    "welcomeBack": "Welcome back",
-    "signInMsg": "Sign in to your account to continue",
-    "emailInput": "Enter your email or username",
-    "password": "Enter your password",
-    "forgotPassword": "Forgot password?",
-    "rememberMe": "Remember me",
-    "signIn": "Sign In",
-    "dontHaveAccount": "Don't have an account?",
-    "signUp": "Sign up"
-  }
+  "login.welcomeBack": "Welcome back",
+  "login.signInMsg": "Sign in to your account to continue",
+  "login.emailInput": "Enter your email or username",
+  "login.password": "Enter your password",
+  "login.forgotPassword": "Forgot password?",
+  "login.rememberMe": "Remember me",
+  "login.signIn": "Sign In",
+  "login.dontHaveAccount": "Don't have an account?",
+  "login.signUp": "Sign up",
+  "login.lostPassword": "Lost Password?",
+  "login.notReg": "Not registered?",
+  "login.createAcc": "Create account",
+  "login.username": "Username"
 }

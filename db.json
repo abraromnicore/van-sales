@@ -450,6 +450,7 @@
   ],
   "login": [
     {
+      "id": "su",
       "name": "Umar Farooq",
       "role": "Super Admin",
       "username": "su",
@@ -460,6 +461,21 @@
           "module_name": "*",
           "permission_name": "*",
           "description": "Super Admin"
+        }
+      ]
+    },
+    {
+      "id": "supervisor",
+      "name": "M. Hafeez",
+      "role": "Supervisor",
+      "username": "supervisor",
+      "email": "supervisor@yopmail.com",
+      "password": "Supervisor@1234",
+      "permissions": [
+        {
+          "module_name": "Dashboard",
+          "permission_name": "cards.view",
+          "description": "View Dashboard"
         }
       ]
     }

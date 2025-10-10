@@ -1,4 +1,5 @@
-import { ACCESS_TOKEN, APP_PERMISSIONS } from '@utils/constant/app.constant.ts';
+import { ACCESS_TOKEN } from '@utils/constant/app.constant.ts';
+import _ from 'lodash';
 
 export const getAccessToken = () => {
   const localStorageData = localStorage.getItem(ACCESS_TOKEN);
@@ -10,26 +11,35 @@ export const setAccessToken = (accessToken: string) => localStorage.setItem(ACCE
 export const clearLocalStorage = () => localStorage.clear();
 
 export const easternArabicDigits = [
-  "۰",
-  "۱",
-  "۲",
-  "۳",
-  "۴",
-  "۵",
-  "۶",
-  "۷",
-  "۸",
-  "۹",
+  '۰',
+  '۱',
+  '۲',
+  '۳',
+  '۴',
+  '۵',
+  '۶',
+  '۷',
+  '۸',
+  '۹',
 ];
 
 export const convertToEasternArabic = (num: number) => {
   return num
     .toString()
-    .split("")
+    .split('')
     .map((digit) => easternArabicDigits[+digit])
-    .join("");
+    .join('');
 };
 
-export const setPermissions = () => {
-
+export const setPermissions = (permissions: any) => {
+  /*const grouped = {
+    moduleName: _.mapValues(
+      _.groupBy(permissions, 'module_name'),
+      perms => _.groupBy(
+        perms.map(p => _.pick(p, ['permission_name', 'description'])),
+        p => p.permission_name.split('.')[0],
+      ),
+    ),
+  };*/
+  console.log(permissions);
 };
