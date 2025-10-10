@@ -37,6 +37,7 @@ export const mapRolesToSelectOptions = (roles: RoleType[]) => {
     label: role.roleName,
     value: role.id,
   }));
+}
 export const setPermissions = () => {
 
 };
