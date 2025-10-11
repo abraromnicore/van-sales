@@ -1,17 +1,25 @@
-import { ability } from '@/casl/defineAbility.ts';
-import { Action } from '@/casl/actions.ts';
-import { Subject } from '@/casl/subjects.ts';
+import { getPermissions } from '@utils/utils.ts';
+import { buildAbilityFromPermissions } from '@/casl/defineAbility.ts';
+import { LOGIN_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { routePermissions } from '@/casl/routePermissions';
+import { redirect } from 'react-router-dom';
 
-export const routeGuardLoader = async () => {
-  /*  const ability = await createAbilityForLoader();
-    console.log(ability.can(Action.Create, Subject.User));*/
-  /*const token = getAccessToken();
-  if (!token) {
-      throw redirect(ADMIN_LOGIN_ROUTE);
-  }*/
+export const routeGuardLoader = async ({ request }: { request: Request }) => {
+  const permissions = getPermissions();
 
-  console.log(ability.can(Action.Create, Subject.User))
+  const ability = buildAbilityFromPermissions(permissions);
 
+  const url = new URL(request.url);
+  const pathname = url.pathname;
 
-  return true;
+  const matched = Object.entries(routePermissions).find(([pattern]) =>
+    pathname.match(new RegExp(`^${pattern.replace(/:\w+/g, '[^/]+')}$`)),
+  );
+
+  if (matched) {
+    const [, rule] = matched;
+    if (ability.cannot(rule.action, rule.subject)) {
+      throw redirect(LOGIN_ROUTE);
+    }
+  }
 };

@@ -1,30 +1,38 @@
 import { Controller } from 'react-hook-form';
-import { Dropdown } from 'primereact/dropdown';
+import { Calendar } from 'primereact/calendar';
 
-type SelectControlProps = {
+type CalendarControlProps = {
   control: any;
   name: string;
   label?: string;
-  optionLabel?: string;
-  optionValue?: string;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
-  options: any[];
+  dateFormat?: string;
+  showIcon?: boolean;
+  maxDate?: Date;
+  minDate?: Date;
+  yearNavigator?: boolean;
+  monthNavigator?: boolean;
+  yearRange?: string;
   required?: boolean;
-}
+};
 
-export const SelectControl = (props: SelectControlProps) => {
+export const CalendarControl = (props: CalendarControlProps) => {
   const {
     control,
     name,
     label,
-    optionLabel = 'label',
-    optionValue = 'value',
-    options,
-    placeholder = 'Select an option',
+    placeholder = 'Select date',
     className = '',
     disabled = false,
+    dateFormat = 'dd/mm/yy',
+    showIcon = true,
+    maxDate,
+    minDate,
+    yearNavigator = true,
+    monthNavigator = true,
+    yearRange = '1900:2030',
     required = false,
   } = props;
 
@@ -41,27 +49,25 @@ export const SelectControl = (props: SelectControlProps) => {
         control={control}
         render={({ field, fieldState }) => (
           <>
-            <style dangerouslySetInnerHTML={{
-              __html: `
-                #${name} .p-dropdown-clear-icon {
-                  margin-right: 0.5rem !important;
-                }
-                #${name} .p-dropdown-trigger {
-                  margin-left: 0.5rem !important;
-                }
-              `
-            }} />
-            <Dropdown
+            <Calendar
               id={name}
               value={field.value}
-              options={options}
-              optionLabel={optionLabel}
-              optionValue={optionValue}
               onChange={(e) => field.onChange(e.value)}
+              dateFormat={dateFormat}
               placeholder={placeholder}
-              className={`w-full ${fieldState.error ? 'border-red-300' : 'border-gray-300'} rounded-lg border px-4`}
+              showIcon={showIcon}
+              maxDate={maxDate}
+              minDate={minDate}
+              yearNavigator={yearNavigator}
+              monthNavigator={monthNavigator}
+              yearRange={yearRange}
               disabled={disabled}
-              showClear
+              className={`w-full ${fieldState.error ? 'p-invalid' : ''}`}
+              inputClassName={`w-full rounded-lg border px-4 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500 ${
+                fieldState.error
+                  ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}
               panelClassName="rounded-lg border border-gray-200 shadow-lg"
             />
             {fieldState.error && (

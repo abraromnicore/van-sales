@@ -4,10 +4,6 @@ import { CardHeader } from '@components/card/CardHeader';
 import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
 import { ReusablePieChart, usePieChartConfig } from '@components/charts/pieCharts';
 import { Clock, DollarSign, Eye, MapPin, Package, TrendingDown, TrendingUp } from 'lucide-react';
-import { Can } from '@casl/react';
-import { Action } from '@/casl/actions.ts';
-import { Subject } from '@/casl/subjects.ts';
-import { ability } from '@/casl/defineAbility.ts';
 
 // Mock data for testing
 const salesData = [

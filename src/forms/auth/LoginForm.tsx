@@ -15,7 +15,7 @@ export const LoginForm = () => {
       <div>
         <InputControl
           control={control}
-          label={t('login.password')}
+          label={t('login.username')}
           name="username"
           placeholder={t('login.emailInput')}
           type="text"
@@ -40,7 +40,6 @@ export const LoginForm = () => {
       <Button
         className={'w-full'}
         onClick={submitHandler}
-        disabled={!isValid}
         label={t('login.signIn')} />
       <div className="wtext-sm font-medium text-gray-500 dark:text-gray-300">
         {t('login.notReg')} <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">

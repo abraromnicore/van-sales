@@ -9,6 +9,7 @@ type TextInputControlProps = {
   disabled?: boolean;
   type?: string;
   rules?: any;
+  required?: boolean;
 };
 
 export const InputControl = (props: TextInputControlProps) => {
@@ -21,16 +22,17 @@ export const InputControl = (props: TextInputControlProps) => {
     disabled = false,
     type = 'text',
     rules = {},
+    required = false,
   } = props;
 
   return (
-    <div className={`flex flex-col gap-2 ${className}`}>
+    <div className={`flex flex-col space-y-2 ${className}`}>
       {label && (
         <label
           htmlFor={name}
           className="text-sm font-medium text-gray-700"
         >
-          {label}
+          {label} {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
 
@@ -48,17 +50,22 @@ export const InputControl = (props: TextInputControlProps) => {
               onBlur={field.onBlur}
               placeholder={placeholder}
               disabled={disabled}
-              className={`w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 ${
+              className={`w-full rounded-lg border px-4 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500 ${
                 fieldState.error
-                  ? 'border-red-500 focus:ring-red-500 focus:border-red-500 p-invalid'
-                  : 'border-gray-300'
+                  ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
+                  : 'border-gray-300 hover:border-gray-400'
               }`}
             />
 
             {fieldState.error && (
-              <p className="text-xs text-red-500 mt-1">
-                {fieldState.error.message}
-              </p>
+              <div className="flex items-center space-x-1">
+                <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                <p className="text-xs text-red-600 font-medium">
+                  {fieldState.error.message}
+                </p>
+              </div>
             )}
           </>
         )}

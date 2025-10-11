@@ -439,7 +439,117 @@
       }
     },
     {
-      "id": "0d07",
+      "id": "731c",
+      "roleName": "Driver",
+      "permissions": {
+        "receive_stock": true,
+        "view_stock_movements": true
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "u1",
+      "firstName": "Muhammad",
+      "lastName": "Tester",
+      "username": "tester",
+      "email": "muhammad.toqeer@example.com",
+      "password": "edit123!@#ASD",
+      "gender": "male",
+      "dateOfBirth": "1995-06-15",
+      "status": "active",
+      "roleName": "Again test role2"
+    },
+    {
+      "id": "u2",
+      "firstName": "Ayesha",
+      "lastName": "Khan",
+      "gender": "female",
+      "dateOfBirth": "1998-02-20T00:00:00.000Z",
+      "email": "ayesha.khan@example.com",
+      "status": "active",
+      "roleName": "admin"
+    },
+    {
+      "id": "u3",
+      "firstName": "Ali",
+      "lastName": "Raza",
+      "gender": "male",
+      "dateOfBirth": "1990-11-05T00:00:00.000Z",
+      "email": "ali.raza@example.com",
+      "status": "inactive",
+      "roleName": "driver"
+    },
+    {
+      "id": "u4",
+      "firstName": "Sara",
+      "lastName": "Ahmed",
+      "gender": "female",
+      "dateOfBirth": "1997-09-12T00:00:00.000Z",
+      "email": "sara.ahmed@example.com",
+      "status": "active",
+      "roleName": "van_rep"
+    },
+    {
+      "id": "u5",
+      "firstName": "Bilal",
+      "lastName": "Hussain",
+      "gender": "male",
+      "dateOfBirth": "1993-03-25T00:00:00.000Z",
+      "email": "bilal.hussain@example.com",
+      "status": "inactive",
+      "roleName": "user"
+    },
+    {
+      "id": "b7d8",
+      "firstName": "Muhammad",
+      "lastName": "Toqeer",
+      "gender": "male",
+      "dateOfBirth": "1978-10-03",
+      "email": "mtoasteer@gmail.com",
+      "status": "active",
+      "roleName": "Driver"
+    },
+    {
+      "id": "6a47",
+      "firstName": "Muhammad",
+      "lastName": "Toqeer",
+      "gender": "male",
+      "dateOfBirth": "1985-10-16",
+      "email": "mu@gmail.com",
+      "status": "active",
+      "roleName": "Again test role2"
+    },
+    {
+      "id": "bf9d",
+      "firstName": "Muhammad",
+      "lastName": "Toqeer",
+      "gender": "male",
+      "dateOfBirth": "1987-10-14",
+      "email": "mtoaste12er@gmail.com",
+      "status": "active",
+      "roleName": "Again test role2"
+    },
+    {
+      "id": "2352",
+      "firstName": "John1",
+      "lastName": "Tester",
+      "gender": "male",
+      "dateOfBirth": "1955-10-11",
+      "email": "mumar@gmail.com",
+      "status": "active",
+      "roleName": "Driver"
+    },
+    {
+      "id": "787d",
+      "firstName": "Toqeer",
+      "lastName": "Hashmi",
+      "username": "hash1234",
+      "email": "toqeer.hashmi@omnicoredx.com",
+      "password": "asdfASDF!@#1",
+      "gender": "male",
+      "dateOfBirth": "1988-10-05",
+      "status": "active",
       "roleName": "Role name updated",
       "permissions": {
         "view_stock": true,
@@ -476,6 +586,36 @@
           "module_name": "Dashboard",
           "permission_name": "cards.view",
           "description": "View Dashboard"
+        },
+        {
+          "module_name": "Role Management",
+          "permission_name": "role.create",
+          "description": "Create roles"
+        },
+        {
+          "module_name": "Role Management",
+          "permission_name": "role.view",
+          "description": "View roles"
+        },
+        {
+          "module_name": "Role Management",
+          "permission_name": "role.update",
+          "description": "Update roles"
+        },
+        {
+          "module_name": "Role Management",
+          "permission_name": "role.delete",
+          "description": "Delete roles"
+        },
+        {
+          "module_name": "Role Management",
+          "permission_name": "role.deactivate",
+          "description": "Deactivate and archive roles"
+        },
+        {
+          "module_name": "Role Management",
+          "permission_name": "role.view_audit_log",
+          "description": "View role audit logs"
         }
       ]
     }

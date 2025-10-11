@@ -91,6 +91,42 @@ export const appRoutes = [
                   },
                 ],
               },
+                {
+                path: 'users',
+                children: [
+                  {
+                    index: true,
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UsersPage')).UserPage,
+                    },
+                  },
+                  {
+                    path: 'create',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/CreateUserPage'))
+                          .CreateUserPage,
+                    },
+                  },
+                  {
+                    path: 'edit/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UpdateUserPage'))
+                          .UpdateUserPage,
+                    },
+                  },
+                  {
+                    path: 'view/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/ViewUserPage'))
+                          .ViewUserPage,
+                    },
+                  },
+                ],
+              },
             ],
           },
           {

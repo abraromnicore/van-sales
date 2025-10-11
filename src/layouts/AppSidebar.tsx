@@ -6,7 +6,7 @@ import { useSidebar } from '../context/SidebarContext';
 import { ChevronDown, LayoutDashboard, Truck, Users } from 'lucide-react';
 
 import appLogo from '@assets/images/static/logo.png';
-import { DASHBOARD_ROUTE, ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { DASHBOARD_ROUTE, ROLES_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 type NavItem = {
   name: string;
@@ -31,11 +31,11 @@ const navItems: NavItem[] = [
     name: 'Users Management',
     subItems: [
       { name: 'Roles', path: ROLES_ROUTE },
+      { name: 'Users', path: USERS_ROUTE },
     ],
   },
 ];
 
-// Removed separate "Others" section for simplicity
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered } = useSidebar();
@@ -49,7 +49,6 @@ const AppSidebar: React.FC = () => {
   );
 
   useEffect(() => {
-    // Auto-open the submenu that contains the active route
     let matchedIndex: number | null = null;
     navItems.forEach((nav, index) => {
       if (nav.subItems?.some((s) => isActive(s.path))) {
@@ -59,7 +58,6 @@ const AppSidebar: React.FC = () => {
     setOpenSubmenuIndex(matchedIndex);
   }, [location, isActive]);
 
-  // Removed dynamic submenu height calculations for simplicity
 
   const handleSubmenuToggle = (index: number) => {
     setOpenSubmenuIndex((prev) => (prev === index ? null : index));
@@ -143,7 +141,6 @@ const AppSidebar: React.FC = () => {
                       }`}
                     >
                       {subItem.name}
-                      {/* Removed badges for simpler UI */}
                     </Link>
                   </li>
                 ))}
@@ -169,8 +166,6 @@ const AppSidebar: React.FC = () => {
       }
         ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0`}
-      // onMouseEnter={() => !isExpanded && setIsHovered(true)}
-      // onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`py-8 flex ${

@@ -2,7 +2,6 @@ import { Dialog } from 'primereact/dialog';
 import * as React from 'react';
 import styled from 'styled-components';
 
-// ✅ Styled container handles width + layout
 const DialogContentContainer = styled.div`
     &.min-w-sm { min-width: 384px; }
     &.min-w-md { min-width: 448px; }
@@ -17,13 +16,10 @@ const DialogContentContainer = styled.div`
     border: 1px solid #e5e7eb;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-    /* ✅ Default dialogs (non-full) */
     max-height: calc(100vh - 32px);
 
-    /* ✅ Scrollable only when needed */
     overflow: hidden;
 
-    /* ✅ Fullscreen special case */
     &.full-screen {
         width: calc(100vw - 32px);
         height: calc(100vh - 32px);
@@ -44,19 +40,18 @@ type DialogOptions = {
   children?: React.ReactNode;
   visible: boolean;
   size?: DialogSize;
+  dismissableMask?: boolean
 };
 
-export const CustomDialog = ({ onHide, visible, children, size = 'md' }: DialogOptions) => {
-  // ✅ Tailwind-style size mapping
+export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissableMask= true }: DialogOptions) => {
   const sizeClasses: Record<DialogSize, string> = {
     sm: 'min-w-sm',
     md: 'min-w-md',
     lg: 'min-w-lg',
     xl: 'min-w-xl',
-    full: 'full-screen', // special class handled above
+    full: 'full-screen',
   };
 
-  // ✅ Automatically pass size prop to body/header/footer
   const enhancedChildren = React.Children.map(children, (child) => {
     if (
       React.isValidElement(child) &&
@@ -82,7 +77,7 @@ export const CustomDialog = ({ onHide, visible, children, size = 'md' }: DialogO
       visible={visible}
       onHide={onHide}
       modal
-      dismissableMask
+      dismissableMask={dismissableMask}
       closable={false}
       className={`!bg-transparent ${size === 'full' ? '!m-0 !p-0' : ''}`}
       content={<CardContent />}

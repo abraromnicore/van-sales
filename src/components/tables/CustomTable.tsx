@@ -9,12 +9,14 @@ import { EllipsisVertical } from 'lucide-react';
 export type ColumMeta = {
   field: string;
   header: string;
+  body?: (rowData: any) => React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 type TableProps = {
   columns: ColumMeta[];
   data: any[];
-  menuModel?: MenuItem[]; // optional: tiered menu items passed in by consumer
+  menuModel?: MenuItem[];
   setSelectedItem: (selectedItem: any) => void;
 }
 
@@ -38,8 +40,10 @@ export const CustomTable = (props: TableProps) => {
             key={col.field}
             field={col.field}
             header={col.header}
+            body={col.body}
             headerClassName="px-4 py-2"
             bodyClassName="px-4 py-2"
+            style={col.style}
           />
         ))}
         <Column
