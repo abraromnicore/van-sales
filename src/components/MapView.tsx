@@ -6,15 +6,21 @@ import {
   Autocomplete,
   useJsApiLoader,
 } from '@react-google-maps/api';
+import { Card } from '@components/card/Card.tsx';
+import { CardBody } from '@components/card/CardBody.tsx';
+import { CardHeader } from '@components/card/CardHeader.tsx';
 
 const containerStyle: React.CSSProperties = {
   width: '100%',
-  height: '500px',
+  height: '340px',
+  padding:'0px',
+  'border-bottom-left-radius': '16px',
+  'border-bottom-right-radius': '16px',
 };
 
 const center = { lat: 31.5204, lng: 74.3587 }; // Lahore, Pakistan
 
-export default function MapView() {
+export default function MapView({title}:{title?:string}) {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
     libraries: ['places'], // for Autocomplete
@@ -81,35 +87,38 @@ export default function MapView() {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div className="space-y-2 max-h-996">
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={12}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-        onClick={handleMapClick}
-      >
-        <Marker
-          position={marker}
-          draggable
-          onDragEnd={handleMarkerDragEnd}
-          onClick={() => setSelected(marker)}
-        />
+      <div className="w-full h-full p-0 rounded-2xl border border-neutral-200 bg-white">
+        <CardHeader title={title}/>
+        <div>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={12}
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+          onClick={handleMapClick}
+        >
+          <Marker
+            position={marker}
+            draggable
+            onDragEnd={handleMarkerDragEnd}
+            onClick={() => setSelected(marker)}
+          />
 
-        {selected && (
-          <InfoWindow
-            position={selected}
-            onCloseClick={() => setSelected(null)}
-          >
-            <div>
-              <h3>Marker Position</h3>
-              <p>Lat: {selected.lat.toFixed(4)}</p>
-              <p>Lng: {selected.lng.toFixed(4)}</p>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </div>
+          {selected && (
+            <InfoWindow
+              position={selected}
+              onCloseClick={() => setSelected(null)}
+            >
+              <div>
+                <h3>Marker Position</h3>
+                <p>Lat: {selected.lat.toFixed(4)}</p>
+                <p>Lng: {selected.lng.toFixed(4)}</p>
+              </div>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+        </div>
+      </div>
   );
 }

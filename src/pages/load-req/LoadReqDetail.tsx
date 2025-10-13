@@ -174,6 +174,7 @@ export const LoadReqDetail=() => {
       message: 'Are You Sure to Reject the Load Request?',
       header: 'Reject Confirmation',
       onConfirm: () => {
+        setVisibleReject(false)
         showError('Load Request', 'Load Request Accept Failure.');
       },
     });

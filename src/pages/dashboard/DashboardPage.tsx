@@ -4,6 +4,10 @@ import { CardHeader } from '@components/card/CardHeader';
 import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
 import { ReusablePieChart, usePieChartConfig } from '@components/charts/pieCharts';
 import { Clock, DollarSign, Eye, MapPin, Package, TrendingDown, TrendingUp } from 'lucide-react';
+import MapView from '@components/MapView.tsx';
+import * as React from 'react';
+import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { DASHBOARD_ROUTE, ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 // Mock data for testing
 const salesData = [
@@ -76,37 +80,7 @@ const salesData = [
     team: 'Alpha',
     achievement: 96.2,
     rank: 7,
-  },
-  {
-    id: 8,
-    name: 'Aisha Malik',
-    sales: 118000,
-    target: 125000,
-    region: 'East',
-    team: 'Beta',
-    achievement: 94.4,
-    rank: 8,
-  },
-  {
-    id: 9,
-    name: 'Bilal Ahmed',
-    sales: 102000,
-    target: 120000,
-    region: 'West',
-    team: 'Gamma',
-    achievement: 85.0,
-    rank: 9,
-  },
-  {
-    id: 10,
-    name: 'Nadia Khan',
-    sales: 95000,
-    target: 110000,
-    region: 'Central',
-    team: 'Alpha',
-    achievement: 86.4,
-    rank: 10,
-  },
+  }
 ];
 
 export const notifications = [
@@ -248,6 +222,10 @@ const KPICard: React.FC<KPICardProps> = ({
 
 // Main Dashboard Component
 export const DashboardPage: React.FC = () => {
+  useMetadata({
+    pageTitle: 'Dashboard',
+    breadcrumbs: [],
+  });
   // Chart configuration using the hook
   const salesChartConfig = useChartConfig(
     'sales',
@@ -419,21 +397,22 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
-        <div className="md:col-span-2 ">
-          <Card>
-            <CardHeader title="Vans Tracking" />
-            <CardBody>
-              {/* <MapView /> */}
-              Google Maps Show Here
-            </CardBody>
-          </Card>
+        <div className="md:col-span-3">
+              <div>
+                <MapView title={`Vans Tracking`}/>
+              </div>
         </div>
+      </div>
 
-        <div>
+      <div className={`grid grid-cols-2 md:grid-cols-3 mt-6 gap-6`}>
+        <div className={`col-span-2`}>
+            <ReusableBarChart {...salesChartConfig} />
+        </div>
+        <div >
           <Card>
             <CardHeader title="Alerts" />
             <CardBody>
-              <div className="p-4 max-h-96 overflow-y-auto">
+              <div className="p-4 max-h-80 overflow-y-auto">
                 <div className="space-y-3">
                   {notifications.slice(0, 6).map((notification) => (
                     <div key={notification.id}>
@@ -482,10 +461,6 @@ export const DashboardPage: React.FC = () => {
           config={chartConfig}
           showBreakdown={true}
         />
-      </div>
-
-      <div className="mt-6">
-        <ReusableBarChart {...salesChartConfig} />
       </div>
     </div>
   );
