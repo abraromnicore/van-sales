@@ -3,7 +3,7 @@ export const Action = {
   Access: 'access',
   Create: 'create',
   View: 'view',
-  Update: 'update',
+  Edit: 'edit',
   Delete: 'delete',
   Deactivate: 'deactivate',
   ViewAuditLog: 'view_audit_log',

@@ -74,11 +74,24 @@ export const UmRoutes = [
           },
           {
             path: 'hierarchy',
-            lazy: {
-              Component: async () =>
-                (await import('@pages/um/users/UserHierarchyPage'))
-                  .UserHierarchyPage,
-            },
+            children: [
+              {
+                path: 'view/:id',
+                lazy: {
+                  Component: async () =>
+                    (await import('@pages/um/users/user-hierarchy/ViewUserHierarchyPage.tsx'))
+                      .ViewUserHierarchyPage,
+                },
+              },
+              {
+                path: 'edit/:id',
+                lazy: {
+                  Component: async () =>
+                    (await import('@pages/um/users/user-hierarchy/EditUserHierarchyPage.tsx'))
+                      .EditUserHierarchyPage,
+                },
+              },
+            ],
           },
         ],
       },

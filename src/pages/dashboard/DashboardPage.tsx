@@ -4,6 +4,8 @@ import { CardHeader } from '@components/card/CardHeader';
 import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
 import { ReusablePieChart, usePieChartConfig } from '@components/charts/pieCharts';
 import { Clock, DollarSign, Eye, MapPin, Package, TrendingDown, TrendingUp } from 'lucide-react';
+import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { DASHBOARD_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 // Mock data for testing
 const salesData = [
@@ -197,6 +199,128 @@ type KPICardProps = {
   trendValue?: string;
   color?: 'blue' | 'green' | 'orange' | 'purple' | 'red';
 };
+
+const dashboardData = {
+  liveTracking: {
+    totalVans: 15,
+    onRoute: 12,
+    atWarehouse: 2,
+    idle: 1,
+  },
+  pendingApprovals: {
+    vanLoadRequests: 3,
+    emergencyLoadRequests: 1,
+    creditApprovals: 2,
+    returnApprovals: 1,
+    discountRequests: 2,
+  },
+  alerts: [
+    {
+      id: 'ALT-001',
+      type: 'route_deviation',
+      severity: 'high' as const,
+      vanId: 'VAN-LHR-03',
+      repName: 'Imran Ahmed',
+      message: 'Van deviated 5km from planned route',
+      timestamp: '2025-10-09T14:15:00Z',
+    },
+    {
+      id: 'ALT-002',
+      type: 'stock_variance',
+      severity: 'medium' as const,
+      vanId: 'VAN-LHR-07',
+      repName: 'Sara Malik',
+      message: 'Stock variance detected: PKR 15,000',
+      timestamp: '2025-10-09T13:50:00Z',
+    },
+  ],
+  salesAnalytics: {
+    today: {
+      totalSales: 2450000,
+      cashSales: 1200000,
+      creditSales: 1250000,
+      target: 3000000,
+      achievement: 81.67,
+      ordersCount: 245,
+      avgOrderValue: 10000,
+    },
+    weekly: {
+      dailyBreakdown: [
+        { day: 'Mon', sales: 2800000, target: 3000000 },
+        { day: 'Tue', sales: 2950000, target: 3000000 },
+        { day: 'Wed', sales: 2850000, target: 3000000 },
+        { day: 'Thu', sales: 3000000, target: 3000000 },
+        { day: 'Fri', sales: 2900000, target: 3000000 },
+      ],
+    },
+    topProducts: [
+      {
+        sku: 'SKU-001',
+        name: 'Premium Tea 500g',
+        unitsSold: 450,
+        revenue: 450000,
+      },
+      {
+        sku: 'SKU-012',
+        name: 'Cooking Oil 5L',
+        unitsSold: 320,
+        revenue: 640000,
+      },
+      {
+        sku: 'SKU-007',
+        name: 'Basmati Rice 10kg',
+        unitsSold: 150,
+        revenue: 300000,
+      },
+    ],
+  },
+  inventory: {
+    vanStock: {
+      totalLoaded: 3500000,
+      totalRemaining: 1450000,
+      utilizationRate: 58.57,
+    },
+  },
+  routePerformance: {
+    totalRoutes: 15,
+    completed: 0,
+    inProgress: 12,
+    notStarted: 3,
+    onTimePerformance: 86.7,
+  },
+  collectionMetrics: {
+    cashCollection: 1200000,
+    chequeCollection: 450000,
+    bankTransfer: 440000,
+    outstandingReceivables: 8500000,
+    overdueAccounts: 23,
+  },
+  promotionTracking: {
+    topPromotions: [
+      {
+        id: 'PROMO-001',
+        name: 'Buy 10 Get 1 Free',
+        applied: 18,
+        incrementalSales: 180000,
+      },
+      {
+        id: 'PROMO-002',
+        name: '5% Off Invoice > 5000',
+        applied: 12,
+        incrementalSales: 120000,
+      },
+    ],
+  },
+};
+
+const colorClasses: Record<string, string> = {
+  blue: 'bg-blue-50 text-blue-600',
+  green: 'bg-green-50 text-green-600',
+  orange: 'bg-orange-50 text-orange-600',
+  purple: 'bg-purple-50 text-purple-600',
+  red: 'bg-red-50 text-red-600',
+};
+
 // KPI Card Component
 const KPICard: React.FC<KPICardProps> = ({
                                            title,
@@ -206,15 +330,6 @@ const KPICard: React.FC<KPICardProps> = ({
                                            trendValue,
                                            color = 'blue',
                                          }) => {
-
-  const colorClasses: Record<string, string> = {
-    blue: 'bg-blue-50 text-blue-600',
-    green: 'bg-green-50 text-green-600',
-    orange: 'bg-orange-50 text-orange-600',
-    purple: 'bg-purple-50 text-purple-600',
-    red: 'bg-red-50 text-red-600',
-  };
-
   return (
     <>
       <Card>
@@ -248,6 +363,10 @@ const KPICard: React.FC<KPICardProps> = ({
 
 // Main Dashboard Component
 export const DashboardPage: React.FC = () => {
+  useMetadata({
+    pageTitle: 'Dashboard',
+    breadcrumbs: [],
+  });
   // Chart configuration using the hook
   const salesChartConfig = useChartConfig(
     'sales',
@@ -265,119 +384,6 @@ export const DashboardPage: React.FC = () => {
     collectionsData,
     'collections', // using preset
   );
-
-  const dashboardData = {
-    liveTracking: {
-      totalVans: 15,
-      onRoute: 12,
-      atWarehouse: 2,
-      idle: 1,
-    },
-    pendingApprovals: {
-      vanLoadRequests: 3,
-      emergencyLoadRequests: 1,
-      creditApprovals: 2,
-      returnApprovals: 1,
-      discountRequests: 2,
-    },
-    alerts: [
-      {
-        id: 'ALT-001',
-        type: 'route_deviation',
-        severity: 'high' as const,
-        vanId: 'VAN-LHR-03',
-        repName: 'Imran Ahmed',
-        message: 'Van deviated 5km from planned route',
-        timestamp: '2025-10-09T14:15:00Z',
-      },
-      {
-        id: 'ALT-002',
-        type: 'stock_variance',
-        severity: 'medium' as const,
-        vanId: 'VAN-LHR-07',
-        repName: 'Sara Malik',
-        message: 'Stock variance detected: PKR 15,000',
-        timestamp: '2025-10-09T13:50:00Z',
-      },
-    ],
-    salesAnalytics: {
-      today: {
-        totalSales: 2450000,
-        cashSales: 1200000,
-        creditSales: 1250000,
-        target: 3000000,
-        achievement: 81.67,
-        ordersCount: 245,
-        avgOrderValue: 10000,
-      },
-      weekly: {
-        dailyBreakdown: [
-          { day: 'Mon', sales: 2800000, target: 3000000 },
-          { day: 'Tue', sales: 2950000, target: 3000000 },
-          { day: 'Wed', sales: 2850000, target: 3000000 },
-          { day: 'Thu', sales: 3000000, target: 3000000 },
-          { day: 'Fri', sales: 2900000, target: 3000000 },
-        ],
-      },
-      topProducts: [
-        {
-          sku: 'SKU-001',
-          name: 'Premium Tea 500g',
-          unitsSold: 450,
-          revenue: 450000,
-        },
-        {
-          sku: 'SKU-012',
-          name: 'Cooking Oil 5L',
-          unitsSold: 320,
-          revenue: 640000,
-        },
-        {
-          sku: 'SKU-007',
-          name: 'Basmati Rice 10kg',
-          unitsSold: 150,
-          revenue: 300000,
-        },
-      ],
-    },
-    inventory: {
-      vanStock: {
-        totalLoaded: 3500000,
-        totalRemaining: 1450000,
-        utilizationRate: 58.57,
-      },
-    },
-    routePerformance: {
-      totalRoutes: 15,
-      completed: 0,
-      inProgress: 12,
-      notStarted: 3,
-      onTimePerformance: 86.7,
-    },
-    collectionMetrics: {
-      cashCollection: 1200000,
-      chequeCollection: 450000,
-      bankTransfer: 440000,
-      outstandingReceivables: 8500000,
-      overdueAccounts: 23,
-    },
-    promotionTracking: {
-      topPromotions: [
-        {
-          id: 'PROMO-001',
-          name: 'Buy 10 Get 1 Free',
-          applied: 18,
-          incrementalSales: 180000,
-        },
-        {
-          id: 'PROMO-002',
-          name: '5% Off Invoice > 5000',
-          applied: 12,
-          incrementalSales: 120000,
-        },
-      ],
-    },
-  };
 
   const totalApprovals = Object.values(dashboardData.pendingApprovals).reduce(
     (a, b) => a + b,

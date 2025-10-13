@@ -599,8 +599,8 @@
         },
         {
           "module_name": "Role Management",
-          "permission_name": "role.update",
-          "description": "Update roles"
+          "permission_name": "role.edit",
+          "description": "Edit roles"
         },
         {
           "module_name": "Role Management",
@@ -613,9 +613,44 @@
           "description": "Deactivate and archive roles"
         },
         {
-          "module_name": "Role Management",
-          "permission_name": "role.view_audit_log",
-          "description": "View role audit logs"
+          "module_name": "User Management",
+          "permission_name": "user.view_audit_log",
+          "description": "View user audit logs"
+        },
+        {
+          "module_name": "User Management",
+          "permission_name": "hierarchy.view",
+          "description": "View user hierarchy"
+        },
+        {
+          "module_name": "User Management",
+          "permission_name": "hierarchy.edit",
+          "description": "Edit user hierarchy"
+        },
+        {
+          "module_name": "User Management",
+          "permission_name": "user.create",
+          "description": "Create users"
+        },
+        {
+          "module_name": "User Management",
+          "permission_name": "user.view",
+          "description": "View users"
+        },
+        {
+          "module_name": "User Management",
+          "permission_name": "user.edit",
+          "description": "Edit users"
+        },
+        {
+          "module_name": "User Management",
+          "permission_name": "user.delete",
+          "description": "Delete users"
+        },
+        {
+          "module_name": "Van Representative",
+          "permission_name": "van_rep.view",
+          "description": "View Van Representative Details"
         }
       ]
     }

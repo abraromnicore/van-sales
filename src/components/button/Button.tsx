@@ -1,5 +1,7 @@
 import { clsx } from 'clsx';
 import type { ButtonHTMLAttributes, ReactElement } from 'react';
+import { Link } from 'react-router';
+import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 type ButtonProps = {
   icon?: ReactElement<any, any>;
@@ -7,6 +9,8 @@ type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'outline' | 'ghost';
   className?: string;
   onClick?: (e) => void;
+  to?: string;
+  btnType?: 'link' | 'button' | 'submit' | 'reset';
 } & ButtonHTMLAttributes<HTMLButtonElement>; // so props like onClick, disabled, etc. still work
 
 export const Button = (props: ButtonProps) => {
@@ -15,6 +19,8 @@ export const Button = (props: ButtonProps) => {
     label,
     variant = 'primary',
     className = '',
+    to = DEFAULT_ROUTE,
+    btnType = 'button',
     ...rest
   } = props;
 
@@ -38,9 +44,22 @@ export const Button = (props: ButtonProps) => {
       'bg-transparent text-blue-600 hover:bg-blue-100 focus:ring-blue-300 disabled:text-gray-400 disabled:hover:bg-transparent',
   };
 
+  if (btnType === 'link') {
+    return (
+      <Link
+        className={clsx(baseStyles, variants[variant], className)}
+        to={to}
+      >
+        {icon && <span className="flex items-center">{icon}</span>}
+          <span>{label}</span>
+      </Link>
+    );
+  }
+
   return (
     <button
       className={clsx(baseStyles, variants[variant], className)}
+      type={btnType}
       {...rest}
     >
       {icon && <span className="flex items-center">{icon}</span>}

@@ -4,7 +4,7 @@ export const DEFAULT_ROUTE = LOGIN_ROUTE;
 export const DASHBOARD_ROUTE = '/dashboard';
 /**
  * User Management Routes
-*/
+ */
 export const UM_ROUTE = '/um';
 export const ROLES_ROUTE = `${UM_ROUTE}/roles`;
 export const CREATE_ROLE_ROUTE = `${UM_ROUTE}/roles/create`;
@@ -14,10 +14,16 @@ export const VIEW_ROLE_ROUTE = `${UM_ROUTE}/roles/view/{roleId}`;
  * Users Routes
  */
 export const USERS_ROUTE = `${UM_ROUTE}/users`;
-export const CREATE_USER_ROUTE = `${UM_ROUTE}/users/create`;
-export const EDIT_USER_ROUTE = `${UM_ROUTE}/users/edit/{userId}`;
-export const VIEW_USER_ROUTE = `${UM_ROUTE}/users/view/{userId}`;
-export const USER_HIERARCHY_ROUTE = `${UM_ROUTE}/users/hierarchy`;
+export const CREATE_USER_ROUTE = `${USERS_ROUTE}/create`;
+export const EDIT_USER_ROUTE = `${USERS_ROUTE}/edit/{userId}`;
+export const VIEW_USER_ROUTE = `${USERS_ROUTE}/view/{userId}`;
+export const USER_HIERARCHY_ROUTE = `${USERS_ROUTE}/hierarchy`;
+export const VIEW_USER_HIERARCHY_ROUTE = `${USERS_ROUTE}/hierarchy/view/{id}`;
+export const EDIT_USER_HIERARCHY_ROUTE = `${USERS_ROUTE}/hierarchy/edit/{id}`;
+/**
+ * Van Representative Routes
+ */
+export const VAN_REPRESENTATIVE_ROUTE = `/van-rep`;
 /**
  * Other Routes
  */
