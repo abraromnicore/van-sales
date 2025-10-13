@@ -1,10 +1,19 @@
 import { Action } from '@/casl/action.ts';
 import { Subject } from '@/casl/subject.ts';
+import {
+  CREATE_USER_ROUTE,
+  EDIT_USER_ROUTE,
+  UM_ROUTE,
+  USER_HIERARCHY_ROUTE,
+  USERS_ROUTE,
+  VIEW_USER_ROUTE,
+} from '@utils/constant/app-route.constants.ts';
 
 export const userPermissions = {
-  '/users': { action: Action.View, subject: Subject.User },
-  '/users/new': { action: Action.Create, subject: Subject.User },
-  '/users/:id': { action: Action.View, subject: Subject.User },
-  '/users/:id/edit': { action: Action.Update, subject: Subject.User },
-  '/user-management': { action: Action.Access, subject: Subject.UserManagement },
+  [UM_ROUTE]: { action: Action.Access, subject: Subject.UserManagement },
+  [USERS_ROUTE]: { action: Action.View, subject: Subject.User },
+  [CREATE_USER_ROUTE]: { action: Action.Create, subject: Subject.User },
+  [EDIT_USER_ROUTE]: { action: Action.Update, subject: Subject.User },
+  [VIEW_USER_ROUTE]: { action: Action.View, subject: Subject.User },
+  [USER_HIERARCHY_ROUTE]: { action: Action.View, subject: Subject.User },
 };

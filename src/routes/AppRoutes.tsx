@@ -91,7 +91,7 @@ export const appRoutes = [
                   },
                 ],
               },
-                {
+              {
                 path: 'users',
                 children: [
                   {
@@ -125,6 +125,14 @@ export const appRoutes = [
                           .ViewUserPage,
                     },
                   },
+                  {
+                    path: 'hierarchy',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UserHierarchyPage'))
+                          .UserHierarchyPage,
+                    },
+                  },
                 ],
               },
             ],
@@ -138,7 +146,7 @@ export const appRoutes = [
                   Component: async () =>
                     (await import('@pages/van-rep/VanRepDetailPage')).VanRepDetailPage,
                 },
-              }
+              },
             ],
           },
           {
@@ -150,10 +158,17 @@ export const appRoutes = [
                   Component: async () =>
                     (await import('@pages/load-req/LoadReqDetail')).LoadReqDetail,
                 },
-              }
+              },
             ],
-          }
+          },
         ],
+      },
+      {
+        path: '/unauthorized',
+        lazy: {
+          Component: async () =>
+            (await import('@pages/common/UnAuthorizedPage.tsx')).UnAuthorizedPage,
+        },
       },
     ],
   },

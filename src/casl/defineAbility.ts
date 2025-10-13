@@ -5,6 +5,7 @@ import type { Action } from '@/casl/action.ts';
 export type AppAbility = MongoAbility<[Action, Subject]>;
 
 export function buildAbilityFromPermissions(permissions: any[]): AppAbility {
+  if (!permissions || !permissions.length || permissions.length === 0) return createMongoAbility<AppAbility>();
   const rules: any[] = [];
 
   // action-level rules

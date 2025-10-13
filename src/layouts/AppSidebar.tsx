@@ -6,7 +6,12 @@ import { useSidebar } from '../context/SidebarContext';
 import { ChevronDown, LayoutDashboard, Truck, Users } from 'lucide-react';
 
 import appLogo from '@assets/images/static/logo.png';
-import { DASHBOARD_ROUTE, ROLES_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
+import {
+  DASHBOARD_ROUTE,
+  ROLES_ROUTE,
+  USER_HIERARCHY_ROUTE,
+  USERS_ROUTE,
+} from '@utils/constant/app-route.constants.ts';
 
 type NavItem = {
   name: string;
@@ -32,6 +37,7 @@ const navItems: NavItem[] = [
     subItems: [
       { name: 'Roles', path: ROLES_ROUTE },
       { name: 'Users', path: USERS_ROUTE },
+      { name: 'User Hierarchy', path: USER_HIERARCHY_ROUTE },
     ],
   },
 ];
@@ -176,7 +182,7 @@ const AppSidebar: React.FC = () => {
           {isExpanded || isHovered || isMobileOpen ? (
             <>
               <img
-                style={{width: 30, height: 30}}
+                style={{ width: 30, height: 30 }}
                 className="block"
                 src={appLogo}
                 alt="Logo"

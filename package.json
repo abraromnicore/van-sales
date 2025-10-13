@@ -30,6 +30,7 @@
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.63.0",
     "react-i18next": "^16.0.0",
+    "react-organizational-chart": "^2.2.1",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.9.1",
     "react-select": "^5.10.2",

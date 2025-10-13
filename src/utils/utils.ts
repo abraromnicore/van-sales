@@ -62,6 +62,6 @@ export const setPermissions = (permissions: any) => {
 };
 
 export const getPermissions = () => {
-  const permissionsString = localStorage.getItem(APP_PERMISSIONS) ?? '';
+  const permissionsString = localStorage.getItem(APP_PERMISSIONS) ?? 'null';
   return JSON.parse(permissionsString);
 };
