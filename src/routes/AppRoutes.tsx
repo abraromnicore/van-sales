@@ -3,6 +3,8 @@ import { routeGuardLoader } from '@/guards/route-guard.loader.ts';
 import { Navigate } from 'react-router-dom';
 import * as React from 'react';
 import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { UmRoutes } from '@routes/um/UmRoutes.ts';
+import { VanRepRoutes } from '@routes/van-rep/VanRepRoutes.ts';
 
 export const appRoutes = [
   {
@@ -172,7 +174,16 @@ export const appRoutes = [
               }
             ],
           },
+          ...UmRoutes,
+          ...VanRepRoutes,
         ],
+      },
+      {
+        path: '/unauthorized',
+        lazy: {
+          Component: async () =>
+            (await import('@pages/common/UnAuthorizedPage.tsx')).UnAuthorizedPage,
+        },
       },
     ],
   },

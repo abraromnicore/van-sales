@@ -3,6 +3,8 @@ export const Subject = {
   Cards: 'cards',
   RoleManagement: 'Role Management',
   Role: 'role',
+  User: 'user',
+  UserManagement: 'User Management',
   All: 'all',
 } as const;
 
