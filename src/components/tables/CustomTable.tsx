@@ -46,7 +46,7 @@ export const CustomTable = (props: TableProps) => {
             style={col.style}
           />
         ))}
-        <Column
+        {(menuModel && menuModel?.length > 0) && (<Column
           header=""
           alignFrozen="right"
           body={(row) => (
@@ -61,7 +61,7 @@ export const CustomTable = (props: TableProps) => {
           )}
           headerClassName="px-2 py-2"
           bodyClassName="px-2 py-2 text-right"
-        />
+        />)}
       </DataTable>
     </div>
   );

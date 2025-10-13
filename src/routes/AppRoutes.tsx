@@ -91,7 +91,7 @@ export const appRoutes = [
                   },
                 ],
               },
-                {
+              {
                 path: 'users',
                 children: [
                   {
@@ -125,7 +125,26 @@ export const appRoutes = [
                           .ViewUserPage,
                     },
                   },
+                  {
+                    path: 'logs/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UserAuditLogPage')).UserAuditLogPage,
+                    },
+                  }
                 ],
+              },
+              {
+                path: 'logs',
+                children: [
+                  {
+                    index: true,
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/VanSalesAuditLogPage')).VanSalesAuditLogPage,
+                    },
+                  },
+                ]
               },
             ],
           },
@@ -152,7 +171,7 @@ export const appRoutes = [
                 },
               }
             ],
-          }
+          },
         ],
       },
     ],

@@ -527,7 +527,7 @@
       "gender": "male",
       "dateOfBirth": "1987-10-14",
       "email": "mtoaste12er@gmail.com",
-      "status": "active",
+      "status": "deactivate",
       "roleName": "Again test role2"
     },
     {
@@ -537,7 +537,7 @@
       "gender": "male",
       "dateOfBirth": "1955-10-11",
       "email": "mumar@gmail.com",
-      "status": "active",
+      "status": "deactivate",
       "roleName": "Driver"
     },
     {

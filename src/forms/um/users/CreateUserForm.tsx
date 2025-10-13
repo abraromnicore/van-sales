@@ -170,7 +170,7 @@ export const UserForm = (props: UserFormProps) => {
             options={[
               { label: 'Active', value: 'active' },
               { label: 'Inactive', value: 'inactive' },
-              { label: 'Pending', value: 'pending' }
+              { label: 'Deactivate', value: 'deactivate' }
             ]}
             placeholder="Select status"
             required={true}
