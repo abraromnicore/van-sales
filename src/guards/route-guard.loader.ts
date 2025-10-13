@@ -1,6 +1,6 @@
 import { getPermissions } from '@utils/utils.ts';
 import { buildAbilityFromPermissions } from '@/casl/defineAbility.ts';
-import { LOGIN_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { LOGIN_ROUTE, UNAUTHORIZED_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { routePermissions } from '@/casl/routePermissions';
 import { redirect } from 'react-router-dom';
 
@@ -21,5 +21,7 @@ export const routeGuardLoader = async ({ request }: { request: Request }) => {
     if (ability.cannot(rule.action, rule.subject)) {
       throw redirect(LOGIN_ROUTE);
     }
+  } else {
+    throw redirect(UNAUTHORIZED_ROUTE);
   }
 };
