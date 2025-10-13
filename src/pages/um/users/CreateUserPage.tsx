@@ -33,28 +33,28 @@ export const CreateUserPage = () => {
       },
     ],
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [visibleViewRole, setVisibleViewRole] = useState<boolean>(true);
-  
+
   const { control, submitHandler, isValid, errors, getValues } = useCreateUser();
   const { roles, loading: rolesLoading } = useRolesList();
   return (
     <PageLayout>
-        <CustomDialog size={'xl'} onHide={() => navigate(USERS_ROUTE)} visible={visibleViewRole} dismissableMask = {false}>
-              <CustomDialogHeader onHide={() => navigate(USERS_ROUTE)} title={'Create User'} />
-              <CustomDialogBody>
-                     <UserForm 
-                       control={control} 
-                       submitHandler={submitHandler} 
-                       isValid={isValid} 
-                       getValues={getValues} 
-                       errors={errors}
-                       roles={roles}
-                       rolesLoading={rolesLoading}
-                       mode="create"
-                     />
-              </CustomDialogBody>
-            </CustomDialog>
+      <CustomDialog size={'xl'} onHide={() => navigate(USERS_ROUTE)} visible={visibleViewRole} dismissableMask={false}>
+        <CustomDialogHeader onHide={() => navigate(USERS_ROUTE)} title={'Create User'} />
+        <CustomDialogBody>
+          <UserForm
+            control={control}
+            submitHandler={submitHandler}
+            isValid={isValid}
+            getValues={getValues}
+            errors={errors}
+            roles={roles}
+            rolesLoading={rolesLoading}
+            mode="create"
+          />
+        </CustomDialogBody>
+      </CustomDialog>
     </PageLayout>
   );
 };

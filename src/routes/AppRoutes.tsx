@@ -6,7 +6,7 @@ import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { UmRoutes } from '@routes/um/UmRoutes.ts';
 import { VanRepRoutes } from '@routes/van-rep/VanRepRoutes.ts';
 
-export const appRoutes = [
+export const appRoutes: any = [
   {
     path: '',
     HydrateFallback: AppLoader,

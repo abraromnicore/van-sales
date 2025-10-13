@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Card } from 'primereact/card';
 import { PageLayout } from '@layouts/Pagelayout';
-import { CustomTable, type ColumMeta } from '@components/tables/CustomTable';
-import { CustomDropdown } from '@components/dropdown/Dropdown';
+import { type ColumMeta, CustomTable } from '@components/tables/CustomTable';
 import { CalendarRangeControl } from '@components/multi-date-select/CustomDateRange';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '@components/button/Button';
@@ -10,10 +9,10 @@ import { SelectControl } from '@components/forms/SelectControl';
 
 export const VanSalesAuditLogPage = () => {
   const [selectedItem, setSelectedItem] = useState(null);
-    const methods = useForm({
+  const methods = useForm({
     defaultValues: {
-      startDate: null,
-      endDate: null,
+      startDate: new Date(),
+      endDate: new Date(),
     },
   });
   const logs = [
@@ -42,7 +41,7 @@ export const VanSalesAuditLogPage = () => {
       details: 'Initial role set to "User"',
     },
   ];
-    const userLogColumns: ColumMeta[] = [
+  const userLogColumns: ColumMeta[] = [
     { field: 'action', header: 'Action' },
     { field: 'changedBy', header: 'Changed By' },
     {
@@ -74,61 +73,61 @@ export const VanSalesAuditLogPage = () => {
     { label: 'Manager', value: 'manager' },
 
   ];
-    const onSubmit = (data: any) => console.log('Form data:', data);
+  const onSubmit = (data: any) => console.log('Form data:', data);
 
   return (
-  <PageLayout>
+    <PageLayout>
       <div className="p-6">
         <Card title={`Audit Logs Van Sales`} className="shadow-md">
           <div className="flex flex-wrap items-center justify-between mb-4 gap-3">
             <div className="flex gap-3 items-center">
               <div className="p-6 !pl-0 space-y-4">
-              <FormProvider {...methods}>
-                <form
-                  onSubmit={methods.handleSubmit(onSubmit)}
-                  className="flex items-end space-x-4 p-6 bg-white rounded-md shadow-sm"
-                >
-                  <CalendarRangeControl
-                    control={methods.control}
-                    nameStart="startDate"
-                    nameEnd="endDate"
-                    labelStart="From Date"
-                    labelEnd="To Date"
-                    required
-                  />
-                  <SelectControl
-                    control={methods.control}
-                    name="filterbyRole"
-                    label="Filter by Role"
-                    options={userOptions}
-                    placeholder="Filter by Role"
-                    required={true}
-                    className="!py-0"
-                  />
-                  <Button
-                    type="submit"
-                    label='Submit'
-                    variant='primary'
-                    className='mb-1'
-                  />
-                  <Button
-                  label="Export CSV"
-                  // icon="pi pi-download"
-                  className="p-button-sm p-button-outlined mb-1"
-                  onClick={exportCSV}
-                />
-                </form>
-              </FormProvider>
+                <FormProvider {...methods}>
+                  <form
+                    onSubmit={methods.handleSubmit(onSubmit)}
+                    className="flex items-end space-x-4 p-6 bg-white rounded-md shadow-sm"
+                  >
+                    <CalendarRangeControl
+                      control={methods.control}
+                      nameStart="startDate"
+                      nameEnd="endDate"
+                      labelStart="From Date"
+                      labelEnd="To Date"
+                      required
+                    />
+                    <SelectControl
+                      control={methods.control}
+                      name="filterbyRole"
+                      label="Filter by Role"
+                      options={userOptions}
+                      placeholder="Filter by Role"
+                      required={true}
+                      className="!py-0"
+                    />
+                    <Button
+                      type="submit"
+                      label="Submit"
+                      variant="primary"
+                      className="mb-1"
+                    />
+                    <Button
+                      label="Export CSV"
+                      // icon="pi pi-download"
+                      className="p-button-sm p-button-outlined mb-1"
+                      onClick={exportCSV}
+                    />
+                  </form>
+                </FormProvider>
+              </div>
             </div>
           </div>
-              </div>
-              <CustomTable
-                data={logs}
-                columns={userLogColumns}
-                setSelectedItem={setSelectedItem}
-              />
-            </Card>
-          </div>
+          <CustomTable
+            data={logs}
+            columns={userLogColumns}
+            setSelectedItem={setSelectedItem}
+          />
+        </Card>
+      </div>
     </PageLayout>
   );
-}
+};
