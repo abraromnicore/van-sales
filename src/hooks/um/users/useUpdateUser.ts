@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { userSchema } from '@/schemas/um/users/user.schema.ts';
+import { updateUserSchema } from '@/schemas/um/users/user.schema.ts';
 import { useAppDispatch } from '@/store/hooks.ts';
 import { USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
@@ -28,18 +28,16 @@ export const useUpdateUser = () => {
     reset,
     formState: { errors, isValid, touchedFields },
   } = useForm({
-    resolver: yupResolver(userSchema, { abortEarly: false }),
+    resolver: yupResolver(updateUserSchema, { abortEarly: false }),
     mode: 'onChange',
         defaultValues: {
           firstName: '',
           lastName: '',
           username: '',
           email: '',
-          password: '',
-          confirmPassword: '',
-          gender: '',
+          gender: undefined,
           dateOfBirth: undefined,
-          status: '',
+          status: undefined,
           roleId: '',
           profilePicture: null,
         },
@@ -62,11 +60,9 @@ export const useUpdateUser = () => {
             lastName: userToUpdate.lastName,
             username: userToUpdate.username,
             email: userToUpdate.email,
-            password: userToUpdate.password,
-            confirmPassword: userToUpdate.password,
-            gender: userToUpdate.gender,
+            gender: userToUpdate.gender as 'male' | 'female' | 'other',
             dateOfBirth: userToUpdate.dateOfBirth ? new Date(userToUpdate.dateOfBirth) : undefined,
-            status: userToUpdate.status,
+            status: userToUpdate.status as 'active' | 'inactive' | 'pending',
             roleId: userRole?.id || '',
             profilePicture: userToUpdate.profilePicture || null,
           });
@@ -93,7 +89,7 @@ export const useUpdateUser = () => {
         lastName: formData.lastName,
         username: formData.username,
         email: formData.email,
-        password: formData.password,
+        password: userToUpdate.password, // Keep existing password
         gender: formData.gender,
         dateOfBirth: formattedDate,
         status: formData.status,

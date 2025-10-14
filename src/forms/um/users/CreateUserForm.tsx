@@ -114,22 +114,24 @@ export const UserForm = (props: UserFormProps) => {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-          <PasswordControl
-            control={control}
-            name="password"
-            label="Password"
-            placeholder="Enter password"
-            required={true}
-          />
-          <PasswordControl
-            control={control}
-            name="confirmPassword"
-            label="Confirm Password"
-            placeholder="Confirm password"
-            required={true}
-          />
-        </div>
+        {mode === 'create' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <PasswordControl
+              control={control}
+              name="password"
+              label="Password"
+              placeholder="Enter password"
+              required={true}
+            />
+            <PasswordControl
+              control={control}
+              name="confirmPassword"
+              label="Confirm Password"
+              placeholder="Confirm password"
+              required={true}
+            />
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
           <SelectControl

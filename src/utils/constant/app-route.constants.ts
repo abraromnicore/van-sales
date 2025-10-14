@@ -24,6 +24,10 @@ export const EDIT_USER_HIERARCHY_ROUTE = `${USERS_ROUTE}/hierarchy/edit/{id}`;
  * Van Representative Routes
  */
 export const VAN_REPRESENTATIVE_ROUTE = `/van-rep`;
+export const VAN_REP_LIST_ROUTE = `${VAN_REPRESENTATIVE_ROUTE}/list`;
+export const VAN_REP_HIERARCHY_ROUTE = `${VAN_REPRESENTATIVE_ROUTE}/hierarchy`;
+export const VIEW_VAN_REP_HIERARCHY_ROUTE = `${VAN_REP_HIERARCHY_ROUTE}/view/{id}`;
+export const EDIT_VAN_REP_HIERARCHY_ROUTE = `${VAN_REP_HIERARCHY_ROUTE}/edit/{id}`;
 /**
  * Other Routes
  */

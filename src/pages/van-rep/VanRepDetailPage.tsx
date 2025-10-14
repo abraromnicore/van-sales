@@ -9,7 +9,8 @@ import {
   Package2,
   Gauge,
   CheckCircle,
-  XCircle, Pin,
+  Pin,
+  Truck,
 } from 'lucide-react';
 import { Card } from '@components/app-cards/card/Card';
 import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
@@ -18,11 +19,11 @@ import { CustomTable } from '@components/tables/CustomTable.tsx';
 import { VIEW_LOAD_REQ_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/button/Button.tsx';
-import { confirmDialog } from 'primereact/confirmdialog';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
+import { VanAssignmentDialog } from '@components/dialog/VanAssignmentDialog.tsx';
 import { CardFooter } from '@components/app-cards/card/CardFooter.tsx';
 import MapView from '@components/MapView.tsx';
 
@@ -44,6 +45,7 @@ const vanRepDetail = {
     odometerStart: 45230,
     odometerCurrent: 45300,
     distanceTraveled: 70,
+    isAssigned: false, // New field to track if van is assigned - Set to false to test empty state
   },
   stockDetails: {
     currentStockValue: 150000,
@@ -253,15 +255,26 @@ const vanRepDetail = {
 };
 
 export const VanRepDetailPage = () => {
-  const { personalInfo, vanDetails, loadRequests } = vanRepDetail;
+  const { personalInfo, loadRequests } = vanRepDetail;
   const navigate = useNavigate();
-  const { showSuccess,showError } = useAppToast();
+  const { showSuccess, showError } = useAppToast();
 
-  // const [showCreateUser, setShowCreateUser] = React.useState(false);
-
-  const [selectedItem, setSelectedItem] = React.useState();
+  // Dynamic van details state - Start with no van assigned
+  const [vanDetails, setVanDetails] = React.useState({
+    vanId: '',
+    registrationNumber: '',
+    capacity: 0,
+    currentLoad: 0,
+    odometerStart: 0,
+    odometerCurrent: 0,
+    distanceTraveled: 0,
+    isAssigned: false,
+  });
+  const [selectedItem, setSelectedItem] = React.useState<any>();
   const [visibleReject, setVisibleReject] = React.useState(false);
   const [showTerritory, setShowTerritory] = React.useState(false);
+  const [showVanAssignment, setShowVanAssignment] = React.useState(false);
+  const [vanAssignmentMode, setVanAssignmentMode] = React.useState<'assign' | 'update'>('assign');
   const tieredMenu = [
     {
       label: 'View',
@@ -274,8 +287,8 @@ export const VanRepDetailPage = () => {
       command: () => handleApprove(),
     },
     {
-      label: 'Rejected',
-      icon: <XCircle />,
+      label: 'Reject',
+      icon: <CheckCircle />,
       command: () => handleReject(),
     },
   ];
@@ -308,9 +321,6 @@ export const VanRepDetailPage = () => {
 
   const onView = () => {
     navigate(VIEW_LOAD_REQ_ROUTE);
-  };
-  const acceptCloseApprove = () => {
-    showSuccess('Load Request', 'Load Request Accept Successfully');
   };
 
   const getStatusColor = (status: string) => {
@@ -350,7 +360,7 @@ export const VanRepDetailPage = () => {
     setVisibleReject(true);
   };
 
-  const handleRejectSubmit = (reason: string) => {
+  const handleRejectSubmit = (data: string) => {
     showConfirmation({
       message: 'Are You Sure to Reject the Load Request?',
       header: 'Reject Confirmation',
@@ -361,7 +371,7 @@ export const VanRepDetailPage = () => {
     });
   };
 
-  const handleTerritorySubmit = (territory: string) => {
+  const handleTerritorySubmit = (data: { country: string; city: string; area: string }) => {
     showConfirmation({
       message: 'Are You Sure to Change the Territory?',
       header: 'Approve Confirmation',
@@ -369,13 +379,143 @@ export const VanRepDetailPage = () => {
         showSuccess('Change Territory', 'Territory Changed Successfully');
         setShowTerritory(false);
         // Here you would typically make an API call with the territory value
-        console.log('Selected territory:', territory);
+        console.log('Selected territory:', data);
       },
     });
   };
-  const onChangeTerritory = (value: string) => {
+  const onChangeTerritory = () => {
     setShowTerritory(true);
-  }
+  };
+
+  const handleVanAssignment = () => {
+    if (vanDetails.isAssigned) {
+      setVanAssignmentMode('update');
+    } else {
+      setVanAssignmentMode('assign');
+    }
+    setShowVanAssignment(true);
+  };
+
+  const handleVanAssignmentSubmit = (data: { driverName: string; vanId: string }) => {
+    showConfirmation({
+      message: `Are you sure you want to ${vanAssignmentMode === 'assign' ? 'assign' : 'update'} this van?`,
+      header: `${vanAssignmentMode === 'assign' ? 'Assign' : 'Update'} Van Confirmation`,
+      onConfirm: () => {
+        // Update van details based on the selected van
+        const selectedVan = getVanDetailsById(data.vanId);
+        if (selectedVan) {
+          setVanDetails({
+            ...selectedVan,
+            isAssigned: true,
+          });
+        }
+
+        setShowVanAssignment(false);
+        showSuccess(
+          'Van Assignment',
+          `Van ${vanAssignmentMode === 'assign' ? 'assigned' : 'updated'} successfully`
+        );
+        // Here you would typically make an API call to update the van assignment
+        console.log('Van assignment data:', data);
+      },
+    });
+  };
+
+  // Helper function to get van details by ID
+  const getVanDetailsById = (vanId: string) => {
+    const vanData = {
+      'VAN-LHR-01': {
+        vanId: 'VAN-LHR-01',
+        registrationNumber: 'LES-2024-001',
+        brand: 'Toyota',
+        model: 'Hiace',
+        capacity: 300000,
+        currentLoad: 150000,
+        odometerStart: 45230,
+        odometerCurrent: 45300,
+        distanceTraveled: 70,
+      },
+      'VAN-LHR-02': {
+        vanId: 'VAN-LHR-02',
+        registrationNumber: 'LES-2024-002',
+        brand: 'Ford',
+        model: 'Transit',
+        capacity: 350000,
+        currentLoad: 200000,
+        odometerStart: 45250,
+        odometerCurrent: 45320,
+        distanceTraveled: 90,
+      },
+      'VAN-LHR-03': {
+        vanId: 'VAN-LHR-03',
+        registrationNumber: 'LES-2024-003',
+        brand: 'Mercedes',
+        model: 'Sprinter',
+        capacity: 280000,
+        currentLoad: 120000,
+        odometerStart: 45180,
+        odometerCurrent: 45250,
+        distanceTraveled: 45,
+      },
+      'VAN-LHR-04': {
+        vanId: 'VAN-LHR-04',
+        registrationNumber: 'LES-2024-004',
+        brand: 'Nissan',
+        model: 'NV200',
+        capacity: 320000,
+        currentLoad: 180000,
+        odometerStart: 45300,
+        odometerCurrent: 45380,
+        distanceTraveled: 110,
+      },
+      'VAN-LHR-05': {
+        vanId: 'VAN-LHR-05',
+        registrationNumber: 'LES-2024-005',
+        brand: 'Isuzu',
+        model: 'NPR',
+        capacity: 290000,
+        currentLoad: 140000,
+        odometerStart: 45200,
+        odometerCurrent: 45270,
+        distanceTraveled: 60,
+      },
+      'VAN-LHR-06': {
+        vanId: 'VAN-LHR-06',
+        registrationNumber: 'LES-2024-006',
+        brand: 'Hyundai',
+        model: 'H350',
+        capacity: 310000,
+        currentLoad: 160000,
+        odometerStart: 45260,
+        odometerCurrent: 45340,
+        distanceTraveled: 85,
+      },
+      'VAN-LHR-07': {
+        vanId: 'VAN-LHR-07',
+        registrationNumber: 'LES-2024-007',
+        brand: 'Mitsubishi',
+        model: 'L300',
+        capacity: 270000,
+        currentLoad: 100000,
+        odometerStart: 45150,
+        odometerCurrent: 45220,
+        distanceTraveled: 35,
+      },
+      'VAN-LHR-08': {
+        vanId: 'VAN-LHR-08',
+        registrationNumber: 'LES-2024-008',
+        brand: 'Volkswagen',
+        model: 'Crafter',
+        capacity: 330000,
+        currentLoad: 220000,
+        odometerStart: 45320,
+        odometerCurrent: 45400,
+        distanceTraveled: 125,
+      },
+    };
+
+    return vanData[vanId as keyof typeof vanData];
+  };
 
   return (
     <>
@@ -428,7 +568,7 @@ export const VanRepDetailPage = () => {
               </CardBody>
               <CardFooter>
                 <div className={`flex justify-end w-full`}>
-                  <Button className={`outline-none focus-none`} icon={<Pin className={'w-5 h-5'}/>} variant={`ghost`} onClick={()=>onChangeTerritory()} label={`Change Territory`} />
+                  <Button className={`outline-none focus-none`} icon={<Pin className={'w-5 h-5'}/>} variant={`ghost`} onClick={onChangeTerritory} label={`Change Territory`} />
                   <TerritoryChangeDialog
                     visible={showTerritory}
                     onHide={() => setShowTerritory(false)}
@@ -510,8 +650,17 @@ export const VanRepDetailPage = () => {
         </div>
         <div>
           <Card>
-            <CardHeader title={'Van Details'} />
+            <CardHeader title={'Van Details'}>
+              <Button
+                variant="primary"
+                icon={<Truck className="w-4 h-4" />}
+                onClick={handleVanAssignment}
+                label={vanDetails.isAssigned ? 'Update Van' : 'Assign Van'}
+              />
+            </CardHeader>
             <CardBody>
+              {vanDetails.isAssigned ? (
+                <>
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6">
                 {/* Info Section */}
                 <div className="flex-1">
@@ -537,7 +686,7 @@ export const VanRepDetailPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="space-y-3 grid-cols-1 lg:grid grid-cols-2 gap-x-6 gap-y-3">
+                  <div className="space-y-3 lg:grid grid-cols-2 gap-x-6 gap-y-3">
                 <div className="flex items-center text-gray-700">
                   <Package2 className="w-5 h-5 mr-3 text-gray-400" />
                   <span>
@@ -566,6 +715,26 @@ export const VanRepDetailPage = () => {
                   </span>
                 </div>
               </div>
+                </>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Truck className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    No Van Assigned
+                  </h3>
+                  <p className="text-gray-500 mb-4">
+                    This driver doesn't have a van assigned yet.
+                  </p>
+                  <Button
+                    variant="primary"
+                    icon={<Truck className="w-4 h-4" />}
+                    onClick={handleVanAssignment}
+                    label="Assign Van"
+                  />
+                </div>
+              )}
             </CardBody>
           </Card>
         </div>
@@ -606,6 +775,20 @@ export const VanRepDetailPage = () => {
               visible={visibleReject}
               onHide={() => setVisibleReject(false)}
               onSubmit={handleRejectSubmit}
+            />
+            <VanAssignmentDialog
+              visible={showVanAssignment}
+              onHide={() => setShowVanAssignment(false)}
+              onSubmit={handleVanAssignmentSubmit}
+              mode={vanAssignmentMode}
+              currentDriver={{
+                name: personalInfo.name,
+                repId: personalInfo.repId,
+              }}
+              currentVan={vanDetails.isAssigned ? {
+                vanId: vanDetails.vanId,
+                registrationNumber: vanDetails.registrationNumber,
+              } : undefined}
             />
           </CardBody>
         </Card>
