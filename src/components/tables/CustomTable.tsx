@@ -24,7 +24,7 @@ export const CustomTable = (props: TableProps) => {
   const { columns, data, menuModel, setSelectedItem } = props;
   const menuRef = useRef<TieredMenu>(null);
 
-  const handleMenuToggle = (event: React.MouseEvent, row) => {
+  const handleMenuToggle = (event: React.MouseEvent, row: any) => {
     menuRef.current?.toggle(event);
     setSelectedItem(row);
   };

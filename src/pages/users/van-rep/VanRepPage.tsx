@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  type ColumMeta,
-  CustomTable,
-} from '@components/tables/CustomTable.tsx';
+import { type ColumMeta, CustomTable } from '@components/tables/CustomTable.tsx';
 import type { MenuItem } from 'primereact/menuitem';
 import { useDriversList } from '@hooks/vanRep/useDriversList.ts';
 
@@ -10,7 +7,7 @@ export const VanRepPage = () => {
   const { drivers } = useDriversList(true);
   // const [showCreateUser, setShowCreateUser] = React.useState(false);
 
-  const [selectedItem, setSelectedItem] = React.useState();
+  const [setSelectedItem] = React.useState<any>();
   const tieredMenu: MenuItem[] = [
     // {
     //   label: 'View',

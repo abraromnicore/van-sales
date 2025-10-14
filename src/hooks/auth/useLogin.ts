@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppDispatch } from '@/store/hooks.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { getRequest } from '@utils/api/request-service.ts';
 import { LOGIN_API_URL } from '@utils/constant/api-url.constants.ts';
@@ -11,8 +10,7 @@ import { DASHBOARD_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 export const useLogin = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { showSuccess, showError } = useAppToast();
+  const { showError } = useAppToast();
   const {
     control,
     handleSubmit,

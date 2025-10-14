@@ -5,7 +5,6 @@ import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
 import { ReusablePieChart, usePieChartConfig } from '@components/charts/pieCharts';
 import { Clock, DollarSign, Eye, MapPin, Package, TrendingDown, TrendingUp } from 'lucide-react';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
-import { DASHBOARD_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 // Mock data for testing
 const salesData = [

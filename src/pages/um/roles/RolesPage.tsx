@@ -62,7 +62,7 @@ export const RolesPage = () => {
   const [visibleViewRole, setVisibleViewRole] = useState<boolean>(false);
 
   const onCreate = () => navigate(CREATE_ROLE_ROUTE);
-  const onEdit = () => navigate(EDIT_ROLE_ROUTE.replace('{roleId}', selectedItem?.id));
+  const onEdit = () => navigate(EDIT_ROLE_ROUTE.replace('{roleId}', String(selectedItem?.id)));
   const onView = () => setVisibleViewRole(true);
 
   const HeaderActions = () => {

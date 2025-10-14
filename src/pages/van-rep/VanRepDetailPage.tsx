@@ -1,28 +1,11 @@
 import * as React from 'react';
-import {
-  User,
-  Phone,
-  Mail,
-  MapPin,
-  Activity,
-  Eye,
-  Package2,
-  Gauge,
-  CheckCircle,
-  XCircle,
-} from 'lucide-react';
+import { Activity, CheckCircle, Eye, Gauge, Mail, MapPin, Package2, Phone, User, XCircle } from 'lucide-react';
 import { Card } from '@components/card/Card';
 import { CardHeader } from '@components/card/CardHeader.tsx';
 import { CardBody } from '@components/card/CardBody.tsx';
 import { CustomTable } from '@components/tables/CustomTable.tsx';
 import { VIEW_LOAD_REQ_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useNavigate } from 'react-router-dom';
-import { CustomDialogBody } from '@components/dialog/CustomDialogBody.tsx';
-import { Button } from '@components/button/Button.tsx';
-import { CustomDialog } from '@components/dialog/CustomDialog.tsx';
-import { confirmDialog } from 'primereact/confirmdialog';
-import { InputControl } from '@components/forms/InputControl.tsx';
-import { useForm } from 'react-hook-form';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
@@ -256,12 +239,12 @@ const vanRepDetail = {
 export const VanRepDetailPage = () => {
   const { personalInfo, vanDetails, loadRequests } = vanRepDetail;
   const navigate = useNavigate();
-  const { showSuccess,showError } = useAppToast();
+  const { showSuccess, showError } = useAppToast();
 
   // const [showCreateUser, setShowCreateUser] = React.useState(false);
 
-  const [selectedItem, setSelectedItem] = React.useState();
-  const [visibleReject, setVisibleReject] = React.useState(false)
+  const [setSelectedItem] = React.useState<any>();
+  const [visibleReject, setVisibleReject] = React.useState(false);
   const tieredMenu = [
     {
       label: 'View',
@@ -309,21 +292,6 @@ export const VanRepDetailPage = () => {
   const onView = () => {
     navigate(VIEW_LOAD_REQ_ROUTE);
   };
-  const acceptCloseApprove = () => {
-    showSuccess('Load Request', 'Load Request Accept Successfully');
-  };
-  const acceptCloseReject = () => {
-    showError('Load Request', 'Load Request Accept Failure.');
-  };
-  const confirmApprove = () => {
-    confirmDialog({
-      message: 'Are You Sure to Approve the Load Request?',
-      header: 'Approve Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      defaultFocus: 'accept',
-      accept: acceptCloseApprove,
-    });
-  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -362,7 +330,7 @@ export const VanRepDetailPage = () => {
     setVisibleReject(true);
   };
 
-  const handleRejectSubmit = (reason: string) => {
+  const handleRejectSubmit = () => {
     showConfirmation({
       message: 'Are You Sure to Reject the Load Request?',
       header: 'Reject Confirmation',
@@ -563,7 +531,7 @@ export const VanRepDetailPage = () => {
       </div>
       <div className={`mt-6`}>
         <Card>
-          <CardHeader title={`Load Requests`}/>
+          <CardHeader title={`Load Requests`} />
           <CardBody>
             <CustomTable
               setSelectedItem={setSelectedItem}

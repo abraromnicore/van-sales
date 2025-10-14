@@ -34,7 +34,7 @@ export const CreateUserPage = () => {
     ],
   });
   const navigate = useNavigate();
-  const [visibleViewRole, setVisibleViewRole] = useState<boolean>(true);
+  const [visibleViewRole] = useState<boolean>(true);
 
   const { control, submitHandler, isValid, errors, getValues } = useCreateUser();
   const { roles, loading: rolesLoading } = useRolesList();

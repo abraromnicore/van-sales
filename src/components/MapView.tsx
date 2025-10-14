@@ -1,11 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import {
-  GoogleMap,
-  Marker,
-  InfoWindow,
-  Autocomplete,
-  useJsApiLoader,
-} from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle: React.CSSProperties = {
   width: '100%',
@@ -25,8 +19,7 @@ export default function MapView() {
     null,
   );
   const mapRef = useRef<google.maps.Map | null>(null);
-  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-
+  useRef<google.maps.places.Autocomplete | null>(null);
   const onLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
   }, []);
@@ -61,21 +54,6 @@ export default function MapView() {
     },
     [],
   );
-
-  // Handle place selection in search box
-  const handlePlaceChanged = () => {
-    const place = autocompleteRef.current?.getPlace();
-    if (place?.geometry?.location) {
-      const newPos = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-      };
-      setMarker(newPos);
-      setSelected(newPos);
-      mapRef.current?.panTo(newPos);
-      mapRef.current?.setZoom(14);
-    }
-  };
 
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading...</div>;

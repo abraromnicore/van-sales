@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import type { RoleType } from '@/types/um/roles/role.type.ts';
 
 export const UpdateRolePage = () => {
-  const { control, submitHandler, isValid, reset, isTouched } = useUpdateRole();
+  const { control, submitHandler, isValid, reset } = useUpdateRole();
   const { id } = useParams();
   const { role, loading } = useGetSingleRole(id);
 
@@ -23,7 +23,7 @@ export const UpdateRolePage = () => {
     <PageLayout>
       <Card>
         <CardBody>
-          <UpdateRoleForm control={control} submitHandler={submitHandler} isValid={isValid} isTouched={isTouched} />
+          <UpdateRoleForm control={control} submitHandler={submitHandler} isValid={isValid} />
         </CardBody>
       </Card>
     </PageLayout>
