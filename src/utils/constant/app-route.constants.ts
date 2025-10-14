@@ -31,3 +31,5 @@ export const PROFILE_ROUTE = '/profile';
 export const LOGS_ROUTE = `${UM_ROUTE}/logs`;
 export const USER_LOGS_ROUTE = `${UM_ROUTE}/users/logs/{userId}`;
 export const VIEW_LOAD_REQ_ROUTE = '/load-req/view/reqId';
+export const VIEW_REP_ROUTE = `/van-reps/view/{repId}`;
+

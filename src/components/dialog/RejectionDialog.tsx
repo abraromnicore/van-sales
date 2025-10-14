@@ -5,6 +5,7 @@ import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
 import { InputControl } from '@components/forms/InputControl';
 import { Button } from '@components/button/Button';
 import { useForm } from 'react-hook-form';
+import { CardHeader } from '@components/card/CardHeader.tsx';
 
 type RejectionDialogProps = {
   visible: boolean;
@@ -15,8 +16,7 @@ type RejectionDialogProps = {
   placeholder?: string;
 };
 
-export const RejectionDialog: React.FC<RejectionDialogProps> = (
-  { visible, onHide, onSubmit, label = 'Rejection Reason', placeholder = 'Write a Reason of Rejection',
+export const RejectionDialog: React.FC<RejectionDialogProps> = ({ visible, onHide, onSubmit, label = 'Rejection Reason', placeholder = 'Write a Reason of Rejection',
                                                                 }) => {
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -32,11 +32,11 @@ export const RejectionDialog: React.FC<RejectionDialogProps> = (
   const handleFormSubmit = (data: { reasonOfRejection: string }) => {
     onSubmit(data.reasonOfRejection);
     reset();
-    onHide();
   };
 
   return (
-    <CustomDialog size="sm" onHide={handleClose} visible={visible}>
+    <CustomDialog size="md" onHide={handleClose} visible={visible} dismissableMask = {false}>
+      <CardHeader title={'Reason of Rejection'} />
       <CustomDialogBody>
         <InputControl
           control={control}

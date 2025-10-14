@@ -1,14 +1,30 @@
 import * as React from 'react';
-import { Activity, CheckCircle, Eye, Gauge, Mail, MapPin, Package2, Phone, User, XCircle } from 'lucide-react';
+import {
+  User,
+  Phone,
+  Mail,
+  MapPin,
+  Activity,
+  Eye,
+  Package2,
+  Gauge,
+  CheckCircle,
+  XCircle, Pin,
+} from 'lucide-react';
 import { Card } from '@components/card/Card';
 import { CardHeader } from '@components/card/CardHeader.tsx';
 import { CardBody } from '@components/card/CardBody.tsx';
 import { CustomTable } from '@components/tables/CustomTable.tsx';
 import { VIEW_LOAD_REQ_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@components/button/Button.tsx';
+import { confirmDialog } from 'primereact/confirmdialog';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
+import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
+import { CardFooter } from '@components/card/CardFooter.tsx';
+import MapView from '@components/MapView.tsx';
 
 const vanRepDetail = {
   personalInfo: {
@@ -239,12 +255,13 @@ const vanRepDetail = {
 export const VanRepDetailPage = () => {
   const { personalInfo, vanDetails, loadRequests } = vanRepDetail;
   const navigate = useNavigate();
-  const { showSuccess, showError } = useAppToast();
+  const { showSuccess,showError } = useAppToast();
 
   // const [showCreateUser, setShowCreateUser] = React.useState(false);
 
-  const [setSelectedItem] = React.useState<any>();
+  const [selectedItem, setSelectedItem] = React.useState();
   const [visibleReject, setVisibleReject] = React.useState(false);
+  const [showTerritory, setShowTerritory] = React.useState(false);
   const tieredMenu = [
     {
       label: 'View',
@@ -292,6 +309,9 @@ export const VanRepDetailPage = () => {
   const onView = () => {
     navigate(VIEW_LOAD_REQ_ROUTE);
   };
+  const acceptCloseApprove = () => {
+    showSuccess('Load Request', 'Load Request Accept Successfully');
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -330,15 +350,32 @@ export const VanRepDetailPage = () => {
     setVisibleReject(true);
   };
 
-  const handleRejectSubmit = () => {
+  const handleRejectSubmit = (reason: string) => {
     showConfirmation({
       message: 'Are You Sure to Reject the Load Request?',
       header: 'Reject Confirmation',
       onConfirm: () => {
+        setVisibleReject(false)
         showError('Load Request', 'Load Request Accept Failure.');
       },
     });
   };
+
+  const handleTerritorySubmit = (territory: string) => {
+    showConfirmation({
+      message: 'Are You Sure to Change the Territory?',
+      header: 'Approve Confirmation',
+      onConfirm: () => {
+        showSuccess('Change Territory', 'Territory Changed Successfully');
+        setShowTerritory(false);
+        // Here you would typically make an API call with the territory value
+        console.log('Selected territory:', territory);
+      },
+    });
+  };
+  const onChangeTerritory = (value: string) => {
+    setShowTerritory(true);
+  }
 
   return (
     <>
@@ -389,6 +426,16 @@ export const VanRepDetailPage = () => {
                   </div>
                 </div>
               </CardBody>
+              <CardFooter>
+                <div className={`flex justify-end w-full`}>
+                  <Button className={`outline-none focus-none`} icon={<Pin className={'w-5 h-5'}/>} variant={`ghost`} onClick={()=>onChangeTerritory()} label={`Change Territory`} />
+                  <TerritoryChangeDialog
+                    visible={showTerritory}
+                    onHide={() => setShowTerritory(false)}
+                    onSubmit={handleTerritorySubmit}
+                  />
+                </div>
+              </CardFooter>
             </Card>
           </div>
         </div>
@@ -459,13 +506,7 @@ export const VanRepDetailPage = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
         <div className="md:col-span-2 ">
-          <Card>
-            <CardHeader title="Vans Tracking" />
-            <CardBody>
-              {/* <MapView /> */}
-              Google Maps Show Here
-            </CardBody>
-          </Card>
+          <MapView title={"Van Rep Tracking"}/>
         </div>
         <div>
           <Card>
@@ -531,7 +572,7 @@ export const VanRepDetailPage = () => {
       </div>
       <div className={`mt-6`}>
         <Card>
-          <CardHeader title={`Load Requests`} />
+          <CardHeader title={`Load Requests`}/>
           <CardBody>
             <CustomTable
               setSelectedItem={setSelectedItem}

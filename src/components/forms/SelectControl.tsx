@@ -48,7 +48,7 @@ export const SelectControl = (props: SelectControlProps) => {
                 }
                 #${name} .p-dropdown-trigger {
                   margin-left: 0.5rem !important;
-                }
+                }z
               `
             }} />
             <Dropdown
