@@ -3,10 +3,21 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 const DialogContentContainer = styled.div`
-    &.min-w-sm { min-width: 384px; }
-    &.min-w-md { min-width: 448px; }
-    &.min-w-lg { min-width: 672px; }
-    &.min-w-xl { min-width: 896px; }
+    &.min-w-sm {
+        min-width: 384px;
+    }
+
+    &.min-w-md {
+        min-width: 448px;
+    }
+
+    &.min-w-lg {
+        min-width: 672px;
+    }
+
+    &.min-w-xl {
+        min-width: 896px;
+    }
 
     display: flex;
     flex-direction: column;
@@ -43,7 +54,7 @@ type DialogOptions = {
   dismissableMask?: boolean
 };
 
-export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissableMask= true }: DialogOptions) => {
+export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissableMask = true }: DialogOptions) => {
   const sizeClasses: Record<DialogSize, string> = {
     sm: 'min-w-sm',
     md: 'min-w-md',
@@ -56,7 +67,7 @@ export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissab
     if (
       React.isValidElement(child) &&
       ['CustomDialogBody', 'CustomDialogHeader', 'CustomDialogFooter'].includes(
-        (child.type as any)?.name
+        (child.type as any)?.name,
       )
     ) {
       return React.cloneElement(child, { size });

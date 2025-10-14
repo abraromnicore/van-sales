@@ -11,7 +11,7 @@ import { Button } from '@components/button/Button.tsx';
 
 type UpdateRoleFormProps = {
   control: any;
-  submitHandler: (e) => void;
+  submitHandler: (e: any) => void;
   isValid: boolean;
 }
 

@@ -1,12 +1,13 @@
-import { Card } from '@components/card/Card';
-import { CardBody } from '@components/card/CardBody';
-import { CardHeader } from '@components/card/CardHeader';
+import { Card } from '@components/app-cards/card/Card';
+import { CardBody } from '@components/app-cards/card/CardBody';
+import { CardHeader } from '@components/app-cards/card/CardHeader';
 import { ReusableBarChart, useChartConfig } from '@components/charts/barCharts';
 import { ReusablePieChart, usePieChartConfig } from '@components/charts/pieCharts';
-import { Clock, DollarSign, Eye, MapPin, Package, TrendingDown, TrendingUp } from 'lucide-react';
+import { Clock, DollarSign, Eye, MapPin, Package } from 'lucide-react';
 import MapView from '@components/MapView.tsx';
 import * as React from 'react';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { KPICard } from '@components/app-cards/KPICard.tsx';
 
 // Mock data for testing
 const salesData = [
@@ -79,7 +80,7 @@ const salesData = [
     team: 'Alpha',
     achievement: 96.2,
     rank: 7,
-  }
+  },
 ];
 
 export const notifications = [
@@ -292,46 +293,6 @@ const colorClasses: Record<string, string> = {
   red: 'bg-red-50 text-red-600',
 };
 
-// KPI Card Component
-const KPICard: React.FC<KPICardProps> = ({
-                                           title,
-                                           value,
-                                           icon: Icon,
-                                           trend,
-                                           trendValue,
-                                           color = 'blue',
-                                         }) => {
-  return (
-    <>
-      <Card>
-        <CardBody>
-          <div className="flex items-center justify-between mb-4">
-            <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
-              <Icon className="w-6 h-6" />
-            </div>
-            {trend && (
-              <div
-                className={`flex items-center text-sm ${
-                  trend === 'up' ? 'text-green-600' : 'text-red-600'
-                }`}
-              >
-                {trend === 'up' ? (
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                ) : (
-                  <TrendingDown className="w-4 h-4 mr-1" />
-                )}
-                {trendValue}
-              </div>
-            )}
-          </div>
-          <h3 className="text-gray-600 text-sm font-medium mb-1">{title}</h3>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
-        </CardBody>
-      </Card>
-    </>
-  );
-};
-
 // Main Dashboard Component
 export const DashboardPage: React.FC = () => {
   useMetadata({
@@ -366,39 +327,33 @@ export const DashboardPage: React.FC = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KPICard
-          title="Today's Sales"
-          value={`PKR ${(
+          labelText={`Today's Sales`}
+          valueText={`PKR ${(
             dashboardData.salesAnalytics.today.totalSales / 1000000
           ).toFixed(2)}M`}
-          icon={DollarSign}
-          trend="up"
-          trendValue="+12%"
-          color="green"
+          icon={<DollarSign />}
         />
         <KPICard
-          title="Orders Today"
-          value={dashboardData.salesAnalytics.today.ordersCount}
-          icon={Package}
-          color="blue"
+          labelText={`Orders Today`}
+          valueText={dashboardData.salesAnalytics.today.ordersCount}
+          icon={<Package />}
         />
         <KPICard
-          title="Active Vans"
-          value={`${dashboardData.liveTracking.onRoute}/${dashboardData.liveTracking.totalVans}`}
-          icon={MapPin}
-          color="purple"
+          labelText={`Active Vans`}
+          valueText={`${dashboardData.liveTracking.onRoute}/${dashboardData.liveTracking.totalVans}`}
+          icon={<MapPin />}
         />
         <KPICard
-          title="Pending Approvals"
-          value={totalApprovals}
-          icon={Clock}
-          color="orange"
+          labelText={`Pending Approvals`}
+          valueText={totalApprovals}
+          icon={<Clock />}
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
         <div className="md:col-span-3">
           <div>
-            <MapView title={`Vans Tracking`}/>
+            <MapView title={`Vans Tracking`} />
           </div>
         </div>
       </div>
@@ -407,7 +362,7 @@ export const DashboardPage: React.FC = () => {
         <div className={`col-span-2`}>
           <ReusableBarChart {...salesChartConfig} />
         </div>
-        <div >
+        <div>
           <Card>
             <CardHeader title="Alerts" />
             <CardBody>

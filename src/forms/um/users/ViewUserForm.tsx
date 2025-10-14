@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 type ViewUserFormProps = {
   userToView: UserType;
-  userRole: RoleType | null;
+  userRole: RoleType | any;
 }
 
 export const ViewUserForm = (props: ViewUserFormProps) => {

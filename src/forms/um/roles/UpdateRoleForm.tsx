@@ -2,7 +2,7 @@ import { CreateRoleForm } from '@/forms/um/roles/CreateRoleForm.tsx';
 
 type UpdateRoleFormProps = {
   control: any;
-  submitHandler: (e) => void;
+  submitHandler: (e: any) => void;
   isValid: boolean;
 }
 

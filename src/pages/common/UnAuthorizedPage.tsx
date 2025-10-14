@@ -1,11 +1,7 @@
-import styled from 'styled-components';
 import { Button } from '@components/button/Button.tsx';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN_ROUTE } from '@utils/constant/app-route.constants.ts';
 
-const PageContainer = styled.div`
-
-`;
 export const UnAuthorizedPage = () => {
   const navigate = useNavigate();
   return (

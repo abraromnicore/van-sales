@@ -8,7 +8,7 @@ import { Button } from '@components/button/Button';
 import { SelectControl } from '@components/forms/SelectControl';
 
 export const VanSalesAuditLogPage = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [setSelectedItem] = useState<any>(null);
   const methods = useForm({
     defaultValues: {
       startDate: new Date(),

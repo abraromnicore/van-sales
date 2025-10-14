@@ -6,15 +6,14 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import type { PieChartConfig, PieChartDataItem } from './types';
 import { usePieChartData } from './hooks';
-import { Card } from '@components/card/Card';
-import { CardHeader } from '@components/card/CardHeader';
-import { CardBody } from '@components/card/CardBody';
+import { Card } from '@components/app-cards/card/Card';
+import { CardHeader } from '@components/app-cards/card/CardHeader';
+import { CardBody } from '@components/app-cards/card/CardBody';
 
 interface ReusablePieChartProps {
-  data: PieChartDataItem[];
-  config: PieChartConfig;
+  data: any[];
+  config: any;
   showBreakdown?: boolean;
   breakdownClassName?: string;
 }
@@ -54,7 +53,7 @@ const ReusablePieChart: React.FC<ReusablePieChartProps> = ({
                 label={config.showLabels ? renderCustomLabel : undefined}
                 labelLine={config.labelPosition === 'outside'}
               >
-                {formattedData.map((entry, index) => (
+                {formattedData.map((entry: any, index: any) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={
@@ -95,7 +94,7 @@ const ReusablePieChart: React.FC<ReusablePieChartProps> = ({
         />
         <CardBody>
           <div className="space-y-4">
-            {breakdownData.map((item, index) => (
+            {breakdownData.map((item: any, index: any) => (
               <div
                 key={index}
                 className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"

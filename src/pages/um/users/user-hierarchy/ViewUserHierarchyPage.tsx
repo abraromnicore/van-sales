@@ -4,9 +4,8 @@ import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { Button } from '@components/button/Button.tsx';
-import { Card } from '@components/card/Card.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
-import { useNavigate } from 'react-router-dom';
+import { Card } from '@components/app-cards/card/Card.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 
 const orgChartData = [
   {
@@ -60,7 +59,12 @@ const CardNode = styled.div`
     min-width: 160px;
 `;
 
-const UserCard = ({ label, role }) => (
+type UserCardProps = {
+  label: string;
+  role: string;
+}
+
+const UserCard = ({ label, role }: UserCardProps) => (
   <CardNode>
     <div
       className="w-full p-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -76,7 +80,7 @@ const UserCard = ({ label, role }) => (
 );
 
 // Recursive function to render TreeNodes
-const renderTreeNodes = (node) => {
+const renderTreeNodes = (node: any) => {
   const { role, label, children, data } = node;
   // Base case: if no children, return just a single TreeNode
   if (!children || children.length === 0) {
@@ -86,13 +90,13 @@ const renderTreeNodes = (node) => {
   // Recursive case: render children
   return (
     <TreeNode key={data} label={<UserCard label={label} role={role} />}>
-      {children.map((child) => renderTreeNodes(child))}
+      {children.map((child: any) => renderTreeNodes(child))}
     </TreeNode>
   );
 };
 
 // Main component
-const OrgChart = ({ data }) => {
+const OrgChart = ({ data }: { data: any }) => {
   if (!data || data.length === 0) return null;
   const { role, label, children = [] } = data[0];
 
@@ -104,7 +108,7 @@ const OrgChart = ({ data }) => {
         lineBorderRadius={'10px'}
         label={<UserCard label={label} role={role} />}
       >
-        {children?.map((child) => renderTreeNodes(child))}
+        {children?.map((child: any) => renderTreeNodes(child))}
       </Tree>
     </TreeContainer>
   );
@@ -112,7 +116,8 @@ const OrgChart = ({ data }) => {
 
 const HeaderActions = () => {
   return (
-    <Button btnType={'link'} to={EDIT_USER_HIERARCHY_ROUTE.replace('{id}', '123')} label={'Edit User Hierarchy'} variant={'primary'} />
+    <Button btnType={'link'} to={EDIT_USER_HIERARCHY_ROUTE.replace('{id}', '123')} label={'Edit User Hierarchy'}
+            variant={'primary'} />
   );
 };
 

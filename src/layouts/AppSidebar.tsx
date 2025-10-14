@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router';
-
+import clsx from 'clsx';
+import { ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, Truck, Users } from 'lucide-react';
+import styled from 'styled-components';
 import { useSidebar } from '../context/SidebarContext';
-import { ChevronDown, LayoutDashboard, Truck, Users } from 'lucide-react';
-
-import appLogo from '@assets/images/static/logo.png';
+import appLogo from '@assets/images/static/transmed-logo.png';
 import {
   DASHBOARD_ROUTE,
   LOGS_ROUTE,
@@ -15,199 +14,264 @@ import {
   VIEW_USER_HIERARCHY_ROUTE,
 } from '@utils/constant/app-route.constants.ts';
 
+// ========== TYPES ==========
+type SubItem = {
+  name: string;
+  path: string;
+  pro?: boolean;
+  new?: boolean;
+};
+
 type NavItem = {
   name: string;
   icon: React.ReactNode;
   path?: string;
-  subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
+  subItems?: SubItem[];
 };
 
-const navItems: NavItem[] = [
-  {
-    icon: <LayoutDashboard />,
-    name: 'Dashboard',
-    path: DASHBOARD_ROUTE,
-  },
-  {
-    icon: <Truck />,
-    name: 'Van Representative',
-    path: VAN_REPRESENTATIVE_ROUTE,
-  },
-  {
-    icon: <Users />,
-    name: 'Users Management',
-    subItems: [
-      { name: 'Roles', path: ROLES_ROUTE },
-      { name: 'Users', path: USERS_ROUTE },
-      { name: 'Van Sales Log', path: LOGS_ROUTE },
-      { name: 'User Hierarchy', path: VIEW_USER_HIERARCHY_ROUTE.replace('{id}', '234') },
-    ],
-  },
-];
+const OpenCloseSidebarBtn = styled.button<{ isExpanded?: boolean }>`
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: ${({ isExpanded }) => (isExpanded ? 'translateY(-50%) rotate(18deg)' : 'translateY(-50%) rotate(0)')};
+    display: flex;
+    width: 20px;
+    height: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #6BC5F1;
+    color: #3C3C3C;
+    border-radius: 8px 0 0 8px;
 
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+`;
+
+// ========== STYLED COMPONENTS ==========
+const AppLogoContainer = styled.div`
+    width: 100%;
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+// ========== REUSABLE COMPONENTS ==========
+
+// 💡 Single Nav Link (non-expandable)
+const SidebarLink: React.FC<{
+  nav: NavItem;
+  active: boolean;
+  visible: boolean;
+}> = ({ nav, active, visible }) => (
+  <Link
+    to={nav.path!}
+    className={clsx(
+      'flex items-center gap-3 px-3 py-2.5 rounded-[12px] text-sm font-medium transition-all duration-200 group',
+      active
+        ? 'bg-[#E2F6FE] text-primary'
+        : 'text-gray-700 dark:text-gray-300 hover:text-primary hover:bg-[#E2F6FE]',
+    )}
+  >
+    <span
+      className={clsx(
+        'w-[20px] h-[20px] flex items-center justify-center',
+        active ? 'text-primary' : 'text-gray-700 group-hover:text-primary',
+      )}
+    >
+      {nav.icon}
+    </span>
+    {visible && <span className="truncate">{nav.name}</span>}
+  </Link>
+);
+
+// 💡 Submenu Toggle (expandable parent)
+const AccordionButton: React.FC<{
+  nav: NavItem;
+  index: number;
+  isOpen: boolean;
+  onToggle: (index: number) => void;
+  visible: boolean;
+}> = ({ nav, index, isOpen, onToggle, visible }) => (
+  <button
+    onClick={() => onToggle(index)}
+    className={clsx(
+      'flex items-center gap-3 w-full px-3 py-2.5 rounded-[12px] text-sm font-medium transition-all duration-200 group',
+      isOpen
+        ? 'bg-[#E2F6FE] text-primary rounded-b-[0] border-b-[1px] border-b-[#B6E8FD]'
+        : 'text-gray-700 dark:text-gray-300 hover:text-primary hover:bg-[#E2F6FE]',
+    )}
+  >
+    <span
+      className={clsx(
+        'w-[20px] h-[20px] flex items-center justify-center',
+        isOpen ? 'text-primary' : 'text-gray-700 group-hover:text-primary',
+      )}
+    >
+      {nav.icon}
+    </span>
+    {visible && (
+      <>
+        <span className="flex-1 text-left truncate">{nav.name}</span>
+        <ChevronDown
+          className={clsx(
+            'ml-auto w-[20px] h-[20px] transition-transform duration-200',
+            isOpen && 'rotate-180 text-primary',
+          )}
+        />
+      </>
+    )}
+  </button>
+);
+
+// 💡 Submenu List
+const SidebarSubmenu: React.FC<{
+  subItems: SubItem[];
+  activeCheck: (path: string) => boolean;
+}> = ({ subItems, activeCheck }) => (
+  <ul>
+    {subItems.map((sub) => (
+      <li key={sub.name}>
+        <Link
+          to={sub.path}
+          className={clsx(
+            `block px-3 py-2.5 text-sm text-primary font-medium rounded-[12px] transition-colors relative before:content-[''] before:absolute before:top-1/2 before:-translate-y-1/2 before:left-0 before:h-[24px] before:w-[4px] before:rounded-r-[4px]`,
+            activeCheck(sub.path)
+              ? 'bg-[#E2F6FE] before:bg-[#6BC5F1]'
+              : 'text-gray-700 hover:text-primary hover:bg-[#E2F6FE] before:bg-transparent hover:before:bg-[#6BC5F1]',
+          )}
+        >
+          {sub.name}
+        </Link>
+      </li>
+    ))}
+  </ul>
+);
+
+export const SidebarToggleButton = (props) => {
+  const { toggleSidebar, toggleMobileSidebar, isExpanded } = useSidebar();
+
+  const handleSidebarToggle = () => {
+    if (window.innerWidth >= 1024) toggleSidebar();
+    else toggleMobileSidebar();
+  };
+
+  return (
+    <OpenCloseSidebarBtn {...props} onClick={handleSidebarToggle}>
+      {isExpanded ? <ChevronLeft /> : <ChevronRight />}
+    </OpenCloseSidebarBtn>
+  );
+
+};
+
+// ========== MAIN COMPONENT ==========
 
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered } = useSidebar();
   const location = useLocation();
-
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState<number | null>(null);
 
+  const menuOptions: NavItem[] = [
+    {
+      icon: <LayoutDashboard />,
+      name: 'Dashboard',
+      path: DASHBOARD_ROUTE,
+    },
+    {
+      icon: <Truck />,
+      name: 'Van Representative',
+      path: VAN_REPRESENTATIVE_ROUTE,
+    },
+    {
+      icon: <Users />,
+      name: 'Users Management',
+      subItems: [
+        { name: 'Roles', path: ROLES_ROUTE },
+        { name: 'Users', path: USERS_ROUTE },
+        { name: 'Van Sales Log', path: LOGS_ROUTE },
+        { name: 'User Hierarchy', path: VIEW_USER_HIERARCHY_ROUTE.replace('{id}', '234') },
+      ],
+    },
+  ];
+
+  // ✅ Route matching
   const isActive = useCallback(
-    (path: string) => location.pathname === path,
+    (path: string) => location.pathname.startsWith(path),
     [location.pathname],
   );
 
+  // ✅ Auto-open submenu
   useEffect(() => {
-    let matchedIndex: number | null = null;
-    navItems.forEach((nav, index) => {
-      if (nav.subItems?.some((s) => isActive(s.path))) {
-        matchedIndex = index;
-      }
-    });
-    setOpenSubmenuIndex(matchedIndex);
+    const matchedIndex = menuOptions.findIndex((nav) =>
+      nav.subItems?.some((s) => isActive(s.path)),
+    );
+    setOpenSubmenuIndex(matchedIndex >= 0 ? matchedIndex : null);
   }, [location, isActive]);
 
-
-  const handleSubmenuToggle = (index: number) => {
+  // ✅ Toggle submenu
+  const handleSubmenuToggle = (index: number) =>
     setOpenSubmenuIndex((prev) => (prev === index ? null : index));
-  };
 
-  const renderMenuItems = (items: NavItem[]) => (
-    <ul className="flex flex-col gap-4">
-      {items.map((nav, index) => (
-        <li key={nav.name}>
-          {nav.subItems ? (
-            <button
-              onClick={() => handleSubmenuToggle(index)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 group cursor-pointer ${
-                openSubmenuIndex === index
-                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-              } ${
-                !isExpanded && !isHovered
-                  ? 'lg:justify-center'
-                  : 'lg:justify-start'
-              }`}
-            >
-              <span
-                className={`w-5 h-5 flex items-center justify-center ${
-                  openSubmenuIndex === index
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'
-                }`}
-              >
-                {nav.icon}
-              </span>
-              {(isExpanded || isHovered || isMobileOpen) && (
-                <span className="font-medium truncate">{nav.name}</span>
-              )}
-              {(isExpanded || isHovered || isMobileOpen) && (
-                <ChevronDown
-                  className={`ml-auto w-5 h-5 transition-transform duration-200 ${
-                    openSubmenuIndex === index
-                      ? 'rotate-180 text-blue-600 dark:text-blue-400'
-                      : ''
-                  }`}
-                />
-              )}
-            </button>
-          ) : (
-            nav.path && (
-              <Link
-                to={nav.path}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 group ${
-                  isActive(nav.path)
-                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                }`}
-              >
-                <span
-                  className={`w-6 h-6 flex items-center justify-center ${
-                    isActive(nav.path)
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'
-                  }`}
-                >
-                  {nav.icon}
-                </span>
-                {(isExpanded || isHovered || isMobileOpen) && (
-                  <span className="font-medium truncate">{nav.name}</span>
-                )}
-              </Link>
-            )
-          )}
-          {nav.subItems && (isExpanded || isHovered || isMobileOpen) && openSubmenuIndex === index && (
-            <div>
-              <ul className="mt-2 space-y-1 ml-9">
-                {nav.subItems.map((subItem) => (
-                  <li key={subItem.name}>
-                    <Link
-                      to={subItem.path}
-                      className={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 ${
-                        isActive(subItem.path)
-                          ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
-                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                      }`}
-                    >
-                      {subItem.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
-  );
+  const visible = isExpanded || isHovered || isMobileOpen;
 
   return (
     <aside
-      className={`fixed mt-16 flex flex-col lg:mt-0 top-0 ${
-        (isExpanded || isMobileOpen) && 'px-5'
-      } left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-50 border-r border-gray-200 
-        ${
-        isExpanded || isMobileOpen
-          ? 'w-[290px]'
-          : isHovered
-            ? 'w-[290px]'
-            : 'w-[0px]'
-      }
-        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
-        lg:translate-x-0`}
+      className={clsx(
+        'shadow-[2px_0_9px_0_rgba(0,0,0,0.05)]',
+        'fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 z-50 transition-all duration-300 ease-in-out',
+        visible && '',
+        visible ? 'w-72' : 'w-0',
+        isMobileOpen ? 'translate-x-0' : '-translate-x-full',
+        'lg:translate-x-0',
+      )}
     >
-      <div
-        className={`py-8 flex ${
-          !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start'
-        }`}
-      >
+      {/* ✅ Logo */}
+      <div className={clsx('relative flex justify-center transition-all')}>
+        <SidebarToggleButton />
         <Link to="/">
-          {isExpanded || isHovered || isMobileOpen ? (
-            <>
-              <img
-                style={{ width: 30, height: 30 }}
-                className="block"
-                src={appLogo}
-                alt="Logo"
-                width={150}
-                height={40}
-              />
-            </>
-          ) : (
+          <AppLogoContainer>
             <img
+              className="object-contain"
               src={appLogo}
               alt="Logo"
-              width={32}
-              height={32}
+              width={146}
+              height={44}
             />
-          )}
+          </AppLogoContainer>
         </Link>
       </div>
-      <div className="flex flex-col overflow-y-auto duration-300 ease-linear scrollbar-hide">
-        <nav className="mb-6">
-          {renderMenuItems(navItems)}
-        </nav>
-      </div>
+
+      {/* ✅ Navigation */}
+      <nav className="overflow-y-auto scrollbar-hide space-y-[8px] p-[16px]">
+        {menuOptions.map((nav, index) => (
+          <div key={nav.name} className={clsx('rounded-[12px]', { 'bg-[#E2F6FE]': openSubmenuIndex === index })}>
+            {nav.subItems ? (
+              <>
+                <AccordionButton
+                  nav={nav}
+                  index={index}
+                  isOpen={openSubmenuIndex === index}
+                  onToggle={handleSubmenuToggle}
+                  visible={visible}
+                />
+
+                {visible && openSubmenuIndex === index && (
+                  <SidebarSubmenu subItems={nav.subItems} activeCheck={isActive} />
+                )}
+              </>
+            ) : (
+              <SidebarLink
+                nav={nav}
+                active={isActive(nav.path!)}
+                visible={visible}
+              />
+            )}
+          </div>
+        ))}
+      </nav>
     </aside>
   );
 };

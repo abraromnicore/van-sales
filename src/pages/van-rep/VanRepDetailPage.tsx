@@ -11,9 +11,9 @@ import {
   CheckCircle,
   XCircle, Pin,
 } from 'lucide-react';
-import { Card } from '@components/card/Card';
-import { CardHeader } from '@components/card/CardHeader.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
+import { Card } from '@components/app-cards/card/Card';
+import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 import { CustomTable } from '@components/tables/CustomTable.tsx';
 import { VIEW_LOAD_REQ_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
-import { CardFooter } from '@components/card/CardFooter.tsx';
+import { CardFooter } from '@components/app-cards/card/CardFooter.tsx';
 import MapView from '@components/MapView.tsx';
 import PerformanceDashboard from '@components/PerformanceDashboard.tsx';
 

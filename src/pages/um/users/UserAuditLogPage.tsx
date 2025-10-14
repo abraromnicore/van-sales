@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PageLayout } from '@layouts/Pagelayout';
-import { CustomTable, type ColumMeta } from '@components/tables/CustomTable';
+import { type ColumMeta, CustomTable } from '@components/tables/CustomTable';
 import { CustomDialog } from '@components/dialog/CustomDialog';
 import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
 import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
@@ -12,10 +12,10 @@ import { SelectControl } from '@components/forms/SelectControl';
 import { Button } from '@components/button/Button';
 
 export const UserAuditLogPage = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [setSelectedItem] = useState<any>(null);
   const [visibleViewRole, setVisibleViewRole] = useState<boolean>(true);
-  const navigate = useNavigate()
-    const methods = useForm({
+  const navigate = useNavigate();
+  const methods = useForm({
     defaultValues: {
       startDate: null,
       endDate: null,
@@ -47,12 +47,12 @@ export const UserAuditLogPage = () => {
       details: 'Initial role set to "User"',
     },
   ];
-    const userOptions=[
+  const userOptions = [
     { label: 'John Doe', value: 'John Doe' },
     { label: 'Jane Smith', value: 'Jane Smith' },
     { label: 'Alex Johnson', value: 'Alex Johnson' },
-  ]
-    const userLogColumns: ColumMeta[] = [
+  ];
+  const userLogColumns: ColumMeta[] = [
     { field: 'action', header: 'Action' },
     { field: 'changedBy', header: 'Changed By' },
     {
@@ -62,7 +62,7 @@ export const UserAuditLogPage = () => {
     },
     { field: 'details', header: 'Details' },
   ];
-  
+
   const exportCSV = () => {
     const csv = logs
       .map((l) => `${l.targetUser},${l.action},${l.changedBy},${l.timestamp},${l.details}`)
@@ -74,63 +74,63 @@ export const UserAuditLogPage = () => {
     a.download = 'user_audit_log.csv';
     a.click();
   };
-    const onSubmit = (data: any) => console.log('Form data:', data);
+  const onSubmit = (data: any) => console.log('Form data:', data);
 
   return (
-  <PageLayout>
-    <CustomDialog size="xl" onHide={() => setVisibleViewRole(false)} visible={visibleViewRole}>
-          <CustomDialogHeader
-    onHide={() => navigate(USERS_ROUTE)}
-    title={`Audit Log For ${logs[0].targetUser}`}
-  />
+    <PageLayout>
+      <CustomDialog size="xl" onHide={() => setVisibleViewRole(false)} visible={visibleViewRole}>
+        <CustomDialogHeader
+          onHide={() => navigate(USERS_ROUTE)}
+          title={`Audit Log For ${logs[0].targetUser}`}
+        />
         <CustomDialogBody>
-      <div className="p-6">
-          <div className="flex flex-wrap items-center justify-between mb-4 gap-3">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center justify-between mb-4 gap-3">
               <FormProvider {...methods}>
-                            <form
-                              onSubmit={methods.handleSubmit(onSubmit)}
-                              className="flex items-end space-x-4 p-6 bg-white rounded-md shadow-sm"
-                            >
-                              <CalendarRangeControl
-                                control={methods.control}
-                                nameStart="startDate"
-                                nameEnd="endDate"
-                                labelStart="From Date"
-                                labelEnd="To Date"
-                                required
-                              />
-                              <SelectControl
-                                control={methods.control}
-                                name="filterbyRole"
-                                label="Filter by Role"
-                                options={userOptions}
-                                placeholder="Filter by Role"
-                                required={true}
-                                className="!py-0"
-                              />
-                              <Button
-                                type="submit"
-                                label='Submit'
-                                variant='primary'
-                                className='mb-1'
-                              />
-                              <Button
-                              label="Export CSV"
-                              // icon="pi pi-download"
-                              className="p-button-sm p-button-outlined mb-1"
-                              onClick={exportCSV}
-                            />
-                            </form>
-                          </FormProvider>
-                        </div>
-          <CustomTable
-            data={logs}
-            columns={userLogColumns}
-            setSelectedItem={setSelectedItem}
-          />
-      </div>
+                <form
+                  onSubmit={methods.handleSubmit(onSubmit)}
+                  className="flex items-end space-x-4 p-6 bg-white rounded-md shadow-sm"
+                >
+                  <CalendarRangeControl
+                    control={methods.control}
+                    nameStart="startDate"
+                    nameEnd="endDate"
+                    labelStart="From Date"
+                    labelEnd="To Date"
+                    required
+                  />
+                  <SelectControl
+                    control={methods.control}
+                    name="filterbyRole"
+                    label="Filter by Role"
+                    options={userOptions}
+                    placeholder="Filter by Role"
+                    required={true}
+                    className="!py-0"
+                  />
+                  <Button
+                    type="submit"
+                    label="Submit"
+                    variant="primary"
+                    className="mb-1"
+                  />
+                  <Button
+                    label="Export CSV"
+                    // icon="pi pi-download"
+                    className="p-button-sm p-button-outlined mb-1"
+                    onClick={exportCSV}
+                  />
+                </form>
+              </FormProvider>
+            </div>
+            <CustomTable
+              data={logs}
+              columns={userLogColumns}
+              setSelectedItem={setSelectedItem}
+            />
+          </div>
         </CustomDialogBody>
-    </CustomDialog>
+      </CustomDialog>
     </PageLayout>
   );
-}
+};

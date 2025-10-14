@@ -1,6 +1,5 @@
 import { Breadcrumbs } from '@components/common/Breadcrumbs.tsx';
-import type { ReactElement, ReactNode } from 'react';
-import { Button } from '@components/button/Button.tsx';
+import type { ReactNode } from 'react';
 import { clsx } from 'clsx';
 
 type PageLayoutProps = {

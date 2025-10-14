@@ -24,8 +24,8 @@ import { useMetadata } from '@hooks/common/useMetadata.ts';
 import { DASHBOARD_ROUTE, EDIT_USER_HIERARCHY_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { Button } from '@components/button/Button.tsx';
-import { Card } from '@components/card/Card.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
+import { Card } from '@components/app-cards/card/Card.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 
 /* ========================================
    Types & Initial Data

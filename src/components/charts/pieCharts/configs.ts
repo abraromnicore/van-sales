@@ -1,11 +1,7 @@
-import type { PieChartConfig, PieChartDataItem } from './types';
 
 export const createPieChartConfig = (
-  title: string,
-  data: PieChartDataItem[],
-  overrides?: Partial<PieChartConfig>
-): PieChartConfig => {
-  const defaultConfig: PieChartConfig = {
+  title: string, overrides?: any): any => {
+  const defaultConfig: any = {
     title,
     width: '100%',
     height: 300,
@@ -19,9 +15,6 @@ export const createPieChartConfig = (
     showPercentage: true,
     showValue: true,
     labelPosition: 'outside',
-    tooltipFormatter: (value, name) => [`$${value.toLocaleString()}`, 'Amount'],
-    labelFormatter: ({ name, percent }) => 
-      `${name || ''} ${(percent * 100).toFixed(0)}%`,
     colors: [
       '#10b981', '#3b82f6', '#8b5cf6', '#f59e0b', 
       '#ef4444', '#06b6d4', '#84cc16', '#f97316'

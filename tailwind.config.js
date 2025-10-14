@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#17609E'
+      },
       fontFamily: {
         outfit: ["sans-serif", "sans-serif"], // 👈 add custom font
       }

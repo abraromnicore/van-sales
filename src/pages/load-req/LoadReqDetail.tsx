@@ -1,11 +1,11 @@
+import * as React from 'react';
 import { useState } from 'react';
-import { CheckCircle, XCircle, Package, Calendar, User, Truck } from 'lucide-react';
-import { Card } from '@components/card/Card';
-import { CardHeader } from '@components/card/CardHeader.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
+import { Calendar, CheckCircle, Package, Truck, User, XCircle } from 'lucide-react';
+import { Card } from '@components/app-cards/card/Card';
+import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 import { Button } from '@components/button/Button.tsx';
 import { CustomTable } from '@components/tables/CustomTable.tsx';
-import * as React from 'react';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
@@ -42,90 +42,90 @@ type LoadRequest = {
 };
 
 const mockData: LoadRequest = {
-  id: "REQ-2025-1001",
-  date: "2025-10-09",
-  repId: "REP-001",
-  vanId: "VAN-LHR-01",
+  id: 'REQ-2025-1001',
+  date: '2025-10-09',
+  repId: 'REP-001',
+  vanId: 'VAN-LHR-01',
   requestedValue: 300000,
   approvedValue: 0,
-  status: "pending",
+  status: 'pending',
   totalItems: 3,
   items: [
     {
-      sku: "SKU-001",
+      sku: 'SKU-001',
       brand: "Brand-001",
-      name: "Premium Tea 500g",
+      name: 'Premium Tea 500g',
       requestedQty: 50,
       approvedQty: 0,
-      unitPrice: 1000
+      unitPrice: 1000,
     },
     {
-      sku: "SKU-002",
-      name: "Milk Powder 1kg",
+      sku: 'SKU-002',
+      name: 'Milk Powder 1kg',
       brand: "Brand-002",
       requestedQty: 30,
       approvedQty: 0,
-      unitPrice: 1500
+      unitPrice: 1500,
     },
     {
-      sku: "SKU-003",
-      name: "Biscuits Pack",
+      sku: 'SKU-003',
+      name: 'Biscuits Pack',
       brand: "Brand-002",
       requestedQty: 100,
       approvedQty: 0,
-      unitPrice: 300
-    }
+      unitPrice: 300,
+    },
   ],
   customers: [
     {
-      customerId: "CUST-001",
-      customerName: "Al-Faisal Superstore",
+      customerId: 'CUST-001',
+      customerName: 'Al-Faisal Superstore',
       items: [
         {
-          sku: "SKU-003",
-          name: "Biscuits Pack",
+          sku: 'SKU-003',
+          name: 'Biscuits Pack',
           requestedQty: 100,
           approvedQty: 0,
-          unitPrice: 300
+          unitPrice: 300,
         },
         {
-          sku: "SKU-001",
-          name: "Premium Tea 500g",
+          sku: 'SKU-001',
+          name: 'Premium Tea 500g',
           requestedQty: 50,
           approvedQty: 0,
-          unitPrice: 1000
+          unitPrice: 1000,
         },
         {
-          sku: "SKU-002",
-          name: "Milk Powder 1kg",
+          sku: 'SKU-002',
+          name: 'Milk Powder 1kg',
           requestedQty: 30,
           approvedQty: 0,
-          unitPrice: 1500
-        }
-      ]
+          unitPrice: 1500,
+        },
+      ],
     },
     {
-      customerId: "CUST-002",
-      customerName: "Metro Mart",
+      customerId: 'CUST-002',
+      customerName: 'Metro Mart',
       items: [
         {
-          sku: "SKU-003",
-          name: "Biscuits Pack",
+          sku: 'SKU-003',
+          name: 'Biscuits Pack',
           requestedQty: 100,
           approvedQty: 0,
-          unitPrice: 300
-        }
-      ]
-    }
+          unitPrice: 300,
+        },
+      ],
+    },
   ],
   rejectionReason: null,
   supervisorActionBy: null,
-  lastUpdated: "2025-10-09T10:30:00Z"
+  lastUpdated: '2025-10-09T10:30:00Z',
 };
 
-export const LoadReqDetail=() => {
+export const LoadReqDetail = () => {
 
-  const { showSuccess,showError } = useAppToast();
+  const { showSuccess, showError } = useAppToast();
   const columns = [
     {
       field: 'sku',
@@ -158,7 +158,7 @@ export const LoadReqDetail=() => {
   ];
 
   const [request] = useState<LoadRequest>(mockData);
-  const [selectedItem, setSelectedItem] = React.useState();
+  const [setSelectedItem] = React.useState<any>();
 
   const [visibleReject, setVisibleReject] = React.useState(false);
   const { showConfirmation } = useConfirmationDialog();
@@ -177,7 +177,7 @@ export const LoadReqDetail=() => {
     setVisibleReject(true);
   };
 
-  const handleRejectSubmit = (reason: string) => {
+  const handleRejectSubmit = () => {
     showConfirmation({
       message: 'Are You Sure to Reject the Load Request?',
       header: 'Reject Confirmation',
@@ -196,7 +196,7 @@ export const LoadReqDetail=() => {
     return new Date(dateString).toLocaleDateString('en-PK', {
       year: 'numeric',
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -204,9 +204,9 @@ export const LoadReqDetail=() => {
     <div>
       <div>
         <div>
-        <Card>
-          <CardHeader title={`Order Information`}/>
-          <CardBody>
+          <Card>
+            <CardHeader title={`Order Information`} />
+            <CardBody>
               {/* Header Section */}
               <div className="rounded-lg mb-6">
                 <div className="flex items-center justify-between mb-6">
@@ -288,10 +288,10 @@ export const LoadReqDetail=() => {
                   onSubmit={handleRejectSubmit}
                 />
               </div>
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
         </div>
-         {/*Customer Sections*/}
+        {/*Customer Sections*/}
         {/*<div className={'mt-6 flex flex-col gap-6'}>*/}
         {/*  {request.customers.map((customer) => (*/}
         {/*    <div key={customer.customerId}>*/}
@@ -314,24 +314,24 @@ export const LoadReqDetail=() => {
         {/*</div>*/}
 
         <div className={'mt-6 flex flex-col gap-6'}>
-            <div>
-              <Card>
-                <CardHeader title={`Load Request SKU's`} />
-                <CardBody>
-                  <CustomTable
-                    setSelectedItem={setSelectedItem}
-                    columns={columns}
-                    data={request.items.map(item => ({
-                      ...item,
-                      totalValue: formatCurrency(item.requestedQty * item.unitPrice),
-                      unitPrice: formatCurrency(item.unitPrice), // optional: if you want formatted here too
-                    }))}
-                  />
-                </CardBody>
-              </Card>
-            </div>
+          <div>
+            <Card>
+              <CardHeader title={`Load Request SKU's`} />
+              <CardBody>
+                <CustomTable
+                  setSelectedItem={setSelectedItem}
+                  columns={columns}
+                  data={request.items.map(item => ({
+                    ...item,
+                    totalValue: formatCurrency(item.requestedQty * item.unitPrice),
+                    unitPrice: formatCurrency(item.unitPrice), // optional: if you want formatted here too
+                  }))}
+                />
+              </CardBody>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};

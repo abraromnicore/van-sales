@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { Calendar } from 'primereact/calendar';
-import { useEffect, useState, ReactNode } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
 
 type CalendarRangeControlProps = {
@@ -60,9 +60,11 @@ export const CalendarRangeControl = (props: CalendarRangeControlProps) => {
           {labelStart} {required && <span className="text-red-500 ml-1">*</span>}
         </label>
 
-        <div className="flex items-center rounded-lg border border-gray-300 hover:border-gray-400 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 bg-white">
+        <div
+          className="flex items-center rounded-lg border border-gray-300 hover:border-gray-400 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 bg-white">
           {prefixStart && (
-            <div className="px-3 py-[10px] text-gray-500 border-r border-gray-200 bg-gray-50 flex items-center rounded-l-lg">
+            <div
+              className="px-3 py-[10px] text-gray-500 border-r border-gray-200 bg-gray-50 flex items-center rounded-l-lg">
               {prefixStart}
             </div>
           )}
@@ -104,7 +106,8 @@ export const CalendarRangeControl = (props: CalendarRangeControlProps) => {
           </div>
 
           {postfixStart && (
-            <div className="px-3 py-[10px] text-gray-500 border-l border-gray-200 bg-gray-50 flex items-center rounded-r-lg">
+            <div
+              className="px-3 py-[10px] text-gray-500 border-l border-gray-200 bg-gray-50 flex items-center rounded-r-lg">
               {postfixStart}
             </div>
           )}
@@ -116,9 +119,11 @@ export const CalendarRangeControl = (props: CalendarRangeControlProps) => {
           {labelEnd} {required && <span className="text-red-500 ml-1">*</span>}
         </label>
 
-        <div className="flex items-center rounded-lg border border-gray-300 hover:border-gray-400 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 bg-white">
+        <div
+          className="flex items-center rounded-lg border border-gray-300 hover:border-gray-400 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 bg-white">
           {prefixEnd && (
-            <div className="px-3 py-[10px] text-gray-500 border-r border-gray-200 bg-gray-50 flex items-center rounded-l-lg">
+            <div
+              className="px-3 py-[10px] text-gray-500 border-r border-gray-200 bg-gray-50 flex items-center rounded-l-lg">
               {prefixEnd}
             </div>
           )}
@@ -160,7 +165,8 @@ export const CalendarRangeControl = (props: CalendarRangeControlProps) => {
           </div>
 
           {postfixEnd && (
-            <div className="px-3 py-[10px] text-gray-500 border-l border-gray-200 bg-gray-50 flex items-center rounded-r-lg">
+            <div
+              className="px-3 py-[10px] text-gray-500 border-l border-gray-200 bg-gray-50 flex items-center rounded-r-lg">
               {postfixEnd}
             </div>
           )}
