@@ -8,6 +8,7 @@ import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { PageLayout } from '@layouts/Pagelayout.tsx';
 
 // Status Badge Component
 const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
@@ -76,7 +77,6 @@ export const VanRepListPage = () => {
       { label: 'Van Rep List', route: '', active: true },
     ],
   });
-
   const navigate = useNavigate();
 
   // Mock data - In a real app, this would come from an API call to db.json
@@ -284,7 +284,7 @@ export const VanRepListPage = () => {
   };
 
   return (
-    <>
+    <PageLayout disableXPaddings={true}>
       <CustomTable
         setSelectedItem={setSelectedItem}
         columns={columns}
@@ -297,6 +297,6 @@ export const VanRepListPage = () => {
         onHide={() => setShowTerritory(false)}
         onSubmit={handleTerritorySubmit}
       />
-    </>
+    </PageLayout>
   );
 };

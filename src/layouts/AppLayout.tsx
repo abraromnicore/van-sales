@@ -19,7 +19,7 @@ const LayoutContent: React.FC = () => {
         }`}
       >
         <AppHeader />
-        <div className={'p-6 grid grid-rows-[auto,1fr]'}>
+        <div className={'py-6 grid grid-rows-[auto,1fr]'}>
           <Outlet />
         </div>
       </div>

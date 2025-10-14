@@ -3,16 +3,27 @@ import { type ColumMeta, CustomTable } from '@components/tables/CustomTable.tsx'
 import type { MenuItem } from 'primereact/menuitem';
 import { Eye, Pin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { VIEW_REP_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { DASHBOARD_ROUTE, VAN_REP_LIST_ROUTE, VIEW_REP_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { PageLayout } from '@layouts/Pagelayout.tsx';
 
 export const VanRepPage = () => {
   useMetadata({
     pageTitle: 'Van Representatives',
-    breadcrumbs: [],
+    breadcrumbs: [
+      {
+        label: 'Dashboard',
+        route: DASHBOARD_ROUTE,
+      },
+      {
+        label: 'Van Representatives',
+        route: VAN_REP_LIST_ROUTE,
+        active: true,
+      },
+    ],
   });
 
   const navigate = useNavigate();
@@ -158,7 +169,7 @@ export const VanRepPage = () => {
   };
 
   return (
-    <>
+    <PageLayout>
       <CustomTable
         setSelectedItem={setSelectedItem}
         columns={columns}
@@ -171,6 +182,6 @@ export const VanRepPage = () => {
         onHide={() => setShowTerritory(false)}
         onSubmit={handleTerritorySubmit}
       />
-    </>
+    </PageLayout>
   );
 };

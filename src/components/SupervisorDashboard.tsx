@@ -17,6 +17,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import * as React from 'react';
+import { PageLayout } from '@layouts/Pagelayout.tsx';
 
 interface TeamMember {
   id: number;
@@ -133,7 +134,7 @@ const SupervisorDashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <PageLayout>
       {/* Header */}
       <div className="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -696,7 +697,7 @@ const SupervisorDashboard: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

@@ -5,6 +5,7 @@ import { Column } from 'primereact/column';
 import { TieredMenu } from 'primereact/tieredmenu';
 import type { MenuItem } from 'primereact/menuitem';
 import { EllipsisVertical } from 'lucide-react';
+import styled from 'styled-components';
 
 export type ColumMeta = {
   field: string;
@@ -20,6 +21,26 @@ type TableProps = {
   setSelectedItem: (selectedItem: any) => void;
 }
 
+const CustomTableContainer = styled.div`
+
+    .p-datatable .p-datatable-thead > tr > th {
+        padding: 12px 24px;
+        border-bottom: 1px solid #EAECF0;
+        background: #FCFCFD;
+    }
+
+    .p-datatable .p-datatable-tbody > tr {
+        background-color: transparent;
+    }
+    
+    .p-datatable .p-datatable-tbody > tr > td {
+        padding: 12px 24px;
+        border-bottom: 1px solid #EAECF0;
+        background-color: transparent;
+    }
+  
+`;
+
 export const CustomTable = (props: TableProps) => {
   const { columns, data, menuModel, setSelectedItem } = props;
   const menuRef = useRef<TieredMenu>(null);
@@ -30,7 +51,7 @@ export const CustomTable = (props: TableProps) => {
   };
 
   return (
-    <div className="card">
+    <CustomTableContainer>
       {menuModel && (
         <TieredMenu ref={menuRef} model={menuModel} popup />
       )}
@@ -41,8 +62,6 @@ export const CustomTable = (props: TableProps) => {
             field={col.field}
             header={col.header}
             body={col.body}
-            headerClassName="px-4 py-2"
-            bodyClassName="px-4 py-2"
             style={col.style}
           />
         ))}
@@ -63,6 +82,6 @@ export const CustomTable = (props: TableProps) => {
           bodyClassName="px-2 py-2 text-right"
         />)}
       </DataTable>
-    </div>
+    </CustomTableContainer>
   );
 };

@@ -74,7 +74,7 @@ export const RolesPage = () => {
   };
 
   return (
-    <PageLayout headerActions={<HeaderActions />}>
+    <PageLayout disableXPaddings={true} headerActions={<HeaderActions />}>
       <CustomTable setSelectedItem={setSelectedItem} columns={columns} data={roles} menuModel={tieredMenu} />
       <CustomDialog size={'full'} onHide={() => setVisibleViewRole(false)} visible={visibleViewRole}>
         <CustomDialogHeader onHide={() => setVisibleViewRole(false)} title={'View Role'} />

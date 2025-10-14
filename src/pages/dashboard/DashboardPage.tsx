@@ -305,7 +305,7 @@ export const DashboardPage: React.FC = () => {
   );
 
   return (
-    <PageLayout>
+    <div className={'px-6'}>
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KPICard
@@ -398,6 +398,6 @@ export const DashboardPage: React.FC = () => {
           showBreakdown={true}
         />
       </div>
-    </PageLayout>
+    </div>
   );
 };

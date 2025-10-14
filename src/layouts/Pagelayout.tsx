@@ -8,21 +8,24 @@ type PageLayoutProps = {
   children: ReactNode;
   headerActions?: ReactNode;
   className?: string;
+  disableXPaddings?: boolean;
 }
 
 export const PageLayout = (props: PageLayoutProps) => {
-  const { children, className, headerActions } = props;
+  const { children, className, headerActions, disableXPaddings = false } = props;
   const { breadcrumbs } = useSelector((state: RootState) => state.metadata);
 
   if (!breadcrumbs || (breadcrumbs && breadcrumbs.length === 0)) return children;
 
   return (
     <>
-      <div className={clsx('flex justify-between gap-6 mb-6', className)}>
+      <div className={clsx('flex justify-between gap-6 mb-6 px-6', className)}>
         <Breadcrumbs />
         {headerActions}
       </div>
-      {children}
+      <div className={clsx('overflow-auto', { 'px-6': !disableXPaddings })}>
+        {children}
+      </div>
     </>
   );
 };
