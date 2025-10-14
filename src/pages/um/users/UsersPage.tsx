@@ -22,6 +22,7 @@ import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
 import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
 import { useDeactivateUser } from '@hooks/um/users/useDeactivateUser';
 import { useActivateUser } from '@hooks/um/users/useActivateUser';
+import { useArchiveUser } from '@hooks/um/users/useArchiveUser';
 
 export const UserPage = () => {
   useMetadata({
@@ -47,6 +48,7 @@ export const UserPage = () => {
   const navigate = useNavigate();
   const { deactivateUser } = useDeactivateUser();
   const { activateUser } = useActivateUser();
+  const { archiveUser } = useArchiveUser();
   const [dialogAction, setDialogAction] = useState<null | 'delete' | 'deactivate' | 'archive' | 'logs' | 'activate'>(null);
   console.log(selectedItem, `selected item:`)
   const isDeactivated = selectedItem?.status === 'deactivated' || selectedItem?.status === 'deactivate';
@@ -128,6 +130,45 @@ const userColumns: ColumMeta[] = [
     field: 'status',
     header: 'Status',
     style: { minWidth: '100px', width: '100px' },
+    body: (rowData: UserType) => {
+      const getStatusBadge = (status: string) => {
+        const statusLower = status?.toLowerCase() || '';
+        
+        if (statusLower === 'active' || statusLower === 'activated') {
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              Active
+            </span>
+          );
+        } else if (statusLower === 'inactive' || statusLower === 'deactivated' || statusLower === 'deactivate') {
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+              Inactive
+            </span>
+          );
+        } else if (statusLower === 'archived' || statusLower === 'archive') {
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+              Archived
+            </span>
+          );
+        } else if (statusLower === 'pending') {
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+              Pending
+            </span>
+          );
+        } else {
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+              {status?.charAt(0).toUpperCase() + status?.slice(1).toLowerCase() || 'Unknown'}
+            </span>
+          );
+        }
+      };
+
+      return getStatusBadge(rowData.status);
+    },
   },
   {
     field: 'roleName',
@@ -222,7 +263,7 @@ const userColumns: ColumMeta[] = [
       activateUser(selectedItem);
     }
     if (dialogAction === 'archive') {
-      console.log('User archived');
+      archiveUser(selectedItem);
     }
 
     setDialogAction(null);

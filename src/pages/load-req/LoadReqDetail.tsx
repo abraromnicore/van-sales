@@ -13,6 +13,7 @@ import { useAppToast } from '@hooks/common/useAppToast.ts';
 type Item = {
   sku: string;
   name: string;
+  brand: string;
   requestedQty: number;
   approvedQty: number;
   unitPrice: number;
@@ -52,6 +53,7 @@ const mockData: LoadRequest = {
   items: [
     {
       sku: 'SKU-001',
+      brand: "Brand-001",
       name: 'Premium Tea 500g',
       requestedQty: 50,
       approvedQty: 0,
@@ -60,6 +62,7 @@ const mockData: LoadRequest = {
     {
       sku: 'SKU-002',
       name: 'Milk Powder 1kg',
+      brand: "Brand-002",
       requestedQty: 30,
       approvedQty: 0,
       unitPrice: 1500,
@@ -67,6 +70,7 @@ const mockData: LoadRequest = {
     {
       sku: 'SKU-003',
       name: 'Biscuits Pack',
+      brand: "Brand-002",
       requestedQty: 100,
       approvedQty: 0,
       unitPrice: 300,
@@ -130,6 +134,10 @@ export const LoadReqDetail = () => {
     {
       field: 'name',
       header: 'Product Name',
+    },
+    {
+      field: 'brand',
+      header: 'Brand',
     },
     {
       field: 'unitPrice',

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const userSchema = yup.object().shape({
+const baseUserSchema = {
   firstName: yup
     .string()
     .required('First name is required')
@@ -21,15 +21,7 @@ export const userSchema = yup.object().shape({
     .string()
     .required('Email is required')
     .email('Please enter a valid email address'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(8, 'Password must be at least 8 characters')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, 'Password must contain at least one lowercase letter, one uppercase letter, and one number'),
-  confirmPassword: yup
-    .string()
-    .required('Confirm password is required')
-    .oneOf([yup.ref('password')], 'Passwords must match'),
+
   gender: yup
     .string()
     .required('Gender is required')
@@ -49,6 +41,7 @@ export const userSchema = yup.object().shape({
       }
       return age >= 18;
     }),
+
   status: yup
     .string()
     .required('Status is required')
@@ -60,4 +53,19 @@ export const userSchema = yup.object().shape({
     .string()
     .nullable()
     .optional(),
+};
+
+// Schema for creating users (includes password fields)
+export const createUserSchema = yup.object().shape({
+  ...baseUserSchema,
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, 'Password must contain at least one lowercase letter, one uppercase letter, and one number'),
+
+  confirmPassword: yup
+    .string()
+    .required('Confirm password is required')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
 });

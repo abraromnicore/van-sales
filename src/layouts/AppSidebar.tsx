@@ -11,6 +11,8 @@ import {
   ROLES_ROUTE,
   USERS_ROUTE,
   VAN_REPRESENTATIVE_ROUTE,
+  VAN_REP_LIST_ROUTE,
+  VAN_REP_HIERARCHY_ROUTE,
   VIEW_USER_HIERARCHY_ROUTE,
 } from '@utils/constant/app-route.constants.ts';
 
@@ -183,7 +185,10 @@ const AppSidebar: React.FC = () => {
     {
       icon: <Truck />,
       name: 'Van Representative',
-      path: VAN_REPRESENTATIVE_ROUTE,
+      subItems: [
+      { name: 'Van Rep List', path: VAN_REP_LIST_ROUTE },
+      { name: 'Van Assignment Hierarchy', path: VAN_REP_HIERARCHY_ROUTE },
+    ],
     },
     {
       icon: <Users />,
