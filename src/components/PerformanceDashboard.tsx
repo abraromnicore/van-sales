@@ -1,12 +1,12 @@
 import { useState, useMemo, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import { Calendar, Download } from 'lucide-react';
-import { Card } from '@components/card/Card.tsx';
-import { CardHeader } from '@components/card/CardHeader.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
 import { Button } from '@components/button/Button.tsx';
 import CalendarControl2 from '@components/forms/CalendarControl2.tsx';
 import { useForm } from 'react-hook-form';
+import { Card } from '@components/app-cards/card/Card.tsx';
+import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 
 type PerformanceData = {
   date: string;
