@@ -1,17 +1,5 @@
 import * as React from 'react';
-import {
-  User,
-  Phone,
-  Mail,
-  MapPin,
-  Activity,
-  Eye,
-  Package2,
-  Gauge,
-  CheckCircle,
-  Pin,
-  Truck,
-} from 'lucide-react';
+import { Activity, CheckCircle, Eye, Gauge, Mail, MapPin, Package2, Phone, Pin, Truck, User } from 'lucide-react';
 import { Card } from '@components/app-cards/card/Card';
 import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
 import { CardBody } from '@components/app-cards/card/CardBody.tsx';
@@ -35,7 +23,7 @@ const vanRepDetail = {
     name: 'Muhammad Ali',
     phone: '+92-301-1111111',
     email: 'm.ali@company.com',
-    territory: 'Gulberg',
+    territory: 'Gul berg',
     status: 'on_route',
   },
   vanDetails: {
@@ -46,7 +34,7 @@ const vanRepDetail = {
     odometerStart: 45230,
     odometerCurrent: 45300,
     distanceTraveled: 70,
-    isAssigned: false, // New field to track if van is assigned - Set to false to test empty state
+    isAssigned: false, // New field to track if van is assigned - Set too false to test empty state
   },
   stockDetails: {
     currentStockValue: 150000,
@@ -271,7 +259,7 @@ export const VanRepDetailPage = () => {
     distanceTraveled: 0,
     isAssigned: false,
   });
-  const [selectedItem, setSelectedItem] = React.useState<any>();
+  const [setSelectedItem] = React.useState<any>();
   const [visibleReject, setVisibleReject] = React.useState(false);
   const [showTerritory, setShowTerritory] = React.useState(false);
   const [showVanAssignment, setShowVanAssignment] = React.useState(false);
@@ -343,8 +331,6 @@ export const VanRepDetailPage = () => {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   };
-
-  ;
   const { showConfirmation } = useConfirmationDialog();
 
   const handleApprove = () => {
@@ -361,12 +347,12 @@ export const VanRepDetailPage = () => {
     setVisibleReject(true);
   };
 
-  const handleRejectSubmit = (data: string) => {
+  const handleRejectSubmit = () => {
     showConfirmation({
       message: 'Are You Sure to Reject the Load Request?',
       header: 'Reject Confirmation',
       onConfirm: () => {
-        setVisibleReject(false)
+        setVisibleReject(false);
         showError('Load Request', 'Load Request Accept Failure.');
       },
     });
@@ -414,7 +400,7 @@ export const VanRepDetailPage = () => {
         setShowVanAssignment(false);
         showSuccess(
           'Van Assignment',
-          `Van ${vanAssignmentMode === 'assign' ? 'assigned' : 'updated'} successfully`
+          `Van ${vanAssignmentMode === 'assign' ? 'assigned' : 'updated'} successfully`,
         );
         // Here you would typically make an API call to update the van assignment
         console.log('Van assignment data:', data);
@@ -429,7 +415,7 @@ export const VanRepDetailPage = () => {
         vanId: 'VAN-LHR-01',
         registrationNumber: 'LES-2024-001',
         brand: 'Toyota',
-        model: 'Hiace',
+        model: 'Hi ace',
         capacity: 300000,
         currentLoad: 150000,
         odometerStart: 45230,
@@ -570,7 +556,8 @@ export const VanRepDetailPage = () => {
               </CardBody>
               <CardFooter>
                 <div className={`flex justify-end w-full`}>
-                  <Button className={`outline-none focus-none`} icon={<Pin className={'w-5 h-5'}/>} variant={`ghost`} onClick={onChangeTerritory} label={`Change Territory`} />
+                  <Button className={`outline-none focus-none`} icon={<Pin className={'w-5 h-5'} />} variant={`ghost`}
+                          onClick={onChangeTerritory} label={`Change Territory`} />
                   <TerritoryChangeDialog
                     visible={showTerritory}
                     onHide={() => setShowTerritory(false)}
@@ -648,7 +635,7 @@ export const VanRepDetailPage = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
         <div className="md:col-span-2 ">
-          <MapView title={"Van Rep Tracking"}/>
+          <MapView />
         </div>
         <div>
           <Card>
@@ -663,60 +650,60 @@ export const VanRepDetailPage = () => {
             <CardBody>
               {vanDetails.isAssigned ? (
                 <>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6">
-                {/* Info Section */}
-                <div className="flex-1">
-                  <h2 className="text-base font-bold text-gray-900">
-                    {vanDetails.registrationNumber}
-                  </h2>
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-6">
+                    {/* Info Section */}
+                    <div className="flex-1">
+                      <h2 className="text-base font-bold text-gray-900">
+                        {vanDetails.registrationNumber}
+                      </h2>
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mt-2">
                     <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm ">
                       {vanDetails.vanId}
                     </span>
-                    <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
+                        <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
                       Load:{' '}
-                      {(
-                        (vanDetails.currentLoad / vanDetails.capacity) *
-                        100
-                      ).toFixed(0)}
-                      %
+                          {(
+                            (vanDetails.currentLoad / vanDetails.capacity) *
+                            100
+                          ).toFixed(0)}
+                          %
                     </span>
-                    <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
+                        <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
                       {vanDetails.distanceTraveled} km traveled
                     </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
                   <div className="space-y-3 lg:grid grid-cols-2 gap-x-6 gap-y-3">
-                <div className="flex items-center text-gray-700">
-                  <Package2 className="w-5 h-5 mr-3 text-gray-400" />
-                  <span>
+                    <div className="flex items-center text-gray-700">
+                      <Package2 className="w-5 h-5 mr-3 text-gray-400" />
+                      <span>
                     Capacity: {vanDetails.capacity.toLocaleString()} units
                   </span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <Package2 className="w-5 h-5 mr-3 text-gray-400" />
-                  <span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <Package2 className="w-5 h-5 mr-3 text-gray-400" />
+                      <span>
                     Current Load: {vanDetails.currentLoad.toLocaleString()}{' '}
-                    units
+                        units
                   </span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <Gauge className="w-5 h-5 mr-3 text-gray-400" />
-                  <span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <Gauge className="w-5 h-5 mr-3 text-gray-400" />
+                      <span>
                     Odometer Start: {vanDetails.odometerStart.toLocaleString()}{' '}
-                    km
+                        km
                   </span>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <Gauge className="w-5 h-5 mr-3 text-gray-400" />
-                  <span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <Gauge className="w-5 h-5 mr-3 text-gray-400" />
+                      <span>
                     Odometer Current:{' '}
-                    {vanDetails.odometerCurrent.toLocaleString()} km
+                        {vanDetails.odometerCurrent.toLocaleString()} km
                   </span>
-                </div>
-              </div>
+                    </div>
+                  </div>
                 </>
               ) : (
                 <div className="text-center py-12">
@@ -743,7 +730,7 @@ export const VanRepDetailPage = () => {
       </div>
       <div className={`mt-6`}>
         <Card>
-          <CardHeader title={`Load Requests`}/>
+          <CardHeader title={`Load Requests`} />
           <CardBody>
             <CustomTable
               setSelectedItem={setSelectedItem}
@@ -796,7 +783,7 @@ export const VanRepDetailPage = () => {
         </Card>
       </div>
       <div className={`mt-6`}>
-        <PerformanceDashboard/>
+        <PerformanceDashboard />
       </div>
     </>
   );

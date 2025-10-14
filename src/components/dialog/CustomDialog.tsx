@@ -2,6 +2,7 @@ import { Dialog } from 'primereact/dialog';
 import * as React from 'react';
 import styled from 'styled-components';
 
+// ========== STYLED COMPONENT ==========
 const DialogContentContainer = styled.div`
     &.min-w-sm {
         min-width: 384px;
@@ -26,10 +27,7 @@ const DialogContentContainer = styled.div`
     background-color: white;
     border: 1px solid #e5e7eb;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
     max-height: calc(100vh - 32px);
-
-    overflow: hidden;
 
     &.full-screen {
         width: calc(100vw - 32px);
@@ -44,17 +42,30 @@ const DialogContentContainer = styled.div`
     }
 `;
 
+// ========== TYPES ==========
 type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
-type DialogOptions = {
+interface DialogOptions {
   onHide: () => void;
   children?: React.ReactNode;
   visible: boolean;
   size?: DialogSize;
-  dismissableMask?: boolean
-};
+  dismissableMask?: boolean;
+}
 
-export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissableMask = true }: DialogOptions) => {
+// ✅ Define the expected props for dialog child sections
+interface CustomDialogSectionProps {
+  size?: DialogSize;
+}
+
+// ========== COMPONENT ==========
+export const CustomDialog: React.FC<DialogOptions> = ({
+                                                        onHide,
+                                                        visible,
+                                                        children,
+                                                        size = 'md',
+                                                        dismissableMask = true,
+                                                      }) => {
   const sizeClasses: Record<DialogSize, string> = {
     sm: 'min-w-sm',
     md: 'min-w-md',
@@ -63,25 +74,24 @@ export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissab
     full: 'full-screen',
   };
 
+  // ✅ Fix: typed cloneElement without "any"
   const enhancedChildren = React.Children.map(children, (child) => {
-    if (
-      React.isValidElement(child) &&
-      ['CustomDialogBody', 'CustomDialogHeader', 'CustomDialogFooter'].includes(
-        (child.type as any)?.name,
-      )
-    ) {
-      return React.cloneElement(child, { size });
+    if (React.isValidElement(child)) {
+      const childTypeName = (child.type as { name?: string })?.name ?? '';
+
+      if (
+        ['CustomDialogBody', 'CustomDialogHeader', 'CustomDialogFooter'].includes(
+          childTypeName
+        )
+      ) {
+        return React.cloneElement(
+          child as React.ReactElement<CustomDialogSectionProps>,
+          { size }
+        );
+      }
     }
     return child;
   });
-
-  const CardContent = () => (
-    <DialogContentContainer
-      className={`w-full mx-auto ${sizeClasses[size]} dark:border-neutral-800 dark:bg-neutral-900`}
-    >
-      {enhancedChildren}
-    </DialogContentContainer>
-  );
 
   return (
     <Dialog
@@ -91,7 +101,12 @@ export const CustomDialog = ({ onHide, visible, children, size = 'md', dismissab
       dismissableMask={dismissableMask}
       closable={false}
       className={`!bg-transparent ${size === 'full' ? '!m-0 !p-0' : ''}`}
-      content={<CardContent />}
-    />
+    >
+      <DialogContentContainer
+        className={`w-full mx-auto ${sizeClasses[size]} dark:border-neutral-800 dark:bg-neutral-900`}
+      >
+        {enhancedChildren}
+      </DialogContentContainer>
+    </Dialog>
   );
 };

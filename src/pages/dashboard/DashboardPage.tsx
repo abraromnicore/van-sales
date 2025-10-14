@@ -297,7 +297,6 @@ export const DashboardPage: React.FC = () => {
   const chartConfig = usePieChartConfig(
     'Collections by Payment Type',
     collectionsData,
-    'collections', // using preset
   );
 
   const totalApprovals = Object.values(dashboardData.pendingApprovals).reduce(

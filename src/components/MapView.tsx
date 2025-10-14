@@ -1,18 +1,17 @@
 import { useCallback, useRef, useState } from 'react';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
 
 const containerStyle: React.CSSProperties = {
   width: '100%',
   height: '340px',
   padding: '0px',
-  'border-bottom-left-radius': '16px',
-  'border-bottom-right-radius': '16px',
+  borderBottomLeftRadius: '16px',
+  borderBottomRightRadius: '16px',
 };
 
 const center = { lat: 31.5204, lng: 74.3587 }; // Lahore, Pakistan
 
-export default function MapView({ title }: { title?: string }) {
+export default function MapView() {
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
     libraries: ['places'], // for Autocomplete
@@ -23,7 +22,6 @@ export default function MapView({ title }: { title?: string }) {
     null,
   );
   const mapRef = useRef<google.maps.Map | null>(null);
-  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   const onLoad = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
@@ -59,21 +57,6 @@ export default function MapView({ title }: { title?: string }) {
     },
     [],
   );
-
-  // Handle place selection in search box
-  const handlePlaceChanged = () => {
-    const place = autocompleteRef.current?.getPlace();
-    if (place?.geometry?.location) {
-      const newPos = {
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-      };
-      setMarker(newPos);
-      setSelected(newPos);
-      mapRef.current?.panTo(newPos);
-      mapRef.current?.setZoom(14);
-    }
-  };
 
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading...</div>;

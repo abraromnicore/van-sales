@@ -32,8 +32,9 @@ const HeaderSidebarToggleContainer = styled.div`
 
 const HeaderContainer = styled.header`
     height: 68px;
-    background-color: #FAFAFA90;
-    backdrop-filter: blur(100px);
+    background-color: #FAFAFA98;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid #FAFAFA;
 `;
 
 // ============================================================

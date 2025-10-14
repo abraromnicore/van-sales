@@ -87,6 +87,7 @@ const mockData: LoadRequest = {
           requestedQty: 100,
           approvedQty: 0,
           unitPrice: 300,
+          brand: '',
         },
         {
           sku: 'SKU-001',
@@ -94,6 +95,7 @@ const mockData: LoadRequest = {
           requestedQty: 50,
           approvedQty: 0,
           unitPrice: 1000,
+          brand: '',
         },
         {
           sku: 'SKU-002',
@@ -101,6 +103,7 @@ const mockData: LoadRequest = {
           requestedQty: 30,
           approvedQty: 0,
           unitPrice: 1500,
+          brand: '',
         },
       ],
     },
@@ -114,6 +117,7 @@ const mockData: LoadRequest = {
           requestedQty: 100,
           approvedQty: 0,
           unitPrice: 300,
+          brand: '',
         },
       ],
     },

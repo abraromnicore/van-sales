@@ -6,7 +6,7 @@ import { CustomDialogFooter } from '@components/dialog/CustomDialogFooter';
 import { Button } from '@components/button/Button';
 import { SelectControl } from '@components/forms/SelectControl';
 import { useForm } from 'react-hook-form';
-import { User, Truck, Eye } from 'lucide-react';
+import { Eye, Truck, User } from 'lucide-react';
 import { VanDetailsModal } from './VanDetailsModal';
 
 interface VanAssignmentDialogProps {
@@ -25,13 +25,13 @@ interface VanAssignmentDialogProps {
 }
 
 export const VanAssignmentDialog: React.FC<VanAssignmentDialogProps> = ({
-  visible,
-  onHide,
-  onSubmit,
-  mode,
-  currentDriver,
-  currentVan,
-}) => {
+                                                                          visible,
+                                                                          onHide,
+                                                                          onSubmit,
+                                                                          mode,
+                                                                          currentDriver,
+                                                                          currentVan,
+                                                                        }) => {
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       driverName: currentDriver?.name || '',
@@ -209,14 +209,9 @@ export const VanAssignmentDialog: React.FC<VanAssignmentDialogProps> = ({
       onHide={onHide}
       size="md"
     >
-      <CustomDialogHeader>
-        <div className="flex items-center gap-2">
-          <Truck className="w-5 h-5 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">
-            {mode === 'assign' ? 'Assign Van to Driver' : 'Update Van Assignment'}
-          </h3>
-        </div>
-      </CustomDialogHeader>
+      <CustomDialogHeader
+        onHide={onHide}
+        title={mode === 'assign' ? 'Assign Van to Driver' : 'Update Van Assignment'}></CustomDialogHeader>
 
       <CustomDialogBody>
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
@@ -249,7 +244,6 @@ export const VanAssignmentDialog: React.FC<VanAssignmentDialogProps> = ({
               <Button
                 type="button"
                 variant="outline"
-                size="sm"
                 icon={<Eye className="w-4 h-4" />}
                 onClick={handleViewVanDetails}
                 label="View Details"
@@ -276,7 +270,8 @@ export const VanAssignmentDialog: React.FC<VanAssignmentDialogProps> = ({
                       {vanData[watch('vanId') as keyof typeof vanData].registrationNumber}
                     </p>
                   </div>
-                  <span className={`text-xs font-medium ${getStatusColor(vanData[watch('vanId') as keyof typeof vanData].status)}`}>
+                  <span
+                    className={`text-xs font-medium ${getStatusColor(vanData[watch('vanId') as keyof typeof vanData].status)}`}>
                     {vanData[watch('vanId') as keyof typeof vanData].status.toUpperCase()}
                   </span>
                 </div>

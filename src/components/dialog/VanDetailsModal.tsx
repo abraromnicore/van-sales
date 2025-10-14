@@ -4,7 +4,7 @@ import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
 import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
 import { CustomDialogFooter } from '@components/dialog/CustomDialogFooter';
 import { Button } from '@components/button/Button';
-import { Truck, Package2, Gauge, MapPin, Calendar } from 'lucide-react';
+import { Calendar, Gauge, Package2, Truck } from 'lucide-react';
 
 interface VanDetailsModalProps {
   visible: boolean;
@@ -27,10 +27,10 @@ interface VanDetailsModalProps {
 }
 
 export const VanDetailsModal: React.FC<VanDetailsModalProps> = ({
-  visible,
-  onHide,
-  vanDetails,
-}) => {
+                                                                  visible,
+                                                                  onHide,
+                                                                  vanDetails,
+                                                                }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'available':
@@ -57,14 +57,7 @@ export const VanDetailsModal: React.FC<VanDetailsModalProps> = ({
       onHide={onHide}
       size="lg"
     >
-      <CustomDialogHeader>
-        <div className="flex items-center gap-2">
-          <Truck className="w-5 h-5 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">
-            Van Details - {vanDetails.vanId}
-          </h3>
-        </div>
-      </CustomDialogHeader>
+      <CustomDialogHeader onHide={onHide} title={`Van Details - ${vanDetails.vanId}`} />
 
       <CustomDialogBody>
         <div className="space-y-6">
@@ -79,7 +72,8 @@ export const VanDetailsModal: React.FC<VanDetailsModalProps> = ({
               </h2>
               <p className="text-gray-600">{vanDetails.year} • {vanDetails.registrationNumber}</p>
               <div className="flex flex-wrap gap-2 mt-2">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(vanDetails.status)}`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(vanDetails.status)}`}>
                   {formatStatus(vanDetails.status)}
                 </span>
                 <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">

@@ -25,7 +25,7 @@ const baseUserSchema = {
   gender: yup
     .string()
     .required('Gender is required')
-    .oneOf(['male', 'female', 'other'], 'Please select a valid gender'),
+    .oneOf(['male', 'female', 'other', ''], 'Please select a valid gender'),
   dateOfBirth: yup
     .date()
     .required('Date of birth is required')

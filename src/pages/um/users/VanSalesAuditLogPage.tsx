@@ -7,8 +7,28 @@ import { Button } from '@components/button/Button';
 import { SelectControl } from '@components/forms/SelectControl';
 import { Download, Filter, RefreshCw } from 'lucide-react';
 import { useAppToast } from '@hooks/common/useAppToast';
+import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { DASHBOARD_ROUTE, LOGS_ROUTE, UM_ROUTE } from '@utils/constant/app-route.constants.ts';
 
 export const VanSalesAuditLogPage = () => {
+  useMetadata({
+    pageTitle: 'Van Sales Audit Logs',
+    breadcrumbs: [
+      {
+        label: 'Dashboard',
+        route: DASHBOARD_ROUTE,
+      },
+      {
+        label: 'User Management',
+        route: UM_ROUTE,
+      },
+      {
+        label: 'Van Sales Log',
+        route: LOGS_ROUTE,
+        active: true,
+      },
+    ],
+  });
   const {
     control,
     handleSubmit,
@@ -88,7 +108,7 @@ export const VanSalesAuditLogPage = () => {
     },
   ];
 
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [setSelectedItem] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [filteredLogs, setFilteredLogs] = useState(logs);
   const { showError } = useAppToast();
@@ -96,22 +116,22 @@ export const VanSalesAuditLogPage = () => {
     {
       field: 'id',
       header: 'ID',
-      style: { minWidth: '80px', width: '80px' }
+      style: { minWidth: '80px', width: '80px' },
     },
     {
       field: 'targetUser',
       header: 'Target User',
-      style: { minWidth: '150px', width: '150px' }
+      style: { minWidth: '150px', width: '150px' },
     },
     {
       field: 'action',
       header: 'Action',
-      style: { minWidth: '140px', width: '140px' }
+      style: { minWidth: '140px', width: '140px' },
     },
     {
       field: 'changedBy',
       header: 'Changed By',
-      style: { minWidth: '130px', width: '130px' }
+      style: { minWidth: '130px', width: '130px' },
     },
     {
       field: 'timestamp',
@@ -134,7 +154,7 @@ export const VanSalesAuditLogPage = () => {
     {
       field: 'details',
       header: 'Details',
-      style: { minWidth: '250px', width: '250px' }
+      style: { minWidth: '250px', width: '250px' },
     },
   ];
 
@@ -149,8 +169,8 @@ export const VanSalesAuditLogPage = () => {
         `"${log.action}"`,
         `"${log.changedBy}"`,
         `"${new Date(log.timestamp).toLocaleString()}"`,
-        `"${log.details}"`
-      ].join(','))
+        `"${log.details}"`,
+      ].join(',')),
     ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -229,120 +249,120 @@ export const VanSalesAuditLogPage = () => {
 
   return (
     <PageLayout className="max-w-7xl">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Van Sales Audit Logs</h1>
-          <p className="text-gray-600">
-            Monitor and track all user activities and system changes across the application.
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Van Sales Audit Logs</h1>
+        <p className="text-gray-600">
+          Monitor and track all user activities and system changes across the application.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6 shadow-sm">
+        <div className="flex items-center mb-6">
+          <Filter className="w-5 h-5 text-blue-600 mr-2" />
+          <h2 className="text-lg font-semibold text-gray-800">Filter Logs</h2>
+        </div>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <CalendarRangeControl
+                control={control}
+                nameStart="startDate"
+                nameEnd="endDate"
+                labelStart="From Date"
+                labelEnd="To Date"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <SelectControl
+              control={control}
+              name="filterByRole"
+              label="Filter by Role"
+              options={userOptions}
+              placeholder="Select role"
+              className=""
+            />
+            <SelectControl
+              control={control}
+              name="filterByAction"
+              label="Filter by Action"
+              options={actionOptions}
+              placeholder="Select action"
+              className=""
+            />
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-end pt-6 border-t border-gray-200">
+            <Button
+              type="button"
+              variant="secondary"
+              label="Reset Filters"
+              icon={<RefreshCw size={18} />}
+              onClick={handleReset}
+              className="w-full sm:w-auto"
+            />
+            <Button
+              type="submit"
+              variant="primary"
+              label="Apply Filters"
+              icon={<Filter size={18} />}
+              disabled={isLoading}
+              className="w-full sm:w-auto"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              label="Export CSV"
+              icon={<Download size={18} />}
+              onClick={exportCSV}
+              className="w-full sm:w-auto"
+            />
+          </div>
+        </form>
+      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+            <span className="text-sm font-medium text-blue-800">
+                Showing {filteredLogs.length} audit log entries
+              </span>
+          </div>
+          <div className="text-xs text-blue-600">
+            Last updated: {new Date().toLocaleString()}
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+        <div className="px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-800">Audit Log Entries</h3>
+          <p className="text-sm text-gray-600 mt-1">
+            Complete history of user actions and system changes
           </p>
         </div>
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6 shadow-sm">
-          <div className="flex items-center mb-6">
-            <Filter className="w-5 h-5 text-blue-600 mr-2" />
-            <h2 className="text-lg font-semibold text-gray-800">Filter Logs</h2>
-          </div>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div>
-                <CalendarRangeControl
-                  control={control}
-                  nameStart="startDate"
-                  nameEnd="endDate"
-                  labelStart="From Date"
-                  labelEnd="To Date"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <SelectControl
-                control={control}
-                name="filterByRole"
-                label="Filter by Role"
-                options={userOptions}
-                placeholder="Select role"
-                className=""
-              />
-              <SelectControl
-                control={control}
-                name="filterByAction"
-                label="Filter by Action"
-                options={actionOptions}
-                placeholder="Select action"
-                className=""
-              />
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 justify-end pt-6 border-t border-gray-200">
-              <Button
-                type="button"
-                variant="secondary"
-                label="Reset Filters"
-                icon={<RefreshCw size={18} />}
-                onClick={handleReset}
-                className="w-full sm:w-auto"
-              />
-              <Button
-                type="submit"
-                variant="primary"
-                label="Apply Filters"
-                icon={<Filter size={18} />}
-                disabled={isLoading}
-                className="w-full sm:w-auto"
-              />
-              <Button
-                type="button"
-                variant="outline"
-                label="Export CSV"
-                icon={<Download size={18} />}
-                onClick={exportCSV}
-                className="w-full sm:w-auto"
-              />
-            </div>
-          </form>
+        <div className="overflow-x-auto">
+          <CustomTable
+            data={filteredLogs}
+            columns={userLogColumns}
+            setSelectedItem={setSelectedItem}
+          />
         </div>
+      </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-              <span className="text-sm font-medium text-blue-800">
-                Showing {filteredLogs.length} audit log entries
-              </span>
-            </div>
-            <div className="text-xs text-blue-600">
-              Last updated: {new Date().toLocaleString()}
-            </div>
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 flex items-center space-x-3">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+            <span className="text-gray-700">Processing filters...</span>
           </div>
         </div>
-
-        <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800">Audit Log Entries</h3>
-            <p className="text-sm text-gray-600 mt-1">
-              Complete history of user actions and system changes
-            </p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <CustomTable
-              data={filteredLogs}
-              columns={userLogColumns}
-              setSelectedItem={setSelectedItem}
-            />
-          </div>
-        </div>
-
-        {isLoading && (
-          <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 flex items-center space-x-3">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
-              <span className="text-gray-700">Processing filters...</span>
-            </div>
-          </div>
-        )}
+      )}
     </PageLayout>
   );
 };

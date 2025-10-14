@@ -109,14 +109,13 @@ const performanceData: PerformanceData[] = [
 
 const PerformanceDashboard = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('3months');
-  const [chartType, setChartType] = useState<ChartType>('area');
+  const [chartType] = useState<ChartType>('area');
   const [showSales, setShowSales] = useState(true);
   const [showAdherence, setShowAdherence] = useState(true);
   const [showVariance, setShowVariance] = useState(true);
 
   const {
     control,
-    handleSubmit,
     watch,
   } = useForm();
 

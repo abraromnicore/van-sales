@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { updateUserSchema } from '@/schemas/um/users/user.schema.ts';
 import { useAppDispatch } from '@/store/hooks.ts';
 import { USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
@@ -10,6 +9,7 @@ import { updateUser } from '@/store/features/um/user/userSlice';
 import { useRolesList } from '../roles/useRolesList';
 import { useUsersList } from './useUsersList';
 import { useEffect } from 'react';
+import { createUserSchema } from '@/schemas/um/users/user.schema.ts';
 
 export const useUpdateUser = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export const useUpdateUser = () => {
     reset,
     formState: { errors, isValid, touchedFields },
   } = useForm({
-    resolver: yupResolver(updateUserSchema, { abortEarly: false }),
+    resolver: yupResolver(createUserSchema, { abortEarly: false }),
     mode: 'onChange',
         defaultValues: {
           firstName: '',

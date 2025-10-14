@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import clsx from 'clsx';
 import { ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, Truck, Users } from 'lucide-react';
@@ -10,9 +10,8 @@ import {
   LOGS_ROUTE,
   ROLES_ROUTE,
   USERS_ROUTE,
-  VAN_REPRESENTATIVE_ROUTE,
-  VAN_REP_LIST_ROUTE,
   VAN_REP_HIERARCHY_ROUTE,
+  VAN_REP_LIST_ROUTE,
   VIEW_USER_HIERARCHY_ROUTE,
 } from '@utils/constant/app-route.constants.ts';
 
@@ -31,20 +30,22 @@ type NavItem = {
   subItems?: SubItem[];
 };
 
-const OpenCloseSidebarBtn = styled.button<{ isExpanded?: boolean }>`
+// ========== STYLED COMPONENTS ==========
+const OpenCloseSidebarBtn = styled.button`
     position: absolute;
     top: 50%;
     right: 0;
-    transform: ${({ isExpanded }) => (isExpanded ? 'translateY(-50%) rotate(18deg)' : 'translateY(-50%) rotate(0)')};
+    transform: translateY(-50%);
     display: flex;
     width: 20px;
     height: 24px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #6BC5F1;
-    color: #3C3C3C;
+    background-color: #6bc5f1;
+    color: #3c3c3c;
     border-radius: 8px 0 0 8px;
+    cursor: pointer;
 
     svg {
         width: 16px;
@@ -52,7 +53,6 @@ const OpenCloseSidebarBtn = styled.button<{ isExpanded?: boolean }>`
     }
 `;
 
-// ========== STYLED COMPONENTS ==========
 const AppLogoContainer = styled.div`
     width: 100%;
     height: 66px;
@@ -63,14 +63,13 @@ const AppLogoContainer = styled.div`
 
 // ========== REUSABLE COMPONENTS ==========
 
-// 💡 Single Nav Link (non-expandable)
 const SidebarLink: React.FC<{
   nav: NavItem;
   active: boolean;
   visible: boolean;
 }> = ({ nav, active, visible }) => (
   <Link
-    to={nav.path!}
+    to={nav.path ?? '#'}
     className={clsx(
       'flex items-center gap-3 px-3 py-2.5 rounded-[12px] text-sm font-medium transition-all duration-200 group',
       active
@@ -90,7 +89,6 @@ const SidebarLink: React.FC<{
   </Link>
 );
 
-// 💡 Submenu Toggle (expandable parent)
 const AccordionButton: React.FC<{
   nav: NavItem;
   index: number;
@@ -99,6 +97,7 @@ const AccordionButton: React.FC<{
   visible: boolean;
 }> = ({ nav, index, isOpen, onToggle, visible }) => (
   <button
+    type="button"
     onClick={() => onToggle(index)}
     className={clsx(
       'flex items-center gap-3 w-full px-3 py-2.5 rounded-[12px] text-sm font-medium transition-all duration-200 group',
@@ -129,7 +128,6 @@ const AccordionButton: React.FC<{
   </button>
 );
 
-// 💡 Submenu List
 const SidebarSubmenu: React.FC<{
   subItems: SubItem[];
   activeCheck: (path: string) => boolean;
@@ -153,29 +151,29 @@ const SidebarSubmenu: React.FC<{
   </ul>
 );
 
-export const SidebarToggleButton = (props) => {
-  const { toggleSidebar, toggleMobileSidebar, isExpanded } = useSidebar();
+// Sidebar toggle button props type
+type SidebarToggleButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
-  const handleSidebarToggle = () => {
-    if (window.innerWidth >= 1024) toggleSidebar();
-    else toggleMobileSidebar();
-  };
+export const SidebarToggleButton: React.FC<SidebarToggleButtonProps> = (props) => {
+  const { isExpanded, setIsExpanded } = useSidebar();
 
   return (
-    <OpenCloseSidebarBtn {...props} onClick={handleSidebarToggle}>
+    <OpenCloseSidebarBtn
+      {...props}
+      onClick={() => setIsExpanded(true)}
+      type="button"
+    >
       {isExpanded ? <ChevronLeft /> : <ChevronRight />}
     </OpenCloseSidebarBtn>
   );
-
 };
 
 // ========== MAIN COMPONENT ==========
 
 const AppSidebar: React.FC = () => {
-  const { isExpanded, isMobileOpen, isHovered } = useSidebar();
+  const { isExpanded } = useSidebar();
   const location = useLocation();
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState<number | null>(null);
-
   const menuOptions: NavItem[] = [
     {
       icon: <LayoutDashboard />,
@@ -186,9 +184,9 @@ const AppSidebar: React.FC = () => {
       icon: <Truck />,
       name: 'Van Representative',
       subItems: [
-      { name: 'Van Rep List', path: VAN_REP_LIST_ROUTE },
-      { name: 'Van Assignment Hierarchy', path: VAN_REP_HIERARCHY_ROUTE },
-    ],
+        { name: 'Van Rep List', path: VAN_REP_LIST_ROUTE },
+        { name: 'Van Assignment Hierarchy', path: VAN_REP_HIERARCHY_ROUTE },
+      ],
     },
     {
       icon: <Users />,
@@ -197,45 +195,43 @@ const AppSidebar: React.FC = () => {
         { name: 'Roles', path: ROLES_ROUTE },
         { name: 'Users', path: USERS_ROUTE },
         { name: 'Van Sales Log', path: LOGS_ROUTE },
-        { name: 'User Hierarchy', path: VIEW_USER_HIERARCHY_ROUTE.replace('{id}', '234') },
+        {
+          name: 'User Hierarchy',
+          path: VIEW_USER_HIERARCHY_ROUTE.replace('{id}', '234'),
+        },
       ],
     },
   ];
 
-  // ✅ Route matching
+  React.useEffect(() => {
+    const matchedIndex = menuOptions.findIndex((nav) =>
+      nav.subItems?.some((s) => location.pathname.startsWith(s.path))
+    );
+    setOpenSubmenuIndex(matchedIndex >= 0 ? matchedIndex : null);
+  }, [location.pathname]);
+
   const isActive = useCallback(
-    (path: string) => location.pathname.startsWith(path),
+    (path: string): boolean => location.pathname.startsWith(path),
     [location.pathname],
   );
 
-  // ✅ Auto-open submenu
-  useEffect(() => {
-    const matchedIndex = menuOptions.findIndex((nav) =>
-      nav.subItems?.some((s) => isActive(s.path)),
-    );
-    setOpenSubmenuIndex(matchedIndex >= 0 ? matchedIndex : null);
-  }, [location, isActive]);
-
-  // ✅ Toggle submenu
-  const handleSubmenuToggle = (index: number) =>
+  const handleSubmenuToggle = (index: number): void => {
     setOpenSubmenuIndex((prev) => (prev === index ? null : index));
+  };
 
-  const visible = isExpanded || isHovered || isMobileOpen;
+  const visible: boolean = isExpanded;
 
   return (
     <aside
       className={clsx(
-        'shadow-[2px_0_9px_0_rgba(0,0,0,0.05)]',
-        'fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 z-50 transition-all duration-300 ease-in-out',
-        visible && '',
+        'shadow-[2px_0_9px_0_rgba(0,0,0,0.05)] fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 z-50 transition-all duration-300 ease-in-out',
         visible ? 'w-72' : 'w-0',
-        isMobileOpen ? 'translate-x-0' : '-translate-x-full',
         'lg:translate-x-0',
       )}
     >
       {/* ✅ Logo */}
       <div className={clsx('relative flex justify-center transition-all')}>
-        <SidebarToggleButton />
+        {/*<SidebarToggleButton />*/}
         <Link to="/">
           <AppLogoContainer>
             <img
@@ -252,7 +248,15 @@ const AppSidebar: React.FC = () => {
       {/* ✅ Navigation */}
       <nav className="overflow-y-auto scrollbar-hide space-y-[8px] p-[16px]">
         {menuOptions.map((nav, index) => (
-          <div key={nav.name} className={clsx('rounded-[12px]', { 'bg-[#E2F6FE]': openSubmenuIndex === index })}>
+          <div
+            key={nav.name}
+            className={clsx('rounded-[12px]', {
+              'bg-[#E2F6FE]':
+                openSubmenuIndex === index &&
+                (nav.subItems?.some((s) => location.pathname.startsWith(s.path)) ||
+                  openSubmenuIndex === index),
+            })}
+          >
             {nav.subItems ? (
               <>
                 <AccordionButton
@@ -262,7 +266,6 @@ const AppSidebar: React.FC = () => {
                   onToggle={handleSubmenuToggle}
                   visible={visible}
                 />
-
                 {visible && openSubmenuIndex === index && (
                   <SidebarSubmenu subItems={nav.subItems} activeCheck={isActive} />
                 )}
@@ -270,7 +273,7 @@ const AppSidebar: React.FC = () => {
             ) : (
               <SidebarLink
                 nav={nav}
-                active={isActive(nav.path!)}
+                active={isActive(nav.path ?? '')}
                 visible={visible}
               />
             )}

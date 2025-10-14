@@ -15,7 +15,7 @@ type Option = {
 type TerritoryChangeDialogProps = {
   visible: boolean;
   onHide: () => void;
-  onSubmit: (data: { country: string; city: string; area: string }) => void;
+  onSubmit: (e: any) => void;
   title?: string;
   countries?: Option[];
   cities?: Option[];
@@ -45,7 +45,15 @@ const DEFAULT_AREAS: Option[] = [
   { label: 'Territory D — Southern Gulf', value: 'territory-d' },
 ];
 
-export const TerritoryChangeDialog: React.FC<TerritoryChangeDialogProps> = ({ visible,onHide, onSubmit, title = 'Change Territory', countries = DEFAULT_COUNTRIES, cities = DEFAULT_CITIES, areas = DEFAULT_AREAS, showMap = true,
+export const TerritoryChangeDialog: React.FC<TerritoryChangeDialogProps> = ({
+                                                                              visible,
+                                                                              onHide,
+                                                                              onSubmit,
+                                                                              title = 'Change Territory',
+                                                                              countries = DEFAULT_COUNTRIES,
+                                                                              cities = DEFAULT_CITIES,
+                                                                              areas = DEFAULT_AREAS,
+                                                                              showMap = true,
                                                                             }) => {
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -122,7 +130,7 @@ export const TerritoryChangeDialog: React.FC<TerritoryChangeDialogProps> = ({ vi
           {/* Map View */}
           {showMap && (
             <div className="mt-6">
-              <MapView title="Select Territory Point" />
+              <MapView />
             </div>
           )}
         </div>

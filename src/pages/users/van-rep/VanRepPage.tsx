@@ -100,7 +100,7 @@ export const VanRepPage = () => {
     },
 
   ];
-  const [selectedItem, setSelectedItem] = React.useState();
+  const [setSelectedItem] = React.useState<any>();
   const [showTerritory, setShowTerritory] = React.useState(false);
   const { showConfirmation } = useConfirmationDialog();
   const { showSuccess } = useAppToast();
@@ -140,7 +140,7 @@ export const VanRepPage = () => {
   const onView = () => {
     navigate(VIEW_REP_ROUTE);
   };
-  const onChangeTerritory = (value: string) => {
+  const onChangeTerritory = () => {
     setShowTerritory(true);
   };
 

@@ -4,13 +4,10 @@ import { createPieChartConfig } from './configs';
 export const usePieChartConfig = (
   title: string,
   data: any[],
-  preset?: any,
-  overrides?: any,
 ) => {
   return useMemo(() => {
-    const presetConfig: any = preset ?? {};
-    return createPieChartConfig(title, data, { ...presetConfig, ...overrides });
-  }, [title, data, preset, overrides]);
+    return createPieChartConfig(title, data);
+  }, [title, data]);
 };
 
 export const usePieChartData = (data: any[]): any => {

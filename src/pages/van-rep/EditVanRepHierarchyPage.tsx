@@ -21,15 +21,15 @@ import { CSS } from '@dnd-kit/utilities';
 import { Tree, TreeNode } from 'react-organizational-chart';
 
 import { useMetadata } from '@hooks/common/useMetadata.ts';
-import { DASHBOARD_ROUTE, EDIT_VAN_REP_HIERARCHY_ROUTE, VAN_REP_LIST_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { DASHBOARD_ROUTE, EDIT_VAN_REP_HIERARCHY_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { Button } from '@components/button/Button.tsx';
-import { Card } from '@components/card/Card.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
 import truckImage1 from '@assets/images/images.jpg';
 import truckImage2 from '@assets/images/truck-loader.jpg';
 import routeImage1 from '@assets/images/roote.png';
 import routeImage2 from '@assets/images/root image.png';
+import { Card } from 'primereact/card';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 
 /* ========================================
    Types & Initial Data
@@ -408,7 +408,7 @@ function NestedSortableTree({
 ======================================== */
 function VanCard({ label, role }: { label: string; role: string }) {
   // Select truck image based on van number or use alternating pattern
-  const getTruckImage = () => {
+  const getTruckImage: any = () => {
     if (role === 'Van') {
       // Use different truck images for different vans
       const vanNumber = label.match(/\d+/)?.[0];
@@ -418,7 +418,7 @@ function VanCard({ label, role }: { label: string; role: string }) {
   };
 
   // Select route image based on route name or use alternating pattern
-  const getRouteImage = () => {
+  const getRouteImage: any = () => {
     if (role === 'Route') {
       // Use different route images for different routes
       const routeLetter = label.charAt(0); // Get first letter of route name
@@ -433,25 +433,26 @@ function VanCard({ label, role }: { label: string; role: string }) {
         className="w-full p-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col items-center">
           {role === 'Van' ? (
-            <img 
-              className="w-24 h-24 mb-3 rounded-lg shadow-lg object-cover" 
-              src={getTruckImage()} 
+            <img
+              className="w-24 h-24 mb-3 rounded-lg shadow-lg object-cover"
+              src={getTruckImage()}
               alt={label}
             />
           ) : role === 'Van Representative' ? (
-            <img 
-              className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" 
-              src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" 
+            <img
+              className="w-24 h-24 mb-3 rounded-full shadow-lg object-cover"
+              src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
               alt={label}
             />
           ) : role === 'Route' ? (
-            <img 
-              className="w-24 h-24 mb-3 rounded-lg shadow-lg object-cover" 
-              src={getRouteImage()} 
+            <img
+              className="w-24 h-24 mb-3 rounded-lg shadow-lg object-cover"
+              src={getRouteImage()}
               alt={label}
             />
           ) : (
-            <div className="w-24 h-24 mb-3 rounded-full shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+            <div
+              className="w-24 h-24 mb-3 rounded-full shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <span className="text-white text-2xl font-bold">
                 {label.split(' ').map(n => n[0]).join('')}
               </span>
