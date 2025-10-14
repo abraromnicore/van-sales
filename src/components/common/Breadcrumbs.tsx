@@ -10,7 +10,7 @@ export const Breadcrumbs: React.FC = () => {
     document.title = pageTitle;
   }, [pageTitle, breadcrumbs]);
 
-  if (!breadcrumbs.length) return null;
+  if ((breadcrumbs && breadcrumbs.length === 0) || !breadcrumbs) return null;
 
   return (
     <nav className="flex" aria-label="Breadcrumb">

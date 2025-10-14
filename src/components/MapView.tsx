@@ -79,8 +79,7 @@ export default function MapView({ title }: { title?: string }) {
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
-    <div className="w-full h-full p-0 rounded-2xl border border-neutral-200 bg-white">
-      <CardHeader title={title} />
+    <div className="p-0 rounded-2xl border border-neutral-200 bg-white">
       <div>
         <GoogleMap
           mapContainerStyle={containerStyle}

@@ -8,8 +8,8 @@ import MapView from '@components/MapView.tsx';
 import * as React from 'react';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
 import { KPICard } from '@components/app-cards/KPICard.tsx';
+import { PageLayout } from '@layouts/Pagelayout.tsx';
 
-// Mock data for testing
 const salesData = [
   {
     id: 1,
@@ -163,15 +163,6 @@ const collectionsData = [
   { type: 'Credit Card', amount: 15800, color: '#f59e0b' },
 ];
 
-type KPICardProps = {
-  title: string;
-  value: string | number;
-  icon: React.ComponentType<any>;
-  trend?: 'up' | 'down';
-  trendValue?: string;
-  color?: 'blue' | 'green' | 'orange' | 'purple' | 'red';
-};
-
 const dashboardData = {
   liveTracking: {
     totalVans: 15,
@@ -285,14 +276,6 @@ const dashboardData = {
   },
 };
 
-const colorClasses: Record<string, string> = {
-  blue: 'bg-blue-50 text-blue-600',
-  green: 'bg-green-50 text-green-600',
-  orange: 'bg-orange-50 text-orange-600',
-  purple: 'bg-purple-50 text-purple-600',
-  red: 'bg-red-50 text-red-600',
-};
-
 // Main Dashboard Component
 export const DashboardPage: React.FC = () => {
   useMetadata({
@@ -323,7 +306,7 @@ export const DashboardPage: React.FC = () => {
   );
 
   return (
-    <div>
+    <PageLayout>
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KPICard
@@ -350,13 +333,13 @@ export const DashboardPage: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
-        <div className="md:col-span-3">
-          <div>
-            <MapView title={`Vans Tracking`} />
-          </div>
-        </div>
-      </div>
+      <Card>
+        <CardHeader title={'Vans Tracking'}>
+        </CardHeader>
+        <CardBody>
+          <MapView />
+        </CardBody>
+      </Card>
 
       <div className={`grid grid-cols-2 md:grid-cols-3 mt-6 gap-6`}>
         <div className={`col-span-2`}>
@@ -416,6 +399,6 @@ export const DashboardPage: React.FC = () => {
           showBreakdown={true}
         />
       </div>
-    </div>
+    </PageLayout>
   );
 };
