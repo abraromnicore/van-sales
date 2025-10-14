@@ -26,6 +26,7 @@ import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.
 import { VanAssignmentDialog } from '@components/dialog/VanAssignmentDialog.tsx';
 import { CardFooter } from '@components/app-cards/card/CardFooter.tsx';
 import MapView from '@components/MapView.tsx';
+import PerformanceDashboard from '@components/PerformanceDashboard.tsx';
 
 const vanRepDetail = {
   personalInfo: {
@@ -520,6 +521,7 @@ export const VanRepDetailPage = () => {
   return (
     <>
       <div className={`grid grid-cols-1 md:grid-cols-3 gap-6`}>
+
         <div className={`md:col-span-2 flex flex-col gap-6`}>
           <div>
             <Card>
@@ -792,6 +794,9 @@ export const VanRepDetailPage = () => {
             />
           </CardBody>
         </Card>
+      </div>
+      <div className={`mt-6`}>
+        <PerformanceDashboard/>
       </div>
     </>
   );
