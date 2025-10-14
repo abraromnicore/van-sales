@@ -5,7 +5,7 @@ import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
 import { InputControl } from '@components/forms/InputControl';
 import { Button } from '@components/button/Button';
 import { useForm } from 'react-hook-form';
-import { CardHeader } from '@components/card/CardHeader.tsx';
+import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
 
 type RejectionDialogProps = {
   visible: boolean;

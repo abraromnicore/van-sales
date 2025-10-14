@@ -8,9 +8,9 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import type { ChartConfig } from './types';
-import { Card } from '@components/card/Card';
-import { CardBody } from '@components/card/CardBody';
-import { CardHeader } from '@components/card/CardHeader';
+import { Card } from '@components/app-cards/card/Card';
+import { CardBody } from '@components/app-cards/card/CardBody';
+import { CardHeader } from '@components/app-cards/card/CardHeader';
 
 const ReusableBarChart: React.FC<ChartConfig> = ({
   title,

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Calendar, CheckCircle, Package, Truck, User, XCircle } from 'lucide-react';
-import { Card } from '@components/card/Card';
-import { CardHeader } from '@components/card/CardHeader.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
+import { Card } from '@components/app-cards/card/Card';
+import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 import { Button } from '@components/button/Button.tsx';
 import { CustomTable } from '@components/tables/CustomTable.tsx';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';

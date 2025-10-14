@@ -4,8 +4,8 @@ import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { Button } from '@components/button/Button.tsx';
-import { Card } from '@components/card/Card.tsx';
-import { CardBody } from '@components/card/CardBody.tsx';
+import { Card } from '@components/app-cards/card/Card.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 
 const orgChartData = [
   {

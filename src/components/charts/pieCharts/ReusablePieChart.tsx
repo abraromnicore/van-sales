@@ -7,9 +7,9 @@ import {
   Legend,
 } from 'recharts';
 import { usePieChartData } from './hooks';
-import { Card } from '@components/card/Card';
-import { CardHeader } from '@components/card/CardHeader';
-import { CardBody } from '@components/card/CardBody';
+import { Card } from '@components/app-cards/card/Card';
+import { CardHeader } from '@components/app-cards/card/CardHeader';
+import { CardBody } from '@components/app-cards/card/CardBody';
 
 interface ReusablePieChartProps {
   data: any[];
