@@ -18,13 +18,13 @@ import { CustomTable } from '@components/tables/CustomTable.tsx';
 import { VIEW_LOAD_REQ_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@components/button/Button.tsx';
-import { confirmDialog } from 'primereact/confirmdialog';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
 import { CardFooter } from '@components/card/CardFooter.tsx';
 import MapView from '@components/MapView.tsx';
+import PerformanceDashboard from '@components/PerformanceDashboard.tsx';
 
 const vanRepDetail = {
   personalInfo: {
@@ -380,6 +380,7 @@ export const VanRepDetailPage = () => {
   return (
     <>
       <div className={`grid grid-cols-1 md:grid-cols-3 gap-6`}>
+
         <div className={`md:col-span-2 flex flex-col gap-6`}>
           <div>
             <Card>
@@ -607,8 +608,12 @@ export const VanRepDetailPage = () => {
               onHide={() => setVisibleReject(false)}
               onSubmit={handleRejectSubmit}
             />
+
           </CardBody>
         </Card>
+      </div>
+      <div className={`mt-6`}>
+        <PerformanceDashboard/>
       </div>
     </>
   );

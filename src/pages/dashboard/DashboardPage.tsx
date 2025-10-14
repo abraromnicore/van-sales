@@ -397,15 +397,15 @@ export const DashboardPage: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 mt-6 gap-6">
         <div className="md:col-span-3">
-              <div>
-                <MapView title={`Vans Tracking`}/>
-              </div>
+          <div>
+            <MapView title={`Vans Tracking`}/>
+          </div>
         </div>
       </div>
 
       <div className={`grid grid-cols-2 md:grid-cols-3 mt-6 gap-6`}>
         <div className={`col-span-2`}>
-            <ReusableBarChart {...salesChartConfig} />
+          <ReusableBarChart {...salesChartConfig} />
         </div>
         <div >
           <Card>
