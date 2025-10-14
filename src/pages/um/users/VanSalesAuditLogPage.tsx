@@ -5,17 +5,20 @@ import { CalendarRangeControl } from '@components/multi-date-select/CustomDateRa
 import { useForm } from 'react-hook-form';
 import { Button } from '@components/button/Button';
 import { SelectControl } from '@components/forms/SelectControl';
-import { useMetadata } from '@hooks/common/useMetadata';
-import { DASHBOARD_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants';
 import { Download, Filter, RefreshCw } from 'lucide-react';
 import { useAppToast } from '@hooks/common/useAppToast';
 
 export const VanSalesAuditLogPage = () => {
-  const [setSelectedItem] = useState<any>(null);
-  const methods = useForm({
+  const {
+    control,
+    handleSubmit,
+    reset,
+  } = useForm({
     defaultValues: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: null,
+      endDate: null,
+      filterByRole: '',
+      filterByAction: '',
     },
   });
 
@@ -89,20 +92,6 @@ export const VanSalesAuditLogPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredLogs, setFilteredLogs] = useState(logs);
   const { showError } = useAppToast();
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({
-    defaultValues: {
-      startDate: null,
-      endDate: null,
-      filterByRole: '',
-      filterByAction: '',
-    },
-  });
   const userLogColumns: ColumMeta[] = [
     {
       field: 'id',
