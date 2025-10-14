@@ -6,7 +6,7 @@ import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { UmRoutes } from '@routes/um/UmRoutes.ts';
 import { VanRepRoutes } from '@routes/van-rep/VanRepRoutes.ts';
 
-export const appRoutes = [
+export const appRoutes: any = [
   {
     path: '',
     HydrateFallback: AppLoader,
@@ -53,6 +53,126 @@ export const appRoutes = [
               Component: async () =>
                 (await import('@pages/profile/ProfilePage')).ProfilePage,
             },
+          },
+          {
+            path: '/um',
+            children: [
+              {
+                path: 'roles',
+                children: [
+                  {
+                    index: true,
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/roles/RolesPage')).RolesPage,
+                    },
+                  },
+                  {
+                    path: 'create',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/roles/CreateRolePage'))
+                          .CreateRolePage,
+                    },
+                  },
+                  {
+                    path: 'edit/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/roles/UpdateRolePage'))
+                          .UpdateRolePage,
+                    },
+                  },
+                  {
+                    path: 'view/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/roles/ViewRolePage'))
+                          .ViewRolePage,
+                    },
+                  },
+                ],
+              },
+              {
+                path: 'users',
+                children: [
+                  {
+                    index: true,
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UsersPage')).UserPage,
+                    },
+                  },
+                  {
+                    path: 'create',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/CreateUserPage'))
+                          .CreateUserPage,
+                    },
+                  },
+                  {
+                    path: 'edit/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UpdateUserPage'))
+                          .UpdateUserPage,
+                    },
+                  },
+                  {
+                    path: 'view/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/ViewUserPage'))
+                          .ViewUserPage,
+                    },
+                  },
+                  {
+                    path: 'logs/:id',
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/UserAuditLogPage')).UserAuditLogPage,
+                    },
+                  }
+                ],
+              },
+              {
+                path: 'logs',
+                children: [
+                  {
+                    index: true,
+                    lazy: {
+                      Component: async () =>
+                        (await import('@pages/um/users/VanSalesAuditLogPage')).VanSalesAuditLogPage,
+                    },
+                  },
+                ]
+              },
+            ],
+          },
+          {
+            path: '/van-reps',
+            children: [
+              {
+                path: 'view/:repId',
+                lazy: {
+                  Component: async () =>
+                    (await import('@pages/van-rep/VanRepDetailPage')).VanRepDetailPage,
+                },
+              }
+            ],
+          },
+          {
+            path: '/load-req',
+            children: [
+              {
+                path: 'view/:reqId',
+                lazy: {
+                  Component: async () =>
+                    (await import('@pages/load-req/LoadReqDetail')).LoadReqDetail,
+                },
+              }
+            ],
           },
           ...UmRoutes,
           ...VanRepRoutes,

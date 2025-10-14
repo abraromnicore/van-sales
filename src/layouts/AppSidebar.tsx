@@ -8,9 +8,11 @@ import { ChevronDown, LayoutDashboard, Truck, Users } from 'lucide-react';
 import appLogo from '@assets/images/static/logo.png';
 import {
   DASHBOARD_ROUTE,
+  LOGS_ROUTE,
   ROLES_ROUTE,
-  USER_HIERARCHY_ROUTE,
   USERS_ROUTE,
+  VAN_REPRESENTATIVE_ROUTE,
+  VIEW_USER_HIERARCHY_ROUTE,
 } from '@utils/constant/app-route.constants.ts';
 
 type NavItem = {
@@ -29,7 +31,7 @@ const navItems: NavItem[] = [
   {
     icon: <Truck />,
     name: 'Van Representative',
-    path: '/van-rep',
+    path: VAN_REPRESENTATIVE_ROUTE,
   },
   {
     icon: <Users />,
@@ -37,7 +39,8 @@ const navItems: NavItem[] = [
     subItems: [
       { name: 'Roles', path: ROLES_ROUTE },
       { name: 'Users', path: USERS_ROUTE },
-      { name: 'User Hierarchy', path: USER_HIERARCHY_ROUTE },
+      { name: 'Van Sales Log', path: LOGS_ROUTE },
+      { name: 'User Hierarchy', path: VIEW_USER_HIERARCHY_ROUTE.replace('{id}', '234') },
     ],
   },
 ];

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { type ColumMeta, CustomTable } from '@components/tables/CustomTable.tsx';
 import type { MenuItem } from 'primereact/menuitem';
-import { Eye, Pencil, Plus } from 'lucide-react';
+import { Eye, Pencil, Trash2, Archive, List, Plus, ShieldMinus, ShieldCheck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {
   CREATE_USER_ROUTE,
   DASHBOARD_ROUTE,
   EDIT_USER_ROUTE,
+  USER_LOGS_ROUTE,
   USERS_ROUTE,
   VIEW_USER_ROUTE,
 } from '@utils/constant/app-route.constants.ts';
@@ -16,6 +17,11 @@ import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { useUsersList } from '@hooks/um/users/useUsersList.ts';
 import type { UserType } from '@/types/um/users/user.type';
 import { UserAvatar } from '@components/common/UserAvatar.tsx';
+import { CustomDialog } from '@components/dialog/CustomDialog';
+import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
+import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
+import { useDeactivateUser } from '@hooks/um/users/useDeactivateUser';
+import { useActivateUser } from '@hooks/um/users/useActivateUser';
 
 export const UserPage = () => {
   useMetadata({
@@ -39,18 +45,46 @@ export const UserPage = () => {
   const { users } = useUsersList(true);
   const [selectedItem, setSelectedItem] = useState<UserType>();
   const navigate = useNavigate();
+  const { deactivateUser } = useDeactivateUser();
+  const { activateUser } = useActivateUser();
+  const [dialogAction, setDialogAction] = useState<null | 'delete' | 'deactivate' | 'archive' | 'logs' | 'activate'>(null);
+  console.log(selectedItem, `selected item:`)
+  const isDeactivated = selectedItem?.status === 'deactivated' || selectedItem?.status === 'deactivate';
   const tieredMenu: MenuItem[] = [
-    {
-      label: 'View',
-      icon: <Eye />,
-      command: () => onView(),
-    },
-    {
-      label: 'Edit',
-      icon: <Pencil />,
-      command: () => onEdit(),
-    },
-  ];
+  {
+    label: 'View',
+    icon: <Eye size={16} />,
+    command: () => onView(),
+  },
+  {
+    label: 'Edit',
+    icon: <Pencil size={16} />,
+    command: () => onEdit(),
+  },
+  {
+    label: 'Delete',
+    icon: <Trash2 size={16} />,
+    command: () => onDelete(),
+  },
+  {
+    label: isDeactivated ? 'Activate' : 'Deactivate',
+    icon: isDeactivated ? <ShieldCheck size={16} /> : <ShieldMinus size={16} />,
+    command: () =>
+      isDeactivated ? onActivate() : onDeactivate(),
+  },
+  {
+    label: 'Archive History',
+    icon: <Archive size={16} />,
+    command: () => onArchive(),
+  },
+  {
+    label: 'Logs',
+    icon: <List size={16} />,
+    command: () => onLogs(),
+  },
+];
+
+
 const userColumns: ColumMeta[] = [
   {
     field: 'avatar',
@@ -101,10 +135,18 @@ const userColumns: ColumMeta[] = [
     style: { minWidth: '120px', width: '120px' },
   },
 ];
-
   const onCreate = () => navigate(CREATE_USER_ROUTE);
   const onEdit = () => navigate(EDIT_USER_ROUTE.replace('{userId}', selectedItem?.id || ''));
   const onView = () => navigate(VIEW_USER_ROUTE.replace('{userId}', selectedItem?.id || ''));
+  const onDelete = () => setDialogAction('delete');
+  const onDeactivate = () => setDialogAction('deactivate');
+  const onArchive = () => setDialogAction('archive');
+  const onActivate = () => setDialogAction('activate');
+  const onLogs = () => {
+  navigate(USER_LOGS_ROUTE.replace('{userId}', selectedItem?.id || ''));
+};
+
+
 
   const HeaderActions = () => {
     return (
@@ -119,6 +161,77 @@ const userColumns: ColumMeta[] = [
       <div className="overflow-x-auto">
         <CustomTable setSelectedItem={setSelectedItem} columns={userColumns} data={users} menuModel={tieredMenu} />
       </div>
+<CustomDialog
+  size="md"
+  visible={!!dialogAction}
+  onHide={() => setDialogAction(null)}
+  dismissableMask={false}
+>
+  <CustomDialogHeader
+    onHide={() => setDialogAction(null)}
+    title={
+      dialogAction === 'delete'
+        ? 'Delete User'
+        : dialogAction === 'deactivate'
+        ? 'Deactivate User'
+        : 'Archive History'
+    }
+  />
+
+  <CustomDialogBody>
+    <p className="text-gray-700">
+      {dialogAction === 'delete' && 'Are you sure you want to delete this user? This action cannot be undone.'}
+      {dialogAction === 'deactivate' && 'Are you sure you want to deactivate this user? They will no longer have access to the system.'}
+      {dialogAction === 'activate' && 'Are you sure you want to active this user? The user longer have access to the system.'}
+      {dialogAction === 'archive' && 'Are you sure you want to archive this user’s history for record keeping?'}
+    </p>
+
+    <div className="flex justify-end gap-3 mt-6">
+      <Button
+        label="Cancel"
+        className="p-button-text"
+        onClick={() => setDialogAction(null)}
+      />
+<Button
+  label={
+    dialogAction === 'delete'
+      ? 'Delete'
+      : dialogAction === 'deactivate'
+      ? 'Deactivate'
+      : dialogAction === 'activate'
+      ? 'Activate'
+      : 'Archive'
+  }
+  className={
+    dialogAction === 'delete'
+      ? 'p-button-danger'
+      : dialogAction === 'deactivate'
+      ? 'p-button-warning'
+      : dialogAction === 'activate'
+      ? 'p-button-success'
+      : 'p-button-secondary'
+  }
+  onClick={() => {
+    if (dialogAction === 'delete') {
+      console.log('User deleted');
+    }
+    if (dialogAction === 'deactivate') {
+      deactivateUser(selectedItem);
+    }
+    if (dialogAction === 'activate') {
+      activateUser(selectedItem);
+    }
+    if (dialogAction === 'archive') {
+      console.log('User archived');
+    }
+
+    setDialogAction(null);
+  }}
+/>
+
+    </div>
+  </CustomDialogBody>
+</CustomDialog>
     </PageLayout>
   );
 };

@@ -5,6 +5,8 @@ export const Subject = {
   Role: 'role',
   User: 'user',
   UserManagement: 'User Management',
+  VanRepresentative: 'van_rep',
+  Hierarchy: 'hierarchy',
   All: 'all',
 } as const;
 
