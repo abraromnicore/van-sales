@@ -11,7 +11,7 @@ import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { RejectionDialog } from '@components/dialog/RejectionDialog.tsx';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
-import { VanAssignmentDialog } from '@components/dialog/VanAssignmentDialog.tsx';
+import { VanAssignmentDialog } from './assign-van/VanAssignmentDialog.tsx';
 import { CardFooter } from '@components/app-cards/card/CardFooter.tsx';
 import MapView from '@components/MapView.tsx';
 import PerformanceDashboard from '@components/PerformanceDashboard.tsx';
@@ -640,12 +640,12 @@ export const VanRepDetailPage = () => {
         <div>
           <Card>
             <CardHeader title={'Van Details'}>
-              <Button
+              {vanDetails.isAssigned  && (<Button
                 variant="primary"
                 icon={<Truck className="w-4 h-4" />}
                 onClick={handleVanAssignment}
-                label={vanDetails.isAssigned ? 'Update Van' : 'Assign Van'}
-              />
+                label='Update Van'
+              />)}
             </CardHeader>
             <CardBody>
               {vanDetails.isAssigned ? (

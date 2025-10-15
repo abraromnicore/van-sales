@@ -185,7 +185,7 @@ const AppSidebar: React.FC = () => {
       name: 'Van Representative',
       subItems: [
         { name: 'Van Rep List', path: VAN_REP_LIST_ROUTE },
-        { name: 'Van Assignment Hierarchy', path: VAN_REP_HIERARCHY_ROUTE },
+        // { name: 'Van Assignment Hierarchy', path: VAN_REP_HIERARCHY_ROUTE },
       ],
     },
     {
@@ -194,7 +194,7 @@ const AppSidebar: React.FC = () => {
       subItems: [
         { name: 'Roles', path: ROLES_ROUTE },
         { name: 'Users', path: USERS_ROUTE },
-        { name: 'Van Sales Log', path: LOGS_ROUTE },
+        { name: 'Users Logs', path: LOGS_ROUTE },
         {
           name: 'User Hierarchy',
           path: VIEW_USER_HIERARCHY_ROUTE.replace('{id}', '234'),

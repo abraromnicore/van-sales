@@ -49,14 +49,6 @@ export const UmRoutes = [
             },
           },
           {
-            path: 'create',
-            lazy: {
-              Component: async () =>
-                (await import('@pages/um/users/CreateUserPage'))
-                  .CreateUserPage,
-            },
-          },
-          {
             path: 'edit/:id',
             lazy: {
               Component: async () =>
@@ -93,13 +85,6 @@ export const UmRoutes = [
               },
             ],
           },
-          {
-            path: 'logs/:id',
-            lazy: {
-              Component: async () =>
-                (await import('@pages/um/users/UserAuditLogPage')).UserAuditLogPage,
-            },
-          },
         ],
       },
       {
@@ -109,7 +94,7 @@ export const UmRoutes = [
             index: true,
             lazy: {
               Component: async () =>
-                (await import('@pages/um/users/VanSalesAuditLogPage')).VanSalesAuditLogPage,
+                (await import('@pages/um/users/UserAuditLogPage')).VanSalesAuditLogPage,
             },
           },
         ]
