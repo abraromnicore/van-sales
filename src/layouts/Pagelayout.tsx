@@ -14,7 +14,11 @@ export const PageLayout = (props: PageLayoutProps) => {
   const { children, className, headerActions } = props;
   const { breadcrumbs } = useSelector((state: RootState) => state.metadata);
 
-  if (!breadcrumbs || (breadcrumbs && breadcrumbs.length === 0)) return children;
+  if (!breadcrumbs || (breadcrumbs && breadcrumbs.length === 0)) return (
+    <div className={clsx('overflow-auto px-6')}>
+      {children}
+    </div>
+  );
 
   return (
     <>

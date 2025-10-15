@@ -14,7 +14,6 @@ export const VIEW_ROLE_ROUTE = `${UM_ROUTE}/roles/view/{roleId}`;
  * Users Routes
  */
 export const USERS_ROUTE = `${UM_ROUTE}/users`;
-export const CREATE_USER_ROUTE = `${USERS_ROUTE}/create`;
 export const EDIT_USER_ROUTE = `${USERS_ROUTE}/edit/{userId}`;
 export const VIEW_USER_ROUTE = `${USERS_ROUTE}/view/{userId}`;
 export const USER_HIERARCHY_ROUTE = `${USERS_ROUTE}/hierarchy`;
@@ -34,7 +33,6 @@ export const VAN_LOG_AUDIT_LOGS_ROUTE = `${VAN_REPRESENTATIVE_ROUTE}/auditLogs`;
  */
 export const PROFILE_ROUTE = '/profile';
 export const LOGS_ROUTE = `${UM_ROUTE}/logs`;
-export const USER_LOGS_ROUTE = `${UM_ROUTE}/users/logs/{userId}`;
 export const VIEW_LOAD_REQ_ROUTE = '/load-req/view/reqId';
 export const VIEW_REP_ROUTE = `/van-reps/view/{repId}`;
 
