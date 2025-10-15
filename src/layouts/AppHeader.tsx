@@ -35,6 +35,12 @@ const HeaderContainer = styled.header`
     background-color: #FAFAFA98;
     backdrop-filter: blur(20px);
     border-bottom: 1px solid #FAFAFA;
+    
+    .page-title {
+        font-size: 20px;
+        font-weight: 500;
+    }
+    
 `;
 
 // ============================================================
@@ -120,7 +126,7 @@ const AppHeader: React.FC = () => {
           {!isExpanded && <HeaderSidebarToggleContainer>
             <SidebarToggleButton />
           </HeaderSidebarToggleContainer>}
-          <h2 className="text-2xl font-medium truncate">{pageTitle}</h2>
+          <h2 className="page-title">{pageTitle}</h2>
         </div>
 
         {/* 🔸 Right: User menu */}
