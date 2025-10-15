@@ -37,11 +37,11 @@ export const Button = (props: ButtonProps) => {
     danger:
       'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 disabled:bg-red-400 disabled:hover:bg-red-400',
     warning:
-      'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-400 disabled:bg-yellow-300 disabled:hover:bg-yellow-300',
+      'bg-yellow-400 text-gray-900 hover:bg-yellow-500 focus:ring-yellow-400 disabled:bg-yellow-300 disabled:hover:bg-yellow-300',
     outline:
       'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500 disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent',
     ghost:
-      'bg-transparent text-blue-600 hover:bg-blue-100 focus:ring-blue-300 disabled:text-gray-400 disabled:hover:bg-transparent',
+      'bg-transparent text-gray-600 hover:bg-gray-200 hover:text-gray-900 focus:ring-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent',
   };
 
   if (btnType === 'link') {

@@ -4,10 +4,11 @@ import { PERMISSIONS } from '@utils/constant/app.constant.ts';
 import { AccordionTab } from 'primereact/accordion';
 import { CustomAccordion } from '@components/accordion/CustomAccordion.tsx';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
-import { confirmDialog } from 'primereact/confirmdialog';
 import { useNavigate } from 'react-router-dom';
 import { ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { Button } from '@components/button/Button.tsx';
+import { useConfirmDialog } from '@context/ConfirmDialogContext.tsx';
+import { Info } from 'lucide-react';
 
 type UpdateRoleFormProps = {
   control: any;
@@ -19,6 +20,7 @@ export const CreateRoleForm = (props: UpdateRoleFormProps) => {
   const navigate = useNavigate();
   const { control, submitHandler, isValid } = props;
   const { showError } = useAppToast();
+  const confirm = useConfirmDialog();
 
   const onSubmit = (e: any) => {
     if (!isValid) showError('Create Role', 'Please enter a valid name and select at least 1 permission');
@@ -29,12 +31,13 @@ export const CreateRoleForm = (props: UpdateRoleFormProps) => {
     navigate(ROLES_ROUTE);
   };
 
-  const confirmCancel = () => {
-    confirmDialog({
-      message: 'Your Changes will be lost.',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      defaultFocus: 'accept',
+  const confirmCancel = async () => {
+    confirm({
+      header: 'Delete User',
+      message: 'Are you sure you want to delete this user?',
+      icon: <Info />,
+      acceptLabel: 'Yes',
+      rejectLabel: 'Cancel',
       accept: acceptClose,
     });
   };
