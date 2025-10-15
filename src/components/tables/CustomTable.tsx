@@ -55,7 +55,7 @@ export const CustomTable = (props: TableProps) => {
       {menuModel && (
         <TieredMenu ref={menuRef} model={menuModel} popup />
       )}
-      <DataTable value={data} tableStyle={{ minWidth: '50rem' }} paginator rows={10} rowsPerPageOptions={[10, 25, 50]}>
+      <DataTable value={data} tableStyle={{ minWidth: '20rem' }} paginator rows={10} rowsPerPageOptions={[10, 25, 50]}>
         {columns.map((col: ColumMeta) => (
           <Column
             key={col.field}
@@ -63,6 +63,7 @@ export const CustomTable = (props: TableProps) => {
             header={col.header}
             body={col.body}
             style={col.style}
+            sortable
           />
         ))}
         {(menuModel && menuModel?.length > 0) && (<Column

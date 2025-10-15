@@ -1,3 +1,5 @@
+import { VanLoadAuditLogs } from '@pages/van-rep/VanLoadAuditLogs.tsx';
+
 export const VanRepRoutes = [
   {
     path: '/van-rep',

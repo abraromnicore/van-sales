@@ -9,7 +9,7 @@ import {
   DASHBOARD_ROUTE,
   LOGS_ROUTE,
   ROLES_ROUTE,
-  USERS_ROUTE,
+  USERS_ROUTE, VAN_LOG_AUDIT_LOGS_ROUTE,
   VAN_REP_HIERARCHY_ROUTE,
   VAN_REP_LIST_ROUTE,
   VIEW_USER_HIERARCHY_ROUTE,
@@ -186,6 +186,7 @@ const AppSidebar: React.FC = () => {
       subItems: [
         { name: 'Van Rep List', path: VAN_REP_LIST_ROUTE },
         // { name: 'Van Assignment Hierarchy', path: VAN_REP_HIERARCHY_ROUTE },
+        {name:'Van Load Audit Logs',path:VAN_LOG_AUDIT_LOGS_ROUTE}
       ],
     },
     {
