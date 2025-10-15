@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { CustomDialog } from '@components/dialog/CustomDialog';
-import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
-import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
-import { CustomDialogFooter } from '@components/dialog/CustomDialogFooter';
+import { CustomDialog } from '@components/dialog/custom-dialog/CustomDialog.tsx';
+import { CustomDialogHeader } from '@components/dialog/custom-dialog/CustomDialogHeader.tsx';
+import { CustomDialogBody } from '@components/dialog/custom-dialog/CustomDialogBody.tsx';
+import { CustomDialogFooter } from '@components/dialog/custom-dialog/CustomDialogFooter.tsx';
 import { Button } from '@components/button/Button';
 import { SelectControl } from '@components/forms/SelectControl';
 import { useForm } from 'react-hook-form';

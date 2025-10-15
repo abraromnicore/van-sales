@@ -50,7 +50,7 @@ export const InputControl = (props: TextInputControlProps) => {
               onBlur={field.onBlur}
               placeholder={placeholder}
               disabled={disabled}
-              className={`w-full rounded-lg border px-4 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500 ${
+              className={`w-full rounded-lg border px-4 py-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 disabled:bg-gray-50 disabled:text-gray-500 ${
                 fieldState.error
                   ? 'border-red-300 focus:ring-red-500 focus:border-red-500'
                   : 'border-gray-300 hover:border-gray-400'

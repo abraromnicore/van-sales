@@ -1,9 +1,9 @@
 import { useMetadata } from '@hooks/common/useMetadata.ts';
 import { DASHBOARD_ROUTE, USERS_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
-import { CustomDialog } from '@components/dialog/CustomDialog';
-import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
-import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
+import { CustomDialog } from '@components/dialog/custom-dialog/CustomDialog.tsx';
+import { CustomDialogHeader } from '@components/dialog/custom-dialog/CustomDialogHeader.tsx';
+import { CustomDialogBody } from '@components/dialog/custom-dialog/CustomDialogBody.tsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateUser } from '@hooks/um/users/useCreateUser';

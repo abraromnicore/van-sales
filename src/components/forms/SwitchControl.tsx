@@ -33,7 +33,7 @@ export const SwitchControl = (props: SwitchControlProps) => {
         {label && (
           <label
             htmlFor={name}
-            className="font-medium text-sm text-gray-700"
+            className="font-medium text-gray-700"
           >
             {label}
           </label>
@@ -54,7 +54,7 @@ export const SwitchControl = (props: SwitchControlProps) => {
       {label && (
         <label
           htmlFor={name}
-          className="font-medium text-sm text-gray-700"
+          className="font-medium text-gray-700"
         >
           {label}
         </label>

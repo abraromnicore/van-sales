@@ -13,9 +13,9 @@ import type { RoleType } from '@/types/um/roles/role.type.ts';
 import { Button } from '@components/button/Button.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
 import { useRolesList } from '@hooks/um/roles/useRolesList.ts';
-import { CustomDialog } from '@components/dialog/CustomDialog.tsx';
-import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader.tsx';
-import { CustomDialogBody } from '@components/dialog/CustomDialogBody.tsx';
+import { CustomDialog } from '@components/dialog/custom-dialog/CustomDialog.tsx';
+import { CustomDialogHeader } from '@components/dialog/custom-dialog/CustomDialogHeader.tsx';
+import { CustomDialogBody } from '@components/dialog/custom-dialog/CustomDialogBody.tsx';
 import { ViewRolePage } from '@pages/um/roles/ViewRolePage.tsx';
 import { ListingLayout } from '@layouts/Listinglayout.tsx';
 

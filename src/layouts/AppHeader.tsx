@@ -15,19 +15,19 @@ const HeaderSidebarToggleContainer = styled.div`
     width: 32px;
     height: 32px;
     position: relative;
-    
+
     button {
         border-radius: 8px;
         width: 32px;
         height: 32px;
-        
+
         svg {
             width: 24px;
             height: 24px;
         }
-        
+
     }
-    
+
 `;
 
 const HeaderContainer = styled.header`
@@ -35,17 +35,62 @@ const HeaderContainer = styled.header`
     background-color: #FAFAFA98;
     backdrop-filter: blur(20px);
     border-bottom: 1px solid #FAFAFA;
-    
+
     .page-title {
         font-size: 20px;
         font-weight: 500;
     }
-    
+
+    .btn-profile {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+
+        .avatar-container {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            background-color: #17609E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border-radius: 24px;
+
+            svg {
+                width: 24px;
+                height: 24px;
+            }
+
+        }
+
+        .user-meta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            align-items: flex-start;
+            justify-content: center;
+            white-space: nowrap;
+
+            .user-name {
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .user-desig {
+                color: #979797;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+        }
+
+    }
+
 `;
 
-// ============================================================
-// 🔹 User Menu (reusable with PrimeReact TieredMenu)
-// ============================================================
 interface UserMenuProps {
   onProfile: () => void;
   onLogout: () => void;
@@ -61,22 +106,21 @@ const UserMenu: React.FC<UserMenuProps> = ({ onProfile, onLogout }) => {
   return (
     <>
       <button
-        className="flex items-center gap-3 focus:outline-none"
+        className="btn-profile"
         onClick={(e) => menuRef.current?.toggle(e)}
       >
-        <div
-          className="flex h-12 w-12 min-w-[3rem] items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-1 ring-gray-200">
+        <div className="avatar-container">
           <User className="h-6 w-6" />
         </div>
-        <div className="flex flex-col text-left leading-tight">
-          <span className="text-sm font-semibold text-gray-900 whitespace-nowrap">
+        <div className="user-meta-container">
+          <span className="user-name">
             Umar Farooq
           </span>
-          <span className="text-xs text-gray-500 whitespace-nowrap">
+          <span className="user-desig">
             Van Representative
           </span>
         </div>
-        <ChevronDown className="text-gray-500" />
+        <ChevronDown />
       </button>
 
       <TieredMenu model={menuItems} popup ref={menuRef} />

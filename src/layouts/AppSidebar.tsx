@@ -10,7 +10,6 @@ import {
   LOGS_ROUTE,
   ROLES_ROUTE,
   USERS_ROUTE,
-  VAN_REP_HIERARCHY_ROUTE,
   VAN_REP_LIST_ROUTE,
   VIEW_USER_HIERARCHY_ROUTE,
 } from '@utils/constant/app-route.constants.ts';
@@ -205,7 +204,7 @@ const AppSidebar: React.FC = () => {
 
   React.useEffect(() => {
     const matchedIndex = menuOptions.findIndex((nav) =>
-      nav.subItems?.some((s) => location.pathname.startsWith(s.path))
+      nav.subItems?.some((s) => location.pathname.startsWith(s.path)),
     );
     setOpenSubmenuIndex(matchedIndex >= 0 ? matchedIndex : null);
   }, [location.pathname]);

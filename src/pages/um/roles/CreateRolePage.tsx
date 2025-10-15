@@ -1,9 +1,7 @@
-import { Card } from '@components/app-cards/card/Card.tsx';
 import { CreateRoleForm } from '@/forms/um/roles/CreateRoleForm.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
 import { DASHBOARD_ROUTE, ROLES_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
-import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 import { useCreateRole } from '@hooks/um/roles/useCreateRole.ts';
 
 export const CreateRolePage = () => {
@@ -32,11 +30,7 @@ export const CreateRolePage = () => {
   const { control, submitHandler, isValid } = useCreateRole();
   return (
     <PageLayout>
-      <Card>
-        <CardBody>
-          <CreateRoleForm control={control} submitHandler={submitHandler} isValid={isValid} />
-        </CardBody>
-      </Card>
+      <CreateRoleForm control={control} submitHandler={submitHandler} isValid={isValid} />
     </PageLayout>
   );
 };

@@ -25,7 +25,7 @@ export const Button = (props: ButtonProps) => {
   } = props;
 
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 font-medium py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'inline-flex border items-center justify-center gap-2 font-medium py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variants = {
     primary:

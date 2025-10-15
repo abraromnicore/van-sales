@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { CustomDialog } from '@components/dialog/CustomDialog.tsx';
-import { CustomDialogBody } from '@components/dialog/CustomDialogBody.tsx';
-import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader.tsx';
+import { CustomDialog } from '@components/dialog/custom-dialog/CustomDialog.tsx';
+import { CustomDialogBody } from '@components/dialog/custom-dialog/CustomDialogBody.tsx';
+import { CustomDialogHeader } from '@components/dialog/custom-dialog/CustomDialogHeader.tsx';
 import { SelectControl } from '@components/forms/SelectControl.tsx';
 import { Button } from '@components/button/Button.tsx';
 import { useForm } from 'react-hook-form';

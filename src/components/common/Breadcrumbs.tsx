@@ -2,6 +2,51 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import type { RootState } from '@/store/store.ts';
 import { useEffect } from 'react';
+import styled from 'styled-components';
+
+const BreadcrumbsContainer = styled.div`
+    display: flex;
+    align-items: center;
+
+    ol {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        li {
+            display: flex;
+            gap: 8px;
+
+            a {
+                color: #17609E;
+            }
+
+            .label,
+            .active {
+                color: #979797;
+            }
+            
+            &:has(.label) {
+                
+                .separator {
+                    color: #979797;
+                }
+                
+            }
+            
+            &:has(a) {
+                
+                .separator {
+                    color: #17609E;
+                }
+                
+            }
+            
+        }
+        
+    }
+
+`;
 
 export const Breadcrumbs: React.FC = () => {
   const { pageTitle, breadcrumbs } = useSelector((state: RootState) => state.metadata);
@@ -13,29 +58,28 @@ export const Breadcrumbs: React.FC = () => {
   if ((breadcrumbs && breadcrumbs.length === 0) || !breadcrumbs) return null;
 
   return (
-    <nav className="flex" aria-label="Breadcrumb">
-      <ol className="inline-flex items-center space-x-1 md:space-x-2">
+    <BreadcrumbsContainer>
+      <ol>
         {breadcrumbs.map((crumb, index) => {
-          const isLast = index === breadcrumbs.length - 1;
           return (
             <li key={index} className="inline-flex items-center">
-              {index !== 0 && <span className="mx-1 text-gray-400">/</span>}
-              {isLast ? (
-                <span className="text-gray-500 ml-1 md:ml-2">{crumb.label}</span>
+              {index !== 0 && <span className="separator">/</span>}
+              {crumb.active ? (
+                <span className="active">{crumb.label}</span>
               ) : crumb.route ? (
                 <Link
                   to={crumb.route}
-                  className="text-gray-700 hover:text-blue-600 inline-flex items-center"
+                  className="route"
                 >
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-gray-700">{crumb.label}</span>
+                <span className="label">{crumb.label}</span>
               )}
             </li>
           );
         })}
       </ol>
-    </nav>
+    </BreadcrumbsContainer>
   );
 };

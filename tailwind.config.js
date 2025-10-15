@@ -20,6 +20,18 @@ module.exports = {
           700: '#2190d4', // active
           800: '#1e7fc0', // hover
           900: '#175f9e', // base
+        },
+        gray: {
+          50: '#FAFAFA',
+          100: '#FAFAFA',
+          200: '#F5F5F5',
+          300: '#F0F0F0',
+          400: '#DEDEDE',
+          500: '#C2C2C2',
+          600: '#979797',
+          700: '#606060', // active
+          800: '#606060', // hover
+          900: '#3C3C3C', // base
         }
       },
       fontFamily: {
