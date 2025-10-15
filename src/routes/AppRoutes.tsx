@@ -5,7 +5,6 @@ import * as React from 'react';
 import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { UmRoutes } from '@routes/um/UmRoutes.ts';
 import { VanRepRoutes } from '@routes/van-rep/VanRepRoutes.ts';
-import { ProfileRoutes } from '@routes/profile/ProfileRoutes.ts';
 import { LoadReqRoutes } from '@routes/load-req/LoadReqRoutes.ts';
 import { AuthRoutes } from '@routes/auth/AuthRoutes.ts';
 
@@ -37,7 +36,13 @@ export const appRoutes: any = [
                   .DashboardPage,
             },
           },
-          ...ProfileRoutes,
+          {
+            path: '/profile',
+            lazy: {
+              Component: async () =>
+                (await import('@pages/profile/ProfilePage')).ProfilePage,
+            },
+          },
           ...UmRoutes,
           ...LoadReqRoutes,
           ...VanRepRoutes,
