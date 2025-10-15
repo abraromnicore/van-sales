@@ -83,7 +83,7 @@ const salesData = [
   },
 ];
 
-export const notifications = [
+const notifications: any[] = [
   {
     id: 1,
     type: 'warning',
@@ -305,7 +305,7 @@ export const DashboardPage: React.FC = () => {
   );
 
   return (
-    <div className={'px-6'}>
+    <PageLayout>
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <KPICard
@@ -398,6 +398,6 @@ export const DashboardPage: React.FC = () => {
           showBreakdown={true}
         />
       </div>
-    </div>
+    </PageLayout>
   );
 };

@@ -5,10 +5,7 @@ import * as React from 'react';
 import { DEFAULT_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { UmRoutes } from '@routes/um/UmRoutes.ts';
 import { VanRepRoutes } from '@routes/van-rep/VanRepRoutes.ts';
-import { DashboardRoutes } from '@routes/dashboard/DashboardRoutes.ts';
-import { ProfileRoutes } from '@routes/profile/ProfileRoutes.ts';
 import { LoadReqRoutes } from '@routes/load-req/LoadReqRoutes.ts';
-import { CommonRoutes } from '@routes/common/CommonRoutes.ts';
 import { AuthRoutes } from '@routes/auth/AuthRoutes.ts';
 
 export const appRoutes: any = [
@@ -31,14 +28,33 @@ export const appRoutes: any = [
         },
         loader: routeGuardLoader,
         children: [
-          ...DashboardRoutes,
-          ...ProfileRoutes,
+          {
+            path: '/dashboard',
+            lazy: {
+              Component: async () =>
+                (await import('@pages/dashboard/DashboardPage.tsx'))
+                  .DashboardPage,
+            },
+          },
+          {
+            path: '/profile',
+            lazy: {
+              Component: async () =>
+                (await import('@pages/profile/ProfilePage')).ProfilePage,
+            },
+          },
           ...UmRoutes,
           ...LoadReqRoutes,
           ...VanRepRoutes,
         ],
       },
-      ...CommonRoutes,
+      {
+        path: '/unauthorized',
+        lazy: {
+          Component: async () =>
+            (await import('@pages/common/UnAuthorizedPage.tsx')).UnAuthorizedPage,
+        },
+      },
     ],
   },
 ];
