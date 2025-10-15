@@ -12,12 +12,12 @@ import {
 import type { RoleType } from '@/types/um/roles/role.type.ts';
 import { Button } from '@components/button/Button.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
-import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { useRolesList } from '@hooks/um/roles/useRolesList.ts';
 import { CustomDialog } from '@components/dialog/CustomDialog.tsx';
 import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader.tsx';
 import { CustomDialogBody } from '@components/dialog/CustomDialogBody.tsx';
 import { ViewRolePage } from '@pages/um/roles/ViewRolePage.tsx';
+import { ListingLayout } from '@layouts/Listinglayout.tsx';
 
 export const RolesPage = () => {
   useMetadata({
@@ -74,7 +74,7 @@ export const RolesPage = () => {
   };
 
   return (
-    <PageLayout headerActions={<HeaderActions />}>
+    <ListingLayout headerActions={<HeaderActions />}>
       <CustomTable setSelectedItem={setSelectedItem} columns={columns} data={roles} menuModel={tieredMenu} />
       <CustomDialog size={'full'} onHide={() => setVisibleViewRole(false)} visible={visibleViewRole}>
         <CustomDialogHeader onHide={() => setVisibleViewRole(false)} title={'View Role'} />
@@ -85,6 +85,6 @@ export const RolesPage = () => {
           <Button label={'Close'} onClick={() => setVisibleViewRole(false)} />
         </CustomDialogBody>
       </CustomDialog>
-    </PageLayout>
+    </ListingLayout>
   );
 };

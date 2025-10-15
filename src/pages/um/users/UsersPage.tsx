@@ -13,7 +13,6 @@ import {
 } from '@utils/constant/app-route.constants.ts';
 import { Button } from '@components/button/Button.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
-import { PageLayout } from '@layouts/Pagelayout.tsx';
 import { useUsersList } from '@hooks/um/users/useUsersList.ts';
 import type { UserType } from '@/types/um/users/user.type';
 import { UserAvatar } from '@components/common/UserAvatar.tsx';
@@ -23,6 +22,7 @@ import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
 import { useDeactivateUser } from '@hooks/um/users/useDeactivateUser';
 import { useActivateUser } from '@hooks/um/users/useActivateUser';
 import { useArchiveUser } from '@hooks/um/users/useArchiveUser';
+import { ListingLayout } from '@layouts/Listinglayout.tsx';
 
 export const UserPage = () => {
   useMetadata({
@@ -201,7 +201,7 @@ export const UserPage = () => {
   };
 
   return (
-    <PageLayout headerActions={<HeaderActions />}>
+    <ListingLayout headerActions={<HeaderActions />}>
       <div className="overflow-x-auto">
         <CustomTable setSelectedItem={setSelectedItem} columns={userColumns} data={users} menuModel={tieredMenu} />
       </div>
@@ -276,6 +276,6 @@ export const UserPage = () => {
           </div>
         </CustomDialogBody>
       </CustomDialog>
-    </PageLayout>
+    </ListingLayout>
   );
 };

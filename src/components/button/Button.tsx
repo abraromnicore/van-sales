@@ -25,11 +25,11 @@ export const Button = (props: ButtonProps) => {
   } = props;
 
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 font-semibold py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
+    'inline-flex items-center justify-center gap-2 font-medium py-2 px-4 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
 
   const variants = {
     primary:
-      'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 disabled:bg-blue-400 disabled:hover:bg-blue-400',
+      'bg-primary-900 text-white hover:bg-primary-800 focus:ring-primary-500 disabled:bg-primary-400 disabled:hover:bg-primary-400',
     secondary:
       'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500 disabled:bg-gray-400 disabled:hover:bg-gray-400',
     success:
