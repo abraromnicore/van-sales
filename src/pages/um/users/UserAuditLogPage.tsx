@@ -1,127 +1,209 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PageLayout } from '@layouts/Pagelayout';
 import { type ColumMeta, CustomTable } from '@components/tables/CustomTable';
-import { CustomDialog } from '@components/dialog/CustomDialog';
-import { CustomDialogBody } from '@components/dialog/CustomDialogBody';
-import { CustomDialogHeader } from '@components/dialog/CustomDialogHeader';
 import { CalendarRangeControl } from '@components/multi-date-select/CustomDateRange';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button } from '@components/button/Button';
 import { SelectControl } from '@components/forms/SelectControl';
-import { USERS_ROUTE } from '@utils/constant/app-route.constants';
-import { useNavigate } from 'react-router-dom';
+import { Download, Filter, RefreshCw } from 'lucide-react';
 import { useAppToast } from '@hooks/common/useAppToast';
+import { useMetadata } from '@hooks/common/useMetadata.ts';
+import { DASHBOARD_ROUTE, LOGS_ROUTE, UM_ROUTE } from '@utils/constant/app-route.constants.ts';
+import { Card } from '@components/app-cards/card/Card.tsx';
+import { CardBody } from '@components/app-cards/card/CardBody.tsx';
+import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
 
-export const UserAuditLogPage = () => {
-  const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [visibleDialog, setVisibleDialog] = useState<boolean>(true);
-  const [filteredLogs, setFilteredLogs] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const navigate = useNavigate();
-  const { showError } = useAppToast();
-  
-  const methods = useForm({
+export const VanSalesAuditLogPage = () => {
+  useMetadata({
+    pageTitle: 'Users Audit Logs',
+    breadcrumbs: [
+      {
+        label: 'Dashboard',
+        route: DASHBOARD_ROUTE,
+      },
+      {
+        label: 'User Management',
+        route: UM_ROUTE,
+      },
+      {
+        label: 'Users Logs',
+        route: LOGS_ROUTE,
+        active: true,
+      },
+    ],
+  });
+  const {
+    control,
+    handleSubmit,
+    reset,
+  } = useForm({
     defaultValues: {
-      startDate: null, 
+      startDate: null,
       endDate: null,
+      filterByRole: '',
       filterByAction: '',
     },
   });
-  
-  const { reset } = methods;
-  const logs = [{
-    id: 2352,
-    targetUser: 'Smith Harcules',
-    action: 'Role Updated',
-    changedBy: 'Admin User',
-    changedByRole: 'superAdmin',
-    timestamp: '2025-01-12T10:45:00Z',
-    details: 'Role changed from "User" → "Manager"',
-  }, {
-    id: 2351,
-    targetUser: 'Smith Harcules',
-    action: 'Account Archived',
-    changedBy: 'Super Admin',
-    changedByRole: 'superAdmin',
-    timestamp: '2025-01-11T14:22:00Z',
-    details: 'User deactivated due to exit from company',
-  }, {
-    id: 2350,
-    targetUser: 'Smith Harcules',
-    action: 'Account Activated',
-    changedBy: 'IT Admin',
-    changedByRole: 'itAdmin',
-    timestamp: '2025-01-10T09:30:00Z',
-    details: 'Initial role set to "User"',
-  }, {
-    id: 2349,
-    targetUser: 'Smith Harcules',
-    action: 'Password Changed',
-    changedBy: 'Smith Harcules',
-    changedByRole: 'vanRep',
-    timestamp: '2025-01-09T16:15:00Z',
-    details: 'Password updated successfully',
-  }, {
-    id: 2348,
-    targetUser: 'Smith Harcules',
-    action: 'Profile Updated',
-    changedBy: 'Smith Harcules',
-    changedByRole: 'vanRep',
-    timestamp: '2025-01-08T11:20:00Z',
-    details: 'Email address updated from old@email.com to new@email.com',
-  }];
-  const userOptions = [
-    { label: 'John Doe', value: 'John Doe' }, 
-    { label: 'Jane Smith', value: 'Jane Smith' },
-    { label: 'Alex Johnson', value: 'Alex Johnson' }
+
+  const logs = [
+    {
+      id: 2352,
+      targetUser: 'Smith Harcules',
+      action: 'Role Updated',
+      changedBy: 'Admin User',
+      changedByRole: 'superAdmin',
+      timestamp: '2025-01-12T10:45:00Z',
+      details: 'Role changed from "User" → "Manager"',
+    },
+    {
+      id: 2351,
+      targetUser: 'John Doe',
+      action: 'Account Archived',
+      changedBy: 'Super Admin',
+      changedByRole: 'superAdmin',
+      timestamp: '2025-01-11T14:22:00Z',
+      details: 'User deactivated due to exit from company',
+    },
+    {
+      id: 2350,
+      targetUser: 'Jane Smith',
+      action: 'Account Activated',
+      changedBy: 'IT Admin',
+      changedByRole: 'itAdmin',
+      timestamp: '2025-01-10T09:30:00Z',
+      details: 'Initial role set to "User"',
+    },
+    {
+      id: 2349,
+      targetUser: 'Mike Johnson',
+      action: 'Password Changed',
+      changedBy: 'Mike Johnson',
+      changedByRole: 'vanRep',
+      timestamp: '2025-01-09T16:15:00Z',
+      details: 'Password updated successfully',
+    },
+    {
+      id: 2348,
+      targetUser: 'Sarah Wilson',
+      action: 'Profile Updated',
+      changedBy: 'Sarah Wilson',
+      changedByRole: 'manager',
+      timestamp: '2025-01-08T11:20:00Z',
+      details: 'Email address updated from old@email.com to new@email.com',
+    },
+    {
+      id: 2347,
+      targetUser: 'David Brown',
+      action: 'Role Updated',
+      changedBy: 'Finance Manager',
+      changedByRole: 'financeManager',
+      timestamp: '2025-01-07T15:30:00Z',
+      details: 'Role changed from "User" → "Finance Manager"',
+    },
+    {
+      id: 2346,
+      targetUser: 'Lisa Davis',
+      action: 'Account Activated',
+      changedBy: 'Supervisor',
+      changedByRole: 'supervisor',
+      timestamp: '2025-01-06T12:15:00Z',
+      details: 'New user account created',
+    },
   ];
-  
-  const actionOptions = [
-    { label: 'Role Updated', value: 'Role Updated' },
-    { label: 'Account Archived', value: 'Account Archived' },
-    { label: 'Account Activated', value: 'Account Activated' },
-    { label: 'Password Changed', value: 'Password Changed' },
-    { label: 'Profile Updated', value: 'Profile Updated' }
-  ];
-  
-  // Initialize filtered logs with all logs
-  React.useEffect(() => {
-    setFilteredLogs(logs);
-  }, []);
-  const userLogColumns: ColumMeta[] = [{ field: 'action', header: 'Action' }, {
-    field: 'changedBy',
-    header: 'Changed By',
-  }, {
-    field: 'timestamp', header: 'Date & Time', style: { minWidth: '180px', width: '180px' }, body: (rowData) => {
-      const date = new Date(rowData.timestamp);
-      return (<div className="flex flex-col">
+
+  const [setSelectedItem] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [filteredLogs, setFilteredLogs] = useState(logs);
+  const { showError } = useAppToast();
+  const userLogColumns: ColumMeta[] = [
+    {
+      field: 'id',
+      header: 'ID',
+      style: { minWidth: '80px', width: '80px' },
+    },
+    {
+      field: 'targetUser',
+      header: 'Target User',
+      style: { minWidth: '150px', width: '150px' },
+    },
+    {
+      field: 'action',
+      header: 'Action',
+      style: { minWidth: '140px', width: '140px' },
+    },
+    {
+      field: 'changedBy',
+      header: 'Changed By',
+      style: { minWidth: '130px', width: '130px' },
+    },
+    {
+      field: 'timestamp',
+      header: 'Date & Time',
+      style: { minWidth: '180px', width: '180px' },
+      body: (rowData) => {
+        const date = new Date(rowData.timestamp);
+        return (
+          <div className="flex flex-col">
             <span className="text-sm font-medium text-gray-900">
               {date.toLocaleDateString()}
             </span>
-          <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500">
               {date.toLocaleTimeString()}
             </span>
-        </div>);
+          </div>
+        );
+      },
     },
-  }, {
-    field: 'details', header: 'Details', style: { minWidth: '250px', width: '250px' },
-  }];
+    {
+      field: 'details',
+      header: 'Details',
+      style: { minWidth: '250px', width: '250px' },
+    },
+  ];
+
 
   const exportCSV = () => {
-    const headers = ['ID', 'Action', 'Changed By', 'Date & Time', 'Details'];
-    const csvContent = [headers.join(','), ...filteredLogs.map(log => [log.id, `"${log.action}"`, `"${log.changedBy}"`, `"${new Date(log.timestamp).toLocaleString()}"`, `"${log.details}"`].join(','))].join('\n');
+    const headers = ['ID', 'Target User', 'Action', 'Changed By', 'Date & Time', 'Details'];
+    const csvContent = [
+      headers.join(','),
+      ...filteredLogs.map(log => [
+        log.id,
+        `"${log.targetUser}"`,
+        `"${log.action}"`,
+        `"${log.changedBy}"`,
+        `"${new Date(log.timestamp).toLocaleString()}"`,
+        `"${log.details}"`,
+      ].join(',')),
+    ].join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `user_audit_logs_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `audit_logs_${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
 
+  const userOptions = [
+    { label: 'All Roles', value: '' },
+    { label: 'Super Admin', value: 'superAdmin' },
+    { label: 'Supervisor', value: 'supervisor' },
+    { label: 'IT Admin', value: 'itAdmin' },
+    { label: 'Van Rep', value: 'vanRep' },
+    { label: 'Finance Manager', value: 'financeManager' },
+    { label: 'Manager', value: 'manager' },
+  ];
+
+  const actionOptions = [
+    { label: 'All Actions', value: '' },
+    { label: 'Role Updated', value: 'Role Updated' },
+    { label: 'Account Archived', value: 'Account Archived' },
+    { label: 'Account Activated', value: 'Account Activated' },
+    { label: 'Password Changed', value: 'Password Changed' },
+    { label: 'Profile Updated', value: 'Profile Updated' },
+  ];
   const onSubmit = (data: any) => {
-    // Validate date range
     if (data.startDate && data.endDate) {
       const start = new Date(data.startDate);
       const end = new Date(data.endDate);
@@ -137,6 +219,10 @@ export const UserAuditLogPage = () => {
 
     setTimeout(() => {
       let filtered = [...logs];
+
+      if (data.filterByRole) {
+        filtered = filtered.filter(log => log.changedByRole === data.filterByRole);
+      }
 
       if (data.filterByAction) {
         filtered = filtered.filter(log => log.action === data.filterByAction);
@@ -158,70 +244,88 @@ export const UserAuditLogPage = () => {
       setIsLoading(false);
     }, 1000);
   };
+
   const handleReset = () => {
     reset();
     setFilteredLogs(logs);
   };
-  console.log(selectedItem, isLoading, userOptions)
-  return (<PageLayout>
-      <CustomDialog size="xl" onHide={() => setVisibleDialog(false)} visible={visibleDialog}>
-        <CustomDialogHeader
-          onHide={() => navigate(USERS_ROUTE)}
-          title={`Audit Logs for ${logs[0]?.targetUser || 'User'}`}
-        />
-        <CustomDialogBody>
-          <div className="p-6">
-            <div className="flex flex-wrap items-center justify-between mb-4 gap-3">
-              <FormProvider {...methods}>
-                <form
-                  onSubmit={methods.handleSubmit(onSubmit)}
-                  className="flex items-end space-x-4 p-6 bg-white rounded-md shadow-sm"
-                >
-                  <CalendarRangeControl
-                    control={methods.control}
-                    nameStart="startDate"
-                    nameEnd="endDate"
-                    labelStart="From Date"
-                    labelEnd="To Date"
-                    required
-                  />
-                  <SelectControl
-                    control={methods.control}
-                    name="filterByAction"
-                    label="Filter by Action"
-                    options={actionOptions}
-                    placeholder="Filter by Action"
-                    required={false}
-                    className="!py-0"
-                  />
-                  <Button
-                    type="submit"
-                    label="Submit"
-                    variant="primary"
-                    className="mb-1"
-                  />
-                  <Button
-                    label="Reset"
-                    variant="outline"
-                    className="mb-1"
-                    onClick={handleReset}
-                  />
-                  <Button
-                    label="Export CSV"
-                    variant="outline"
-                    className="mb-1"
-                    onClick={exportCSV}
-                  />
-                </form>
-              </FormProvider>
+
+  return (
+    <PageLayout>
+      <Card styleClass={'mb-[24px]'}>
+        <CardHeader title="Filter Logs" icon={<Filter />} />
+        <CardBody>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <CalendarRangeControl
+                  control={control}
+                  nameStart="startDate"
+                  nameEnd="endDate"
+                  labelStart="From Date"
+                  labelEnd="To Date"
+                  required
+                />
+              </div>
             </div>
-            <CustomTable
-              data={filteredLogs.length > 0 ? filteredLogs : logs}
-              columns={userLogColumns}
-              setSelectedItem={setSelectedItem}
-            />
-          </div>
-        </CustomDialogBody>
-      </CustomDialog>
-    </PageLayout>);
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <SelectControl
+                control={control}
+                name="filterByRole"
+                label="Filter by Role"
+                options={userOptions}
+                placeholder="Select role"
+                className=""
+              />
+              <SelectControl
+                control={control}
+                name="filterByAction"
+                label="Filter by Action"
+                options={actionOptions}
+                placeholder="Select action"
+                className=""
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-end pt-6 border-t border-gray-200">
+              <Button
+                type="button"
+                variant="secondary"
+                label="Reset Filters"
+                icon={<RefreshCw size={18} />}
+                onClick={handleReset}
+                className="w-full sm:w-auto"
+              />
+              <Button
+                type="submit"
+                variant="primary"
+                label="Apply Filters"
+                icon={<Filter size={18} />}
+                disabled={isLoading}
+                className="w-full sm:w-auto"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                label="Export CSV"
+                icon={<Download size={18} />}
+                onClick={exportCSV}
+                className="w-full sm:w-auto"
+              />
+            </div>
+          </form>
+        </CardBody>
+      </Card>
+      <Card>
+        <CardBody>
+          <CustomTable
+            data={filteredLogs}
+            columns={userLogColumns}
+            setSelectedItem={setSelectedItem}
+          />
+        </CardBody>
+      </Card>
+    </PageLayout>
+  );
 };
