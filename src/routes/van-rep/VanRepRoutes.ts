@@ -1,3 +1,5 @@
+import { VanLoadAuditLogs } from '@pages/van-rep/VanLoadAuditLogs.tsx';
+
 export const VanRepRoutes = [
   {
     path: '/van-rep',
@@ -7,20 +9,6 @@ export const VanRepRoutes = [
         lazy: {
           Component: async () =>
             (await import('@pages/van-rep/VanRepListPage')).VanRepListPage,
-        },
-      },
-      {
-        path: 'hierarchy',
-        lazy: {
-          Component: async () =>
-            (await import('@pages/van-rep/ViewVanRepHierarchyPage')).ViewVanRepHierarchyPage,
-        },
-      },
-      {
-        path: 'hierarchy/edit/:id',
-        lazy: {
-          Component: async () =>
-            (await import('@pages/van-rep/EditVanRepHierarchyPage')).EditVanRepHierarchyPage,
         },
       },
     ],

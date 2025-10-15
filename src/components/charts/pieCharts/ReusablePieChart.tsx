@@ -37,7 +37,7 @@ const ReusablePieChart: React.FC<ReusablePieChartProps> = ({
 
   const chart = (
     <div>
-      <Card>
+      <Card styleClass={`h-full`}>
         <CardHeader title={config.title} />
         <CardBody>
           <ResponsiveContainer width={config.width} height={config.height}>
@@ -88,7 +88,7 @@ const ReusablePieChart: React.FC<ReusablePieChartProps> = ({
       {chart}
 
       {/* Breakdown Panel */}
-      <Card>
+      <Card styleClass={`h-full`}>
         <CardHeader
           title={`${config.title.replace('by', '').trim()} Breakdown`}
         />
