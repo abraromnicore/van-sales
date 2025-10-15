@@ -284,7 +284,7 @@ export const VanRepListPage = () => {
   };
 
   return (
-    <PageLayout disableXPaddings={true}>
+    <PageLayout>
       <CustomTable
         setSelectedItem={setSelectedItem}
         columns={columns}

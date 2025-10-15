@@ -8,11 +8,10 @@ type PageLayoutProps = {
   children: ReactNode;
   headerActions?: ReactNode;
   className?: string;
-  disableXPaddings?: boolean;
 }
 
 export const PageLayout = (props: PageLayoutProps) => {
-  const { children, className, headerActions, disableXPaddings = false } = props;
+  const { children, className, headerActions } = props;
   const { breadcrumbs } = useSelector((state: RootState) => state.metadata);
 
   if (!breadcrumbs || (breadcrumbs && breadcrumbs.length === 0)) return children;
@@ -23,7 +22,7 @@ export const PageLayout = (props: PageLayoutProps) => {
         <Breadcrumbs />
         {headerActions}
       </div>
-      <div className={clsx('overflow-auto', { 'px-6': !disableXPaddings })}>
+      <div className={clsx('overflow-auto px-6')}>
         {children}
       </div>
     </>

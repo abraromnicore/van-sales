@@ -201,7 +201,7 @@ export const UserPage = () => {
   };
 
   return (
-    <PageLayout disableXPaddings={true} headerActions={<HeaderActions />}>
+    <PageLayout headerActions={<HeaderActions />}>
       <div className="overflow-x-auto">
         <CustomTable setSelectedItem={setSelectedItem} columns={userColumns} data={users} menuModel={tieredMenu} />
       </div>
