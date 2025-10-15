@@ -28,6 +28,7 @@ export const VAN_REP_LIST_ROUTE = `${VAN_REPRESENTATIVE_ROUTE}/list`;
 export const VAN_REP_HIERARCHY_ROUTE = `${VAN_REPRESENTATIVE_ROUTE}/hierarchy`;
 export const VIEW_VAN_REP_HIERARCHY_ROUTE = `${VAN_REP_HIERARCHY_ROUTE}/view/{id}`;
 export const EDIT_VAN_REP_HIERARCHY_ROUTE = `${VAN_REP_HIERARCHY_ROUTE}/edit/{id}`;
+export const VAN_LOG_AUDIT_LOGS_ROUTE = `${VAN_REPRESENTATIVE_ROUTE}/auditLogs`;
 /**
  * Other Routes
  */
