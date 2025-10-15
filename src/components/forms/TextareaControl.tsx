@@ -1,13 +1,13 @@
 import { Controller } from 'react-hook-form';
+import { InputTextarea, type InputTextareaProps } from 'primereact/inputtextarea';
 
-type TextInputControlProps = {
+type TextareaControlProps = {
   control: any;
   name: string;
   label?: string;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
-  type?: string;
   rules?: any;
   required?: boolean;
   prefixString?: string;
@@ -16,9 +16,10 @@ type TextInputControlProps = {
   postfixString?: string;
   postfixIcon?: React.ReactNode;
   postfixButton?: React.ReactNode;
+  textareaProps?: InputTextareaProps;
 };
 
-export const InputControl = (props: TextInputControlProps) => {
+export const TextareaControl = (props: TextareaControlProps) => {
   const {
     control,
     name,
@@ -26,7 +27,6 @@ export const InputControl = (props: TextInputControlProps) => {
     placeholder = '',
     className = '',
     disabled = false,
-    type = 'text',
     rules = {},
     required = false,
     prefixString,
@@ -35,6 +35,7 @@ export const InputControl = (props: TextInputControlProps) => {
     postfixString,
     postfixIcon,
     postfixButton,
+    textareaProps = {},
   } = props;
 
   return (
@@ -54,57 +55,57 @@ export const InputControl = (props: TextInputControlProps) => {
         rules={rules}
         render={({ field, fieldState }) => (
           <>
-            <div className={`p-inputgroup rounded-lg border border-gray-300 hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 ${fieldState.error ? 'border-red-300 focus-within:border-red-500 focus-within:ring-red-500' : ''} ${className}`}>
+            <div className={`p-inputgroup ${className}`}>
               {/* Prefix Button */}
               {prefixButton && (
-                <span className="p-inputgroup-addon p-0 border-0">
+                <span className="p-inputgroup-addon p-0">
                   {prefixButton}
                 </span>
               )}
 
               {/* Prefix String */}
               {prefixString && (
-                <span className="p-inputgroup-addon border-0 px-3">
+                <span className="p-inputgroup-addon">
                   {prefixString}
                 </span>
               )}
 
               {/* Prefix Icon */}
               {prefixIcon && (
-                <span className="p-inputgroup-addon border-0 px-3">
+                <span className="p-inputgroup-addon">
                   {prefixIcon}
                 </span>
               )}
 
-              {/* Input Field */}
-              <input
+              {/* Textarea Field */}
+              <InputTextarea
                 id={name}
-                type={type}
                 value={field.value || ''}
                 onChange={(e) => field.onChange(e.target.value)}
                 onBlur={field.onBlur}
                 placeholder={placeholder}
                 disabled={disabled}
-                className="w-full border-0 px-4 py-3 text-sm transition-all duration-200 focus:outline-none focus:ring-0 focus:border-0 disabled:bg-gray-50 disabled:text-gray-500"
+                className={`w-full ${fieldState.error ? 'p-invalid' : ''}`}
+                {...textareaProps}
               />
 
               {/* Postfix Icon */}
               {postfixIcon && (
-                <span className="p-inputgroup-addon border-0 px-3">
+                <span className="p-inputgroup-addon">
                   {postfixIcon}
                 </span>
               )}
 
               {/* Postfix String */}
               {postfixString && (
-                <span className="p-inputgroup-addon border-0 px-3">
+                <span className="p-inputgroup-addon">
                   {postfixString}
                 </span>
               )}
 
               {/* Postfix Button */}
               {postfixButton && (
-                <span className="p-inputgroup-addon p-0 border-0">
+                <span className="p-inputgroup-addon p-0">
                   {postfixButton}
                 </span>
               )}

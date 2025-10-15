@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { type ColumMeta, CustomTable } from '@components/tables/CustomTable.tsx';
 import type { MenuItem } from 'primereact/menuitem';
-import { Eye, Pin } from 'lucide-react';
+import { Eye, Pin, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DASHBOARD_ROUTE, VIEW_REP_ROUTE } from '@utils/constant/app-route.constants.ts';
 import { useConfirmationDialog } from '@hooks/dialog/useConfirmationDialog.ts';
 import { useAppToast } from '@hooks/common/useAppToast.ts';
 import { TerritoryChangeDialog } from '@components/dialog/TerritoryChangeDialog.tsx';
+import { UserLimitDialog } from './limit-dialog/UserLimitDialog.tsx';
 import { useMetadata } from '@hooks/common/useMetadata.ts';
 import { PageLayout } from '@layouts/Pagelayout.tsx';
-
+import { vanRepList } from '../../sample-data/van-rep-list';
 // Status Badge Component
 const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
   const getStatusStyles = (status: string) => {
@@ -79,151 +80,9 @@ export const VanRepListPage = () => {
   });
   const navigate = useNavigate();
 
-  // Mock data - In a real app, this would come from an API call to db.json
-  const vanRep = [
-    {
-      'repId': 'VR001',
-      'name': 'Ali Khan',
-      'van': 'Van-12',
-      'gender': 'Male',
-      'territory': 'North Zone',
-      'status': 'Occupied',
-      'orders': {
-        'totalOrders': 18,
-        'salesValue': 45000,
-        'targetAchievedPercent': 72,
-      },
-      'visits': {
-        'planned': 12,
-        'completed': 9,
-        'missed': 1,
-        'currentStatus': 'On Route',
-      },
-      'stock': {
-        'vanStockUtilization': '80%',
-        'loadVariancePercent': 2,
-      },
-      'collections': {
-        'cashCollected': 15000,
-        'creditExtended': 30000,
-        'creditLimitFlag': false,
-      },
-    },
-    {
-      'repId': 'VR002',
-      'name': 'Ahmed Khan',
-      'van': 'Van-14',
-      'gender': 'Male',
-      'territory': 'South Zone',
-      'status': 'Available',
-      'orders': {
-        'totalOrders': 18,
-        'salesValue': 45000,
-        'targetAchievedPercent': 72,
-      },
-      'visits': {
-        'planned': 12,
-        'completed': 9,
-        'missed': 1,
-        'currentStatus': 'On Route',
-      },
-      'stock': {
-        'vanStockUtilization': '80%',
-        'loadVariancePercent': 2,
-      },
-      'collections': {
-        'cashCollected': 15000,
-        'creditExtended': 30000,
-        'creditLimitFlag': false,
-      },
-    },
-    {
-      'repId': 'VR003',
-      'name': 'Shayad Ali',
-      'van': 'Van-15',
-      'gender': 'Female',
-      'territory': 'East Zone',
-      'status': 'Not Available',
-      'orders': {
-        'totalOrders': 18,
-        'salesValue': 45000,
-        'targetAchievedPercent': 72,
-      },
-      'visits': {
-        'planned': 12,
-        'completed': 9,
-        'missed': 1,
-        'currentStatus': 'On Route',
-      },
-      'stock': {
-        'vanStockUtilization': '80%',
-        'loadVariancePercent': 2,
-      },
-      'collections': {
-        'cashCollected': 15000,
-        'creditExtended': 30000,
-        'creditLimitFlag': false,
-      },
-    },
-    {
-      'repId': 'VR004',
-      'name': 'Fatima Sheikh',
-      'van': 'Van-16',
-      'gender': 'Female',
-      'territory': 'West Zone',
-      'status': 'Available',
-      'orders': {
-        'totalOrders': 15,
-        'salesValue': 38000,
-        'targetAchievedPercent': 85,
-      },
-      'visits': {
-        'planned': 10,
-        'completed': 8,
-        'missed': 2,
-        'currentStatus': 'Available',
-      },
-      'stock': {
-        'vanStockUtilization': '75%',
-        'loadVariancePercent': 1,
-      },
-      'collections': {
-        'cashCollected': 12000,
-        'creditExtended': 25000,
-        'creditLimitFlag': false,
-      },
-    },
-    {
-      'repId': 'VR005',
-      'name': 'Hassan Ali',
-      'van': 'Van-17',
-      'gender': 'Male',
-      'territory': 'Central Zone',
-      'status': 'Occupied',
-      'orders': {
-        'totalOrders': 22,
-        'salesValue': 52000,
-        'targetAchievedPercent': 95,
-      },
-      'visits': {
-        'planned': 15,
-        'completed': 14,
-        'missed': 1,
-        'currentStatus': 'On Route',
-      },
-      'stock': {
-        'vanStockUtilization': '90%',
-        'loadVariancePercent': 3,
-      },
-      'collections': {
-        'cashCollected': 18000,
-        'creditExtended': 35000,
-        'creditLimitFlag': true,
-      },
-    },
-  ];
-  const [setSelectedItem] = React.useState<any>();
+  const [selectedItem, setSelectedItem] = React.useState<any>();
   const [showTerritory, setShowTerritory] = React.useState(false);
+  const [showLimitDialog, setShowLimitDialog] = React.useState(false);
   const { showConfirmation } = useConfirmationDialog();
   const { showSuccess } = useAppToast();
 
@@ -237,6 +96,11 @@ export const VanRepListPage = () => {
       label: 'Change Territory',
       icon: <Pin />,
       command: () => onChangeTerritory(),
+    },
+    {
+      label: 'Add/Edit Load Limit',
+      icon: <Settings />,
+      command: () => onAddEditLimit(),
     },
   ];
   const columns: ColumMeta[] = [
@@ -270,6 +134,10 @@ export const VanRepListPage = () => {
     setShowTerritory(true);
   };
 
+  const onAddEditLimit = () => {
+    setShowLimitDialog(true);
+  };
+
   const handleTerritorySubmit = (data: { country: string; city: string; area: string }) => {
     showConfirmation({
       message: 'Are You Sure to Change the Territory?',
@@ -283,12 +151,25 @@ export const VanRepListPage = () => {
     });
   };
 
+  const handleLimitSubmit = (data: any) => {
+    showConfirmation({
+      message: 'Are You Sure to Save This Limit Configuration?',
+      header: 'Confirm Limit Configuration',
+      onConfirm: () => {
+        showSuccess('Limit Configuration', 'User limit configured successfully');
+        setShowLimitDialog(false);
+        // Here you would typically make an API call to save the limit
+        console.log('Limit configuration:', data);
+      },
+    });
+  };
+
   return (
     <PageLayout>
       <CustomTable
         setSelectedItem={setSelectedItem}
         columns={columns}
-        data={vanRep}
+        data={vanRepList}
         menuModel={tieredMenu}
       />
 
@@ -296,6 +177,13 @@ export const VanRepListPage = () => {
         visible={showTerritory}
         onHide={() => setShowTerritory(false)}
         onSubmit={handleTerritorySubmit}
+      />
+
+      <UserLimitDialog
+        visible={showLimitDialog}
+        onHide={() => setShowLimitDialog(false)}
+        onSubmit={handleLimitSubmit}
+        selectedUser={selectedItem}
       />
     </PageLayout>
   );

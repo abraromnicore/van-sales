@@ -12,7 +12,7 @@ import { DASHBOARD_ROUTE, LOGS_ROUTE, UM_ROUTE } from '@utils/constant/app-route
 import { Card } from '@components/app-cards/card/Card.tsx';
 import { CardBody } from '@components/app-cards/card/CardBody.tsx';
 import { CardHeader } from '@components/app-cards/card/CardHeader.tsx';
-import { userLogs as logs } from '@/sample-data/create-user';
+import { userLogs as logs } from '@/sample-data/audit-logs';
 
 export const VanSalesAuditLogPage = () => {
   useMetadata({
